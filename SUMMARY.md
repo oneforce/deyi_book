@@ -7,4 +7,7 @@
 * [程序员健康指南](cheng-xu-yuan-jian-kang-zhi-nan.md)
 * [Springboot devtool远程应用功能](springboot-devtool-yuan-cheng-ying-yong-gong-neng.md)
 * [spring拓展点之ObjectFactory](spring-tuo-zhan-dian-zhi-objectfactory.md)
+* [SpringBoot几种定时任务的实现方式](springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.md)
+* [Spring Boot快捷读取文件内容](spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md)
+* [Spring Could中基于Zookeeper的分布式锁实现](spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.md)
 

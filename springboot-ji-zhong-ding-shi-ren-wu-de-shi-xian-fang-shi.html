@@ -1,0 +1,777 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>SpringBoot几种定时任务的实现方式 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html" />
+    
+    
+    <link rel="prev" href="spring-tuo-zhan-dian-zhi-objectfactory.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1_spring_boot_stop_1.html">
+            
+                <a href="1_spring_boot_stop_1.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机一
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机二
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                <a href="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                    
+                    前端：SheetJs 赋能页面与 Excel 文件交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                    
+                    程序员健康指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                <a href="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                    
+                    Springboot devtool远程应用功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                    
+                    spring拓展点之ObjectFactory
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8" data-path="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                    
+                    SpringBoot几种定时任务的实现方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                    
+                    Spring Boot快捷读取文件内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                    
+                    Spring Could中基于Zookeeper的分布式锁实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                    
+                    spring cloud feign 实现复杂请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                <a href="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                    
+                    Springboot——用更优雅的方式发HTTP请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                <a href="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                    
+                    Redis分布式锁的正确实现方式&及错误使用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                <a href="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                    
+                    使用javaagent操作字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                    
+                    如何把if-else代码重构成高质量代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="da-jian-spring-cloud-gateway.html">
+            
+                <a href="da-jian-spring-cloud-gateway.html">
+            
+                    
+                    搭建spring cloud gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                    
+                    Java8 CompletableFuture: 组合式异步编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="geng-hao-de-tiao-shi-java-stream.html">
+            
+                <a href="geng-hao-de-tiao-shi-java-stream.html">
+            
+                    
+                    更好的调试 Java Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >SpringBoot几种定时任务的实现方式</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="springboot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;">SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;</h1>
+<p>&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x5B9E;&#x73B0;&#x7684;&#x51E0;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>Timer&#xFF1A;&#x8FD9;&#x662F;java&#x81EA;&#x5E26;&#x7684;java.util.Timer&#x7C7B;&#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x5141;&#x8BB8;&#x4F60;&#x8C03;&#x5EA6;&#x4E00;&#x4E2A;java.util.TimerTask&#x4EFB;&#x52A1;&#x3002;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x8BA9;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x6309;&#x7167;&#x67D0;&#x4E00;&#x4E2A;&#x9891;&#x5EA6;&#x6267;&#x884C;&#xFF0C;&#x4F46;&#x4E0D;&#x80FD;&#x5728;&#x6307;&#x5B9A;&#x65F6;&#x95F4;&#x8FD0;&#x884C;&#x3002;&#x4E00;&#x822C;&#x7528;&#x7684;&#x8F83;&#x5C11;&#x3002;</li>
+<li>ScheduledExecutorService&#xFF1A;&#x4E5F;jdk&#x81EA;&#x5E26;&#x7684;&#x4E00;&#x4E2A;&#x7C7B;&#xFF1B;&#x662F;&#x57FA;&#x4E8E;&#x7EBF;&#x7A0B;&#x6C60;&#x8BBE;&#x8BA1;&#x7684;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7C7B;,&#x6BCF;&#x4E2A;&#x8C03;&#x5EA6;&#x4EFB;&#x52A1;&#x90FD;&#x4F1A;&#x5206;&#x914D;&#x5230;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53BB;&#x6267;&#x884C;,&#x4E5F;&#x5C31;&#x662F;&#x8BF4;,&#x4EFB;&#x52A1;&#x662F;&#x5E76;&#x53D1;&#x6267;&#x884C;,&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x3002;</li>
+<li>Spring Task&#xFF1A;Spring3.0&#x4EE5;&#x540E;&#x81EA;&#x5E26;&#x7684;task&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x5B83;&#x770B;&#x6210;&#x4E00;&#x4E2A;&#x8F7B;&#x91CF;&#x7EA7;&#x7684;Quartz&#xFF0C;&#x800C;&#x4E14;&#x4F7F;&#x7528;&#x8D77;&#x6765;&#x6BD4;Quartz&#x7B80;&#x5355;&#x8BB8;&#x591A;&#x3002;</li>
+<li>Quartz&#xFF1A;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x529F;&#x80FD;&#x6BD4;&#x8F83;&#x5F3A;&#x5927;&#x7684;&#x7684;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x53EF;&#x4EE5;&#x8BA9;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5728;&#x6307;&#x5B9A;&#x65F6;&#x95F4;&#x6267;&#x884C;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x6309;&#x7167;&#x67D0;&#x4E00;&#x4E2A;&#x9891;&#x5EA6;&#x6267;&#x884C;&#xFF0C;&#x914D;&#x7F6E;&#x8D77;&#x6765;&#x7A0D;&#x663E;&#x590D;&#x6742;&#x3002;</li>
+</ul>
+<h2 id="&#x4F7F;&#x7528;timer-">&#x4F7F;&#x7528;Timer <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-&#x4F7F;&#x7528;Timer"></a></h2>
+<p>&#x8FD9;&#x4E2A;&#x76EE;&#x524D;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x7528;&#x7684;&#x8F83;&#x5C11;&#xFF0C;&#x76F4;&#x63A5;&#x8D34;demo&#x4EE3;&#x7801;&#x3002;&#x5177;&#x4F53;&#x7684;&#x4ECB;&#x7ECD;&#x53EF;&#x4EE5;&#x67E5;&#x770B;api</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.boss.test;
+
+<span class="hljs-keyword">import</span> java.util.Date;
+<span class="hljs-keyword">import</span> java.util.Timer;
+<span class="hljs-keyword">import</span> java.util.TimerTask;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> wangwenxiang
+ * 2018/12/1.
+ * <span class="hljs-doctag">@description</span>:
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestTimer</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        TimerTask timerTask = <span class="hljs-keyword">new</span> TimerTask() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+                System.out.println(<span class="hljs-string">&quot;task  run:&quot;</span>+ <span class="hljs-keyword">new</span> Date());
+            }
+        };
+        Timer timer = <span class="hljs-keyword">new</span> Timer();
+        <span class="hljs-comment">//&#x5B89;&#x6392;&#x6307;&#x5B9A;&#x7684;&#x4EFB;&#x52A1;&#x5728;&#x6307;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x5F00;&#x59CB;&#x8FDB;&#x884C;&#x91CD;&#x590D;&#x7684;&#x56FA;&#x5B9A;&#x5EF6;&#x8FDF;&#x6267;&#x884C;&#x3002;&#x8FD9;&#x91CC;&#x662F;&#x6BCF;3&#x79D2;&#x6267;&#x884C;&#x4E00;&#x6B21;</span>
+        timer.schedule(timerTask,<span class="hljs-number">10</span>,<span class="hljs-number">3000</span>);
+    }
+}
+</code></pre>
+<h2 id="&#x4F7F;&#x7528;scheduledexecutorservice-">&#x4F7F;&#x7528;ScheduledExecutorService <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-&#x4F7F;&#x7528;ScheduledExecutorService"></a></h2>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x8DDF;Timer&#x7C7B;&#x4F3C;&#xFF0C;&#x76F4;&#x63A5;&#x770B;demo&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.boss.test;
+
+<span class="hljs-keyword">import</span> java.util.Date;
+<span class="hljs-keyword">import</span> java.util.concurrent.Executors;
+<span class="hljs-keyword">import</span> java.util.concurrent.ScheduledExecutorService;
+<span class="hljs-keyword">import</span> java.util.concurrent.TimeUnit;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> wangwenxiang
+ * 2018/12/1.
+ * <span class="hljs-doctag">@description</span>:
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestScheduledExecutorService</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        <span class="hljs-comment">// &#x53C2;&#x6570;&#xFF1A;1&#x3001;&#x4EFB;&#x52A1;&#x4F53; 2&#x3001;&#x9996;&#x6B21;&#x6267;&#x884C;&#x7684;&#x5EF6;&#x65F6;&#x65F6;&#x95F4;</span>
+        <span class="hljs-comment">//      3&#x3001;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x95F4;&#x9694; 4&#x3001;&#x95F4;&#x9694;&#x65F6;&#x95F4;&#x5355;&#x4F4D;</span>
+        service.scheduleAtFixedRate(()-&gt;System.out.println(<span class="hljs-string">&quot;task ScheduledExecutorService &quot;</span>+<span class="hljs-keyword">new</span> Date()), <span class="hljs-number">0</span>, <span class="hljs-number">3</span>, TimeUnit.SECONDS);
+    }
+}
+</code></pre>
+<h2 id="&#x4F7F;&#x7528;spring-task-">&#x4F7F;&#x7528;Spring Task <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-&#x4F7F;&#x7528;SpringTask"></a></h2>
+<p>##&#x7B80;&#x5355;&#x7684;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</p>
+<p>&#x5728;SpringBoot&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F88;&#x4F18;&#x96C5;&#x7684;&#x4F7F;&#x7528;&#x6CE8;&#x89E3;&#x6765;&#x5B9E;&#x73B0;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x9996;&#x5148;&#x521B;&#x5EFA;&#x9879;&#x76EE;&#xFF0C;&#x5BFC;&#x5165;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<pre><code class="lang-markup">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+    &lt;optional&gt;true&lt;/optional&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<p>&#x521B;&#x5EFA;&#x4EFB;&#x52A1;&#x7C7B;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.boss.test;
+
+<span class="hljs-keyword">import</span> org.slf4j.Logger;
+<span class="hljs-keyword">import</span> org.slf4j.LoggerFactory;
+<span class="hljs-keyword">import</span> org.springframework.scheduling.annotation.Scheduled;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> wangwenxiang
+ * 2018/12/1.
+ * <span class="hljs-doctag">@description</span>:
+ */</span>
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScheduledService</span> </span>{
+    <span class="hljs-keyword">private</span> Logger log = LoggerFactory.getLogger(ScheduledService.class);
+    <span class="hljs-meta">@Scheduled</span>(cron = <span class="hljs-string">&quot;0/5 * * * * *&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">scheduled</span><span class="hljs-params">()</span></span>{
+        log.info(<span class="hljs-string">&quot;=====&gt;&gt;&gt;&gt;&gt;&#x4F7F;&#x7528;cron  {}&quot;</span>,System.currentTimeMillis());
+    }
+    <span class="hljs-meta">@Scheduled</span>(fixedRate = <span class="hljs-number">5000</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">scheduled1</span><span class="hljs-params">()</span> </span>{
+        log.info(<span class="hljs-string">&quot;=====&gt;&gt;&gt;&gt;&gt;&#x4F7F;&#x7528;fixedRate{}&quot;</span>, System.currentTimeMillis());
+    }
+    <span class="hljs-meta">@Scheduled</span>(fixedDelay = <span class="hljs-number">5000</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">scheduled2</span><span class="hljs-params">()</span> </span>{
+        log.info(<span class="hljs-string">&quot;=====&gt;&gt;&gt;&gt;&gt;fixedDelay{}&quot;</span>,System.currentTimeMillis());
+    }
+}
+</code></pre>
+<h3 id="&#x591A;&#x7EBF;&#x7A0B;&#x6267;&#x884C;-">&#x591A;&#x7EBF;&#x7A0B;&#x6267;&#x884C; <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-&#x591A;&#x7EBF;&#x7A0B;&#x6267;&#x884C;"></a></h3>
+<p>&#x5728;&#x4F20;&#x7EDF;&#x7684;Spring&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;xml&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6DFB;&#x52A0;task&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x800C;&#x5728;SpringBoot&#x9879;&#x76EE;&#x4E2D;&#x4E00;&#x822C;&#x4F7F;&#x7528;config&#x914D;&#x7F6E;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x6DFB;&#x52A0;&#x914D;&#x7F6E;&#xFF0C;&#x6240;&#x4EE5;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;AsyncConfig&#x7C7B;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.boss.test;
+
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;
+<span class="hljs-keyword">import</span> org.springframework.scheduling.annotation.EnableAsync;
+<span class="hljs-keyword">import</span> org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+<span class="hljs-keyword">import</span> java.util.concurrent.Executor;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> wangwenxiang
+ * 2018/12/1.
+ * <span class="hljs-doctag">@description</span>:
+ */</span>
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@EnableAsync</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncConfig</span> </span>{
+    <span class="hljs-comment">/*
+    &#x6B64;&#x5904;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;@Value&#x4ECE;&#x914D;&#x7F6E;&#x4E2D;&#x8BFB;&#x53D6;
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> corePoolSize = <span class="hljs-number">10</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> maxPoolSize = <span class="hljs-number">200</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> queueCapacity = <span class="hljs-number">10</span>;
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Executor <span class="hljs-title">taskExecutor</span><span class="hljs-params">()</span> </span>{
+        ThreadPoolTaskExecutor executor = <span class="hljs-keyword">new</span> ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(corePoolSize);
+        executor.setMaxPoolSize(maxPoolSize);
+        executor.setQueueCapacity(queueCapacity);
+        executor.initialize();
+        <span class="hljs-keyword">return</span> executor;
+    }
+}
+</code></pre>
+<p><code>@Configuration</code>&#xFF1A;&#x8868;&#x660E;&#x8BE5;&#x7C7B;&#x662F;&#x4E00;&#x4E2A;&#x914D;&#x7F6E;&#x7C7B;<br><code>@EnableAsync</code>&#xFF1A;&#x5F00;&#x542F;&#x5F02;&#x6B65;&#x4E8B;&#x4EF6;&#x7684;&#x652F;&#x6301;</p>
+<p>&#x7136;&#x540E;&#x5728;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x7C7B;&#x6216;&#x8005;&#x65B9;&#x6CD5;&#x4E0A;&#x6DFB;&#x52A0;<code>@Async</code> &#x3002;&#x6700;&#x540E;&#x91CD;&#x542F;&#x9879;&#x76EE;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x90FD;&#x662F;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x4E2D;</p>
+<h3 id="&#x6267;&#x884C;&#x65F6;&#x95F4;&#x7684;&#x914D;&#x7F6E;-">&#x6267;&#x884C;&#x65F6;&#x95F4;&#x7684;&#x914D;&#x7F6E; <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-&#x6267;&#x884C;&#x65F6;&#x95F4;&#x7684;&#x914D;&#x7F6E;"></a></h3>
+<p>&#x5728;&#x4E0A;&#x9762;&#x7684;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x65B9;&#x6CD5;&#x4E0A;&#x4F7F;&#x7528;@Scheduled&#x6CE8;&#x89E3;&#x6765;&#x8BBE;&#x7F6E;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#x65F6;&#x95F4;&#xFF0C;&#x5E76;&#x4E14;&#x4F7F;&#x7528;&#x4E09;&#x79CD;&#x5C5E;&#x6027;&#x914D;&#x7F6E;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ol>
+<li>fixedRate&#xFF1A;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6309;&#x4E00;&#x5B9A;&#x9891;&#x7387;&#x6267;&#x884C;&#x7684;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;</li>
+<li>fixedDelay&#xFF1A;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x6309;&#x4E00;&#x5B9A;&#x9891;&#x7387;&#x6267;&#x884C;&#x7684;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x4E0E;&#x4E0A;&#x9762;&#x4E0D;&#x540C;&#x7684;&#x662F;&#xFF0C;&#x6539;&#x5C5E;&#x6027;&#x53EF;&#x4EE5;&#x914D;&#x5408;<code>initialDelay</code>&#xFF0C; &#x5B9A;&#x4E49;&#x8BE5;&#x4EFB;&#x52A1;&#x5EF6;&#x8FDF;&#x6267;&#x884C;&#x65F6;&#x95F4;&#x3002;</li>
+<li>cron&#xFF1A;&#x901A;&#x8FC7;&#x8868;&#x8FBE;&#x5F0F;&#x6765;&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x65F6;&#x95F4;</li>
+</ol>
+<h3 id="cron&#x8868;&#x8FBE;&#x5F0F;&#x8BE6;&#x89E3;-">cron&#x8868;&#x8FBE;&#x5F0F;&#x8BE6;&#x89E3; <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-cron&#x8868;&#x8FBE;&#x5F0F;&#x8BE6;&#x89E3;"></a></h3>
+<p>&#x4E00;&#x4E2A;cron&#x8868;&#x8FBE;&#x5F0F;&#x6709;&#x81F3;&#x5C11;6&#x4E2A;&#xFF08;&#x4E5F;&#x53EF;&#x80FD;7&#x4E2A;&#xFF09;&#x6709;&#x7A7A;&#x683C;&#x5206;&#x9694;&#x7684;&#x65F6;&#x95F4;&#x5143;&#x7D20;&#x3002;&#x6309;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x4E3A;&#xFF1A;</p>
+<ul>
+<li>&#x79D2;&#xFF08;0~59&#xFF09;</li>
+<li>&#x5206;&#x949F;&#xFF08;0~59&#xFF09;</li>
+<li>3 &#x5C0F;&#x65F6;&#xFF08;0~23&#xFF09;</li>
+<li>4 &#x5929;&#xFF08;0~31&#xFF09;</li>
+<li>5 &#x6708;&#xFF08;0~11&#xFF09;</li>
+<li>6 &#x661F;&#x671F;&#xFF08;1~7 1=SUN &#x6216; SUN&#xFF0C;MON&#xFF0C;TUE&#xFF0C;WED&#xFF0C;THU&#xFF0C;FRI&#xFF0C;SAT&#xFF09;</li>
+<li>&#x5E74;&#x4EFD;&#xFF08;1970&#xFF0D;2099&#xFF09;</li>
+</ul>
+<p>&#x5176;&#x4E2D;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x53EF;&#x4EE5;&#x662F;&#x4E00;&#x4E2A;&#x503C;(&#x5982;6),&#x4E00;&#x4E2A;&#x8FDE;&#x7EED;&#x533A;&#x95F4;(9-12),&#x4E00;&#x4E2A;&#x95F4;&#x9694;&#x65F6;&#x95F4;(8-18/4)(/&#x8868;&#x793A;&#x6BCF;&#x9694;4&#x5C0F;&#x65F6;),&#x4E00;&#x4E2A;&#x5217;&#x8868;(1,3,5),&#x901A;&#x914D;&#x7B26;&#x3002;&#x7531;&#x4E8E;&#x201D;&#x6708;&#x4EFD;&#x4E2D;&#x7684;&#x65E5;&#x671F;&#x201D;&#x548C;&#x201D;&#x661F;&#x671F;&#x4E2D;&#x7684;&#x65E5;&#x671F;&#x201D;&#x8FD9;&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#x4E92;&#x65A5;&#x7684;,&#x5FC5;&#x987B;&#x8981;&#x5BF9;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x8BBE;&#x7F6E;&#x3002;&#x914D;&#x7F6E;&#x5B9E;&#x4F8B;&#xFF1A;</p>
+<ul>
+<li>&#x6BCF;&#x9694;5&#x79D2;&#x6267;&#x884C;&#x4E00;&#x6B21;&#xFF1A;<em>/5</em> * ?</li>
+<li>&#x6BCF;&#x9694;1&#x5206;&#x949F;&#x6267;&#x884C;&#x4E00;&#x6B21;&#xFF1A;0 <em>/1</em> ?</li>
+<li>0 0 10,14,16 ? &#x6BCF;&#x5929;&#x4E0A;&#x5348;10&#x70B9;&#xFF0C;&#x4E0B;&#x5348;2&#x70B9;&#xFF0C;4&#x70B9;</li>
+<li>0 0/30 9-17 ? &#x671D;&#x4E5D;&#x665A;&#x4E94;&#x5DE5;&#x4F5C;&#x65F6;&#x95F4;&#x5185;&#x6BCF;&#x534A;&#x5C0F;&#x65F6;</li>
+<li>0 0 12 ? * WED &#x8868;&#x793A;&#x6BCF;&#x4E2A;&#x661F;&#x671F;&#x4E09;&#x4E2D;&#x5348;12&#x70B9;</li>
+<li>&#x201C;0 0 12 ?&#x201D; &#x6BCF;&#x5929;&#x4E2D;&#x5348;12&#x70B9;&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ? &#x201C; &#x6BCF;&#x5929;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ?&#x201D; &#x6BCF;&#x5929;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ? *&#x201D; &#x6BCF;&#x5929;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ? 2005&#x201D; 2005&#x5E74;&#x7684;&#x6BCF;&#x5929;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 <em>14</em> * ?&#x201D; &#x5728;&#x6BCF;&#x5929;&#x4E0B;&#x5348;2&#x70B9;&#x5230;&#x4E0B;&#x5348;2:59&#x671F;&#x95F4;&#x7684;&#x6BCF;1&#x5206;&#x949F;&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 0/5 14 ?&#x201D; &#x5728;&#x6BCF;&#x5929;&#x4E0B;&#x5348;2&#x70B9;&#x5230;&#x4E0B;&#x5348;2:55&#x671F;&#x95F4;&#x7684;&#x6BCF;5&#x5206;&#x949F;&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 0/5 14,18 ?&#x201D; &#x5728;&#x6BCF;&#x5929;&#x4E0B;&#x5348;2&#x70B9;&#x5230;2:55&#x671F;&#x95F4;&#x548C;&#x4E0B;&#x5348;6&#x70B9;&#x5230;6:55&#x671F;&#x95F4;&#x7684;&#x6BCF;5&#x5206;&#x949F;&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 0-5 14 ?&#x201D; &#x5728;&#x6BCF;&#x5929;&#x4E0B;&#x5348;2&#x70B9;&#x5230;&#x4E0B;&#x5348;2:05&#x671F;&#x95F4;&#x7684;&#x6BCF;1&#x5206;&#x949F;&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 10,44 14 ? 3 WED&#x201D; &#x6BCF;&#x5E74;&#x4E09;&#x6708;&#x7684;&#x661F;&#x671F;&#x4E09;&#x7684;&#x4E0B;&#x5348;2:10&#x548C;2:44&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ? * MON-FRI&#x201D; &#x5468;&#x4E00;&#x81F3;&#x5468;&#x4E94;&#x7684;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 15 * ?&#x201D; &#x6BCF;&#x6708;15&#x65E5;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 L * ?&#x201D; &#x6BCF;&#x6708;&#x6700;&#x540E;&#x4E00;&#x65E5;&#x7684;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ? * 6L&#x201D; &#x6BCF;&#x6708;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x661F;&#x671F;&#x4E94;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ? * 6L 2002-2005&#x201D; 2002&#x5E74;&#x81F3;2005&#x5E74;&#x7684;&#x6BCF;&#x6708;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x661F;&#x671F;&#x4E94;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+<li>&#x201C;0 15 10 ? * 6#3&#x201D; &#x6BCF;&#x6708;&#x7684;&#x7B2C;&#x4E09;&#x4E2A;&#x661F;&#x671F;&#x4E94;&#x4E0A;&#x5348;10:15&#x89E6;&#x53D1;</li>
+</ul>
+<p>&#x6709;&#x4E9B;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x80FD;&#x5305;&#x542B;&#x4E00;&#x4E9B;&#x8303;&#x56F4;&#x6216;&#x5217;&#x8868;</p>
+<blockquote>
+<p>&#x4F8B;&#x5982;&#xFF1A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF08;&#x5929;&#xFF08;&#x661F;&#x671F;&#xFF09;&#xFF09;&#x53EF;&#x4EE5;&#x4E3A; &#x201C;MON-FRI&#x201D;&#xFF0C;&#x201C;MON&#xFF0C;WED&#xFF0C;FRI&#x201D;&#xFF0C;&#x201C;MON-WED,SAT&#x201D;</p>
+</blockquote>
+<p>&#x201C;*&#x201D;&#x5B57;&#x7B26;&#x4EE3;&#x8868;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x7684;&#x503C;<br>&#x201C;/&#x201D;&#x5B57;&#x7B26;&#x7528;&#x6765;&#x6307;&#x5B9A;&#x6570;&#x503C;&#x7684;&#x589E;&#x91CF;</p>
+<blockquote>
+<p>&#x4F8B;&#x5982;&#xFF1A;&#x5728;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF08;&#x5206;&#x949F;&#xFF09;&#x91CC;&#x7684;&#x201C;0/15&#x201D;&#x8868;&#x793A;&#x4ECE;&#x7B2C;0&#x5206;&#x949F;&#x5F00;&#x59CB;&#xFF0C;&#x6BCF;15&#x5206;&#x949F;<br>&#x5728;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF08;&#x5206;&#x949F;&#xFF09;&#x91CC;&#x7684;&#x201C;3/20&#x201D;&#x8868;&#x793A;&#x4ECE;&#x7B2C;3&#x5206;&#x949F;&#x5F00;&#x59CB;&#xFF0C;&#x6BCF;20&#x5206;&#x949F;&#xFF08;&#x5B83;&#x548C;&#x201C;3&#xFF0C;23&#xFF0C;43&#x201D;&#xFF09;&#x7684;&#x542B;&#x4E49;&#x4E00;&#x6837;</p>
+</blockquote>
+<p>&#x201C;&#xFF1F;&#x201D;&#x5B57;&#x7B26;&#x4EC5;&#x88AB;&#x7528;&#x4E8E;&#x5929;&#xFF08;&#x6708;&#xFF09;&#x548C;&#x5929;&#xFF08;&#x661F;&#x671F;&#xFF09;&#x4E24;&#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x8868;&#x793A;&#x4E0D;&#x6307;&#x5B9A;&#x503C;<br>&#x5F53;2&#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x5176;&#x4E2D;&#x4E4B;&#x4E00;&#x88AB;&#x6307;&#x5B9A;&#x4E86;&#x503C;&#x4EE5;&#x540E;&#xFF0C;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x51B2;&#x7A81;&#xFF0C;&#x9700;&#x8981;&#x5C06;&#x53E6;&#x4E00;&#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x503C;&#x8BBE;&#x4E3A;&#x201C;&#xFF1F;&#x201D;</p>
+<p>&#x201C;L&#x201D; &#x5B57;&#x7B26;&#x4EC5;&#x88AB;&#x7528;&#x4E8E;&#x5929;&#xFF08;&#x6708;&#xFF09;&#x548C;&#x5929;&#xFF08;&#x661F;&#x671F;&#xFF09;&#x4E24;&#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x5B83;&#x662F;&#x5355;&#x8BCD;&#x201C;last&#x201D;&#x7684;&#x7F29;&#x5199;<br>&#x5982;&#x679C;&#x5728;&#x201C;L&#x201D;&#x524D;&#x6709;&#x5177;&#x4F53;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5B83;&#x5C31;&#x5177;&#x6709;&#x5176;&#x4ED6;&#x7684;&#x542B;&#x4E49;&#x4E86;&#x3002;</p>
+<blockquote>
+<p>&#x4F8B;&#x5982;&#xFF1A;&#x201C;6L&#x201D;&#x8868;&#x793A;&#x8FD9;&#x4E2A;&#x6708;&#x7684;&#x5012;&#x6570;&#x7B2C;&#xFF16;&#x5929;<br>&#x6CE8;&#x610F;&#xFF1A;&#x5728;&#x4F7F;&#x7528;&#x201C;L&#x201D;&#x53C2;&#x6570;&#x65F6;&#xFF0C;&#x4E0D;&#x8981;&#x6307;&#x5B9A;&#x5217;&#x8868;&#x6216;&#x8303;&#x56F4;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;&#x95EE;&#x9898;</p>
+</blockquote>
+<p>W &#x5B57;&#x7B26;&#x4EE3;&#x8868;&#x7740;&#x5E73;&#x65E5;(Mon-Fri)&#xFF0C;&#x5E76;&#x4E14;&#x4EC5;&#x80FD;&#x7528;&#x4E8E;&#x65E5;&#x57DF;&#x4E2D;&#x3002;&#x5B83;&#x7528;&#x6765;&#x6307;&#x5B9A;&#x79BB;&#x6307;&#x5B9A;&#x65E5;&#x7684;&#x6700;&#x8FD1;&#x7684;&#x4E00;&#x4E2A;&#x5E73;&#x65E5;&#x3002;&#x5927;&#x90E8;&#x5206;&#x7684;&#x5546;&#x4E1A;&#x5904;&#x7406;&#x90FD;&#x662F;&#x57FA;&#x4E8E;&#x5DE5;&#x4F5C;&#x5468;&#x7684;&#xFF0C;&#x6240;&#x4EE5; W &#x5B57;&#x7B26;&#x53EF;&#x80FD;&#x662F;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#x3002;</p>
+<blockquote>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x65E5;&#x57DF;&#x4E2D;&#x7684; 15W &#x610F;&#x5473;&#x7740; &#x201C;&#x79BB;&#x8BE5;&#x6708;15&#x53F7;&#x7684;&#x6700;&#x8FD1;&#x4E00;&#x4E2A;&#x5E73;&#x65E5;&#x3002;&#x201D; &#x5047;&#x5982;15&#x53F7;&#x662F;&#x661F;&#x671F;&#x516D;&#xFF0C;&#x90A3;&#x4E48; trigger &#x4F1A;&#x5728;14&#x53F7;(&#x661F;&#x671F;&#x4E94;)&#x89E6;&#x53D1;&#xFF0C;&#x56E0;&#x4E3A;&#x661F;&#x671F;&#x56DB;&#x6BD4;&#x661F;&#x671F;&#x4E00;&#x79BB;15&#x53F7;&#x66F4;&#x8FD1;&#x3002;</p>
+</blockquote>
+<p>C&#xFF1A;&#x4EE3;&#x8868;&#x201C;Calendar&#x201D;&#x7684;&#x610F;&#x601D;&#x3002;&#x5B83;&#x7684;&#x610F;&#x601D;&#x662F;&#x8BA1;&#x5212;&#x6240;&#x5173;&#x8054;&#x7684;&#x65E5;&#x671F;&#xFF0C;&#x5982;&#x679C;&#x65E5;&#x671F;&#x6CA1;&#x6709;&#x88AB;&#x5173;&#x8054;&#xFF0C;&#x5219;&#x76F8;&#x5F53;&#x4E8E;&#x65E5;&#x5386;&#x4E2D;&#x6240;&#x6709;&#x65E5;&#x671F;&#x3002;</p>
+<blockquote>
+<p>&#x4F8B;&#x5982;5C&#x5728;&#x65E5;&#x671F;&#x5B57;&#x6BB5;&#x4E2D;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x65E5;&#x5386;5&#x65E5;&#x4EE5;&#x540E;&#x7684;&#x7B2C;&#x4E00;&#x5929;&#x3002;1C&#x5728;&#x661F;&#x671F;&#x5B57;&#x6BB5;&#x4E2D;&#x76F8;&#x5F53;&#x4E8E;&#x661F;&#x671F;&#x65E5;&#x540E;&#x7684;&#x7B2C;&#x4E00;&#x5929;&#x3002;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x5B57;&#x6BB5;</th>
+<th style="text-align:left">&#x5141;&#x8BB8;&#x503C;</th>
+<th style="text-align:left">&#x5141;&#x8BB8;&#x7684;&#x7279;&#x6B8A;&#x5B57;&#x7B26;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&#x79D2;</td>
+<td style="text-align:left">0~59</td>
+<td style="text-align:left">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x5206;</td>
+<td style="text-align:left">0~59</td>
+<td style="text-align:left">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x5C0F;&#x65F6;</td>
+<td style="text-align:left">0~23</td>
+<td style="text-align:left">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x65E5;&#x671F;</td>
+<td style="text-align:left">1-31</td>
+<td style="text-align:left">, - * ? / L W C</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x6708;&#x4EFD;</td>
+<td style="text-align:left">1~12&#x6216;&#x8005;JAN~DEC</td>
+<td style="text-align:left">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x661F;&#x671F;</td>
+<td style="text-align:left">1~7&#x6216;&#x8005;SUN~SAT</td>
+<td style="text-align:left">, - * ? / L C #</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x5E74;&#xFF08;&#x53EF;&#x9009;&#xFF09;</td>
+<td style="text-align:left">&#x7559;&#x7A7A;&#xFF0C;1970~2099</td>
+<td style="text-align:left">, - * /</td>
+</tr>
+</tbody>
+</table>
+<p>&#x5728;&#x7EBF;cron&#x8868;&#x8FBE;&#x5F0F;&#x751F;&#x6210;&#xFF1A;<a href="http://qqe2.com/cron/index" target="_blank">http://qqe2.com/cron/index</a></p>
+<h2 id="&#x6574;&#x5408;quartz-">&#x6574;&#x5408;Quartz <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-&#x6574;&#x5408;Quartz"></a></h2>
+<ul>
+<li>&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;</li>
+</ul>
+<p>&#x5982;&#x679C;SpringBoot&#x7248;&#x672C;&#x662F;2.0.0&#x4EE5;&#x540E;&#x7684;&#xFF0C;&#x5219;&#x5728;spring-boot-starter&#x4E2D;&#x5DF2;&#x7ECF;&#x5305;&#x542B;&#x4E86;quart&#x7684;&#x4F9D;&#x8D56;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;<code>spring-boot-starter-quartz</code>&#x4F9D;&#x8D56;&#xFF1A;</p>
+<pre><code class="lang-markup">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-quartz&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>&#x5982;&#x679C;&#x662F;1.5.9&#x5219;&#x8981;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#xFF1A;</p>
+<pre><code class="lang-java">&lt;dependency&gt;
+  &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;
+  &lt;artifactId&gt;quartz&lt;/artifactId&gt;
+  &lt;version&gt;2.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x6211;&#x4F7F;&#x7528;SpringBoot&#x7248;&#x672C;&#x662F;<code>2.0.0.BUILD-SNAPSHOT</code> &#xFF0C;&#x8BE5;&#x7248;&#x672C;&#x5F00;&#x59CB;&#x96C6;&#x6210;&#x4E86;Quartz&#xFF0C;&#x6240;&#x4EE5;&#x4E8B;&#x5B9E;&#x73B0;&#x8D77;&#x6765;&#x5F88;&#x65B9;&#x4FBF;&#x3002;&#x5176;&#x5B83;&#x597D;&#x50CF;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x4ECB;&#x7ECD;&#xFF0C;&#x4EE5;&#x540E;&#x6709;&#x65F6;&#x95F4;&#x518D;&#x8BE6;&#x7EC6;&#x6DF1;&#x5165;&#x4E86;&#x89E3;Quartz&#x3002;</p>
+<p>&#x521B;&#x5EFA;&#x4EFB;&#x52A1;&#x7C7B;TestQuartz&#xFF0C;&#x8BE5;&#x7C7B;&#x4E3B;&#x8981;&#x662F;&#x7EE7;&#x627F;&#x4E86;QuartzJobBean</p>
+<pre><code class="lang-java">
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestQuartz</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">QuartzJobBean</span> </span>{
+    <span class="hljs-comment">/**
+     * &#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;
+     * <span class="hljs-doctag">@param</span> jobExecutionContext
+     * <span class="hljs-doctag">@throws</span> JobExecutionException
+     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">executeInternal</span><span class="hljs-params">(JobExecutionContext jobExecutionContext)</span> <span class="hljs-keyword">throws</span> JobExecutionException </span>{
+        System.out.println(<span class="hljs-string">&quot;quartz task &quot;</span>+<span class="hljs-keyword">new</span> Date());
+    }
+}
+</code></pre>
+<p>&#x521B;&#x5EFA;&#x914D;&#x7F6E;&#x7C7B;<code>QuartzConfig</code></p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.boss.test;
+
+
+<span class="hljs-keyword">import</span> org.quartz.JobExecutionContext;
+<span class="hljs-keyword">import</span> org.quartz.JobExecutionException;
+<span class="hljs-keyword">import</span> org.springframework.scheduling.quartz.QuartzJobBean;
+
+<span class="hljs-keyword">import</span> java.util.Date;
+
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> wangwenxiang
+ * 2018/12/1.
+ * <span class="hljs-doctag">@description</span>:
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestQuartz</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">QuartzJobBean</span> </span>{
+    <span class="hljs-comment">/**
+     * &#x6267;&#x884C;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;
+     * <span class="hljs-doctag">@param</span> jobExecutionContext
+     * <span class="hljs-doctag">@throws</span> JobExecutionException
+     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">executeInternal</span><span class="hljs-params">(JobExecutionContext jobExecutionContext)</span> <span class="hljs-keyword">throws</span> JobExecutionException </span>{
+        System.out.println(<span class="hljs-string">&quot;quartz task &quot;</span>+<span class="hljs-keyword">new</span> Date());
+    }
+}
+</code></pre>
+<h2 id="&#x6700;&#x540E;-">&#x6700;&#x540E; <a id="SpringBoot&#x51E0;&#x79CD;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;-&#x6700;&#x540E;"></a></h2>
+<p>&#x4E0A;&#x9762;&#x90FD;&#x662F;&#x7B80;&#x5355;&#x7684;&#x4ECB;&#x7ECD;&#x4E86;&#x5173;&#x4E8E;SpringBoot&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x76F4;&#x63A5;&#x4F7F;&#x7528;SpringTask&#x6CE8;&#x89E3;&#x7684;&#x65B9;&#x5F0F;&#x5E94;&#x8BE5;&#x662F;&#x6700;&#x65B9;&#x4FBF;&#x7684;&#xFF0C;&#x800C;&#x4F7F;&#x7528;Quartz&#x4ECE;2.0&#x5F00;&#x59CB;&#x4E5F;&#x53D8;&#x5F97;&#x5F88;&#x65B9;&#x4FBF;&#x3002;&#x5BF9;&#x4E8E;&#x8FD9;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x5E94;&#x8BE5;&#x8BF4;&#x5404;&#x6709;&#x957F;&#x5904;&#x5427;&#xFF0C;&#x6309;&#x9700;&#x9009;&#x62E9;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#x5173;&#x4E8E;Quartz&#x7684;&#x8BE6;&#x7EC6;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;<a href="http://www.quartz-scheduler.org/documentation/" target="_blank">http://www.quartz-scheduler.org/documentation/</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html" class="navigation navigation-prev " aria-label="Previous page: spring拓展点之ObjectFactory">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html" class="navigation navigation-next " aria-label="Next page: Spring Boot快捷读取文件内容">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"SpringBoot几种定时任务的实现方式","level":"1.8","depth":1,"next":{"title":"Spring Boot快捷读取文件内容","level":"1.9","depth":1,"path":"spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md","ref":"spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md","articles":[]},"previous":{"title":"spring拓展点之ObjectFactory","level":"1.7","depth":1,"path":"spring-tuo-zhan-dian-zhi-objectfactory.md","ref":"spring-tuo-zhan-dian-zhi-objectfactory.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.md","mtime":"2019-01-31T08:06:53.729Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-31T08:46:48.370Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,592 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Java8 CompletableFuture: 组合式异步编程 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="有时候当你想批量调取第三方api获取数据，并将返回的信息聚集起来，如果我们用直接简单的循环调用，这个处理时间长不说，一个调用超时就会阻塞整个逻辑的处理。如果采用异步的方式调用，编程的成本就会增大，比如最终结果的收集，异常的处理等；在java8中，有提供更加简便的编程方式实现这种异步处理。">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="geng-hao-de-tiao-shi-java-stream.html" />
+    
+    
+    <link rel="prev" href="da-jian-spring-cloud-gateway.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1_spring_boot_stop_1.html">
+            
+                <a href="1_spring_boot_stop_1.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机一
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机二
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                <a href="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                    
+                    前端：SheetJs 赋能页面与 Excel 文件交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                    
+                    程序员健康指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                <a href="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                    
+                    Springboot devtool远程应用功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                    
+                    spring拓展点之ObjectFactory
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                    
+                    SpringBoot几种定时任务的实现方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                    
+                    Spring Boot快捷读取文件内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                    
+                    Spring Could中基于Zookeeper的分布式锁实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                    
+                    spring cloud feign 实现复杂请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                <a href="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                    
+                    Springboot——用更优雅的方式发HTTP请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                <a href="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                    
+                    Redis分布式锁的正确实现方式&及错误使用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                <a href="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                    
+                    使用javaagent操作字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                    
+                    如何把if-else代码重构成高质量代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="da-jian-spring-cloud-gateway.html">
+            
+                <a href="da-jian-spring-cloud-gateway.html">
+            
+                    
+                    搭建spring cloud gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.17" data-path="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                    
+                    Java8 CompletableFuture: 组合式异步编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="geng-hao-de-tiao-shi-java-stream.html">
+            
+                <a href="geng-hao-de-tiao-shi-java-stream.html">
+            
+                    
+                    更好的调试 Java Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Java8 CompletableFuture: 组合式异步编程</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="java8-completablefuture-&#x7EC4;&#x5408;&#x5F0F;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;">Java8 CompletableFuture: &#x7EC4;&#x5408;&#x5F0F;&#x5F02;&#x6B65;&#x7F16;&#x7A0B;</h1>
+<p>&#x9996;&#x5148;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x573A;&#x666F;&#x5427;&#xFF1A;</p>
+<p>&#x6BD4;&#x5982;&#xFF0C;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x6709;11&#x4E2A;&#x7ECF;&#x7EAC;&#x5EA6;&#x5730;&#x5740;&#xFF0C;&#x9700;&#x8981;&#x83B7;&#x53D6;&#x4ED6;&#x4EEC;&#x5BF9;&#x5E94;&#x7684;&#x4E2D;&#x6587;&#x540D;&#x79F0;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x6211;&#x7684;&#x5B9E;&#x9A8C;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-comment">// &#x8C03;&#x7528;&#x7B2C;&#x4E09;&#x65B9;api&#x83B7;&#x53D6;&#x5730;&#x5740;&#x540D;&#x79F0;</span>
+ <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getAddress</span><span class="hljs-params">(String latitude, String longitude)</span> </span>{
+     StopWatch sw = <span class="hljs-keyword">new</span> StopWatch();
+     sw.start();
+     JSONObject result = restTemplate.getForObject(<span class="hljs-string">&quot;http://api.map.baidu.com/geocoder/v2/?location={1},{2}&amp;output=json&amp;pois=0&amp;ak=************************&quot;</span>,
+             JSONObject.class, latitude, longitude);
+     sw.stop();
+     <span class="hljs-comment">// &#x8BB0;&#x5F55;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x4EE5;&#x53CA;&#x8017;&#x65F6;&#x65F6;&#x95F4;</span>
+     System.out.println(String.format(<span class="hljs-string">&quot;getAddress: %s -&gt; &#x8017;&#x65F6;: %s&quot;</span>, Thread.currentThread(), sw.getTotalTimeMillis()));
+     <span class="hljs-keyword">if</span> (result.getInteger(<span class="hljs-string">&quot;status&quot;</span>) == <span class="hljs-number">0</span>) {
+         <span class="hljs-keyword">return</span> result.getJSONObject(<span class="hljs-string">&quot;result&quot;</span>).getString(<span class="hljs-string">&quot;formatted_address&quot;</span>);
+     }
+     <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+ }
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-comment">// &#x6D4B;&#x8BD5;&#x65B9;&#x6CD5;</span>
+<span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>{
+    String[] cities = {
+            <span class="hljs-string">&quot;31.2363429624,121.4803295328&quot;</span>, <span class="hljs-string">&quot;39.9110666857,116.4136103013&quot;</span>,
+            <span class="hljs-string">&quot;30.2799186759,120.1617445782&quot;</span>, <span class="hljs-string">&quot;31.8880209204,117.3066537271&quot;</span>,
+            <span class="hljs-string">&quot;25.6122215609,100.2742019952&quot;</span>, <span class="hljs-string">&quot;26.8624428068,100.2335674911&quot;</span>,
+            <span class="hljs-string">&quot;27.6958640000,111.7206640000&quot;</span>, <span class="hljs-string">&quot;31.2093160000,112.4105620000&quot;</span>,
+            <span class="hljs-string">&quot;39.1731490000,117.2202970000&quot;</span>, <span class="hljs-string">&quot;34.5113900000,101.5563070000&quot;</span>,
+            <span class="hljs-string">&quot;30.5984670000,114.3115860000&quot;</span>
+    };
+
+    List&lt;Long&gt; times = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+
+    <span class="hljs-comment">// &#x6267;&#x884C;20&#x6B21;&#xFF0C;&#x8BA1;&#x7B97;&#x8C03;&#x7528;11&#x4E2A;&#x7ECF;&#x7EAC;&#x5EA6;&#x8017;&#x65F6;</span>
+    IntStream.rangeClosed(<span class="hljs-number">1</span>, <span class="hljs-number">20</span>).forEach(i -&gt; {
+        StopWatch sw = <span class="hljs-keyword">new</span> StopWatch();
+        sw.start();
+        <span class="hljs-comment">// &#x8C03;&#x7528;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x66F4;&#x6539;&#x4E0D;&#x540C;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x7EDF;&#x8BA1;&#x65F6;&#x95F4;</span>
+        List&lt;String&gt; r = test1(cities);
+        System.out.println(r);
+        sw.stop();
+        times.add(sw.getTotalTimeMillis());
+    });
+    System.out.println(times);
+    LongSummaryStatistics summaryStatistics = times.stream().mapToLong(Long::longValue).summaryStatistics();
+    System.out.println(<span class="hljs-string">&quot;&#x5E73;&#x5747;&#x8017;&#x65F6;: &quot;</span> + summaryStatistics);
+}
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-comment">// &#x65B9;&#x6CD5;&#x4E00; &#x666E;&#x901A;&#x5FAA;&#x73AF;&#x8C03;&#x7528;</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title">test1</span><span class="hljs-params">(String[] locations)</span> </span>{
+    <span class="hljs-keyword">return</span> Arrays.stream(locations)
+            .filter(city -&gt; city.split(<span class="hljs-string">&quot;,&quot;</span>).length == <span class="hljs-number">2</span>)
+            .map(city -&gt; {
+                String[] v = city.split(<span class="hljs-string">&quot;,&quot;</span>);
+                <span class="hljs-keyword">return</span> getAddress(v[<span class="hljs-number">0</span>], v[<span class="hljs-number">1</span>]);
+            })
+            .collect(Collectors.toList());
+}
+
+<span class="hljs-comment">// java8 Stream parallel&#x5E76;&#x884C;&#x8C03;&#x7528;</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title">test2</span><span class="hljs-params">(String[] locations)</span> </span>{
+    <span class="hljs-keyword">return</span> Arrays.stream(locations).parallel()
+            .filter(city -&gt; city.split(<span class="hljs-string">&quot;,&quot;</span>).length == <span class="hljs-number">2</span>)
+            .map(city -&gt; {
+                String[] v = city.split(<span class="hljs-string">&quot;,&quot;</span>);
+                <span class="hljs-keyword">return</span> getAddress(v[<span class="hljs-number">0</span>], v[<span class="hljs-number">1</span>]);
+            })
+            .collect(Collectors.toList());
+}
+
+<span class="hljs-comment">// java8 CompletableFuture</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;String&gt; <span class="hljs-title">test3</span><span class="hljs-params">(String[] locations)</span> </span>{
+    List&lt;CompletableFuture&lt;String&gt;&gt; collect = Arrays.stream(locations)
+            .filter(city -&gt; city.split(<span class="hljs-string">&quot;,&quot;</span>).length == <span class="hljs-number">2</span>)
+            .map(city -&gt; CompletableFuture.supplyAsync(() -&gt; {
+                String[] v = city.split(<span class="hljs-string">&quot;,&quot;</span>);
+                <span class="hljs-keyword">return</span> getAddress(v[<span class="hljs-number">0</span>], v[<span class="hljs-number">1</span>]);
+            }))
+            .collect(Collectors.toList());
+
+    <span class="hljs-keyword">return</span> collect.stream()
+            .map(CompletableFuture::join)
+            .collect(Collectors.toList());
+
+}
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x7B80;&#x5355;&#x7684;&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x8C03;&#x7528;20&#x6B21;&#xFF0C;&#x7EDF;&#x8BA1;&#x4E00;&#x4E0B;&#x65F6;&#x95F4;&#xFF0C;&#x8FDB;&#x884C;&#x4E00;&#x4E0B;&#x5BF9;&#x6BD4;&#xFF1A;</p>
+<p><strong>&#x65B9;&#x6CD5;&#x4E00;</strong></p>
+<p>&#x6267;&#x884C;<code>test1()</code>&#x65F6;&#xFF0C;&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-text">[662, 564, 645, 552, 577, 562, 534, 1101, 549, 567, 546, 544, 545, 548, 557, 551, 609, 527, 562, 531]
+[null, &#x5317;&#x4EAC;&#x5E02;&#x4E1C;&#x57CE;&#x533A;&#x6B63;&#x4E49;&#x8DEF;2&#x53F7;-10&#x53F7;&#x697C;-403&#x53F7;, &#x6D59;&#x6C5F;&#x7701;&#x676D;&#x5DDE;&#x5E02;&#x62F1;&#x5885;&#x533A;&#x83AB;&#x5E72;&#x5C71;&#x8DEF;6, &#x5B89;&#x5FBD;&#x7701;&#x5408;&#x80A5;&#x5E02;&#x7476;&#x6D77;&#x533A;&#x4F17;&#x5174;&#x8DEF;, &#x4E91;&#x5357;&#x7701;&#x5927;&#x7406;&#x767D;&#x65CF;&#x81EA;&#x6CBB;&#x5DDE;&#x5927;&#x7406;&#x5E02;&#x7B2C;&#x4E00;&#x5927;&#x9053;, &#x4E91;&#x5357;&#x7701;&#x4E3D;&#x6C5F;&#x5E02;&#x53E4;&#x57CE;&#x533A;&#x7389;&#x96EA;&#x5927;&#x9053;149, &#x6E56;&#x5357;&#x7701;&#x5A04;&#x5E95;&#x5E02;&#x6D9F;&#x6E90;&#x5E02;&#x4EBA;&#x6C11;&#x4E1C;&#x8DEF;, &#x6E56;&#x5317;&#x7701;&#x8346;&#x95E8;&#x5E02;&#x949F;&#x7965;&#x5E02;, null, null, &#x6E56;&#x5317;&#x7701;&#x6B66;&#x6C49;&#x5E02;&#x6C5F;&#x5CB8;&#x533A;&#x6CBF;&#x6C5F;&#x5927;&#x9053;188&#x53F7;]
+[396]
+&#x5E73;&#x5747;&#x8017;&#x65F6;: LongSummaryStatistics{count=20, sum=11833, min=527, average=591.650000, max=1101}
+</code></pre>
+<p>11&#x4E2A;&#x7ECF;&#x7EAC;&#x5EA6;&#xFF0C;&#x5E73;&#x5747;&#x8017;&#x65F6;591.650000&#x6BEB;&#x79D2;&#x3002;</p>
+<p><strong>&#x65B9;&#x6CD5;&#x4E8C;</strong></p>
+<p>&#x6267;&#x884C;<code>test2()</code>&#x65F6;&#xFF0C;&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;&#x5982;&#x4E0B;</p>
+<pre><code class="lang-bash">...
+getAddress: Thread[ForkJoinPool.commonPool-worker-3,5,main] -&gt; &#x8017;&#x65F6;: 32
+getAddress: Thread[ForkJoinPool.commonPool-worker-1,5,main] -&gt; &#x8017;&#x65F6;: 29
+getAddress: Thread[ForkJoinPool.commonPool-worker-3,5,main] -&gt; &#x8017;&#x65F6;: 25
+getAddress: Thread[ForkJoinPool.commonPool-worker-1,5,main] -&gt; &#x8017;&#x65F6;: 25
+getAddress: Thread[ForkJoinPool.commonPool-worker-3,5,main] -&gt; &#x8017;&#x65F6;: 25
+getAddress: Thread[ForkJoinPool.commonPool-worker-2,5,main] -&gt; &#x8017;&#x65F6;: 233
+[277, 252, 143, 116, 160, 164, 119, 125, 125, 121, 125, 127, 121, 132, 128, 128, 118, 124, 113, 236]
+[null, &#x5317;&#x4EAC;&#x5E02;&#x4E1C;&#x57CE;&#x533A;&#x6B63;&#x4E49;&#x8DEF;2&#x53F7;-10&#x53F7;&#x697C;-403&#x53F7;, &#x6D59;&#x6C5F;&#x7701;&#x676D;&#x5DDE;&#x5E02;&#x62F1;&#x5885;&#x533A;&#x83AB;&#x5E72;&#x5C71;&#x8DEF;6, &#x5B89;&#x5FBD;&#x7701;&#x5408;&#x80A5;&#x5E02;&#x7476;&#x6D77;&#x533A;&#x4F17;&#x5174;&#x8DEF;, &#x4E91;&#x5357;&#x7701;&#x5927;&#x7406;&#x767D;&#x65CF;&#x81EA;&#x6CBB;&#x5DDE;&#x5927;&#x7406;&#x5E02;&#x7B2C;&#x4E00;&#x5927;&#x9053;, &#x4E91;&#x5357;&#x7701;&#x4E3D;&#x6C5F;&#x5E02;&#x53E4;&#x57CE;&#x533A;&#x7389;&#x96EA;&#x5927;&#x9053;149, &#x6E56;&#x5357;&#x7701;&#x5A04;&#x5E95;&#x5E02;&#x6D9F;&#x6E90;&#x5E02;&#x4EBA;&#x6C11;&#x4E1C;&#x8DEF;, &#x6E56;&#x5317;&#x7701;&#x8346;&#x95E8;&#x5E02;&#x949F;&#x7965;&#x5E02;, null, null, &#x6E56;&#x5317;&#x7701;&#x6B66;&#x6C49;&#x5E02;&#x6C5F;&#x5CB8;&#x533A;&#x6CBF;&#x6C5F;&#x5927;&#x9053;188&#x53F7;]
+[396]
+&#x5E73;&#x5747;&#x8017;&#x65F6;: LongSummaryStatistics{count=20, sum=2954, min=113, average=147.700000, max=277}
+</code></pre>
+<p>&#x53EF;&#x89C1;&#xFF0C;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x6267;&#x884C;&#x8C03;&#x7528;&#xFF0C;&#x5E73;&#x5747;&#x8017;&#x65F6;147.700000&#x6BEB;&#x79D2;&#x3002;</p>
+<p><strong>&#x65B9;&#x6CD5;&#x4E09;</strong></p>
+<p>&#x6267;&#x884C;<code>test3()</code>&#x65F6;&#xFF0C;&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-text">...
+getAddress: Thread[ForkJoinPool.commonPool-worker-1,5,main] -&gt; &#x8017;&#x65F6;: 157
+getAddress: Thread[ForkJoinPool.commonPool-worker-2,5,main] -&gt; &#x8017;&#x65F6;: 46
+getAddress: Thread[main,5,main] -&gt; &#x8017;&#x65F6;: 53
+getAddress: Thread[ForkJoinPool.commonPool-worker-3,5,main] -&gt; &#x8017;&#x65F6;: 51
+getAddress: Thread[ForkJoinPool.commonPool-worker-1,5,main] -&gt; &#x8017;&#x65F6;: 51
+getAddress: Thread[ForkJoinPool.commonPool-worker-2,5,main] -&gt; &#x8017;&#x65F6;: 56
+[280, 157, 164, 166, 209, 194, 164, 263, 233, 203, 158, 154, 162, 152, 167, 154, 149, 149, 155, 159]
+[null, &#x5317;&#x4EAC;&#x5E02;&#x4E1C;&#x57CE;&#x533A;&#x6B63;&#x4E49;&#x8DEF;2&#x53F7;-10&#x53F7;&#x697C;-403&#x53F7;, &#x6D59;&#x6C5F;&#x7701;&#x676D;&#x5DDE;&#x5E02;&#x62F1;&#x5885;&#x533A;&#x83AB;&#x5E72;&#x5C71;&#x8DEF;6, &#x5B89;&#x5FBD;&#x7701;&#x5408;&#x80A5;&#x5E02;&#x7476;&#x6D77;&#x533A;&#x4F17;&#x5174;&#x8DEF;, &#x4E91;&#x5357;&#x7701;&#x5927;&#x7406;&#x767D;&#x65CF;&#x81EA;&#x6CBB;&#x5DDE;&#x5927;&#x7406;&#x5E02;&#x7B2C;&#x4E00;&#x5927;&#x9053;, &#x4E91;&#x5357;&#x7701;&#x4E3D;&#x6C5F;&#x5E02;&#x53E4;&#x57CE;&#x533A;&#x7389;&#x96EA;&#x5927;&#x9053;149, &#x6E56;&#x5357;&#x7701;&#x5A04;&#x5E95;&#x5E02;&#x6D9F;&#x6E90;&#x5E02;&#x4EBA;&#x6C11;&#x4E1C;&#x8DEF;, &#x6E56;&#x5317;&#x7701;&#x8346;&#x95E8;&#x5E02;&#x949F;&#x7965;&#x5E02;, null, null, &#x6E56;&#x5317;&#x7701;&#x6B66;&#x6C49;&#x5E02;&#x6C5F;&#x5CB8;&#x533A;&#x6CBF;&#x6C5F;&#x5927;&#x9053;188&#x53F7;]
+[396]
+&#x5E73;&#x5747;&#x8017;&#x65F6;: LongSummaryStatistics{count=20, sum=3592, min=149, average=179.600000, max=280}
+</code></pre>
+<p>&#x540C;&#x6837;&#x7684;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x5728;&#x5F02;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x5E73;&#x5747;&#x8017;&#x65F6;179.600000&#x6BEB;&#x79D2;&#xFF1B;</p>
+<p>&#x5176;&#x5B9E;&#x4ECE;&#x6548;&#x679C;&#x4E0A;&#x8FD8;&#x770B;(&#x8FD9;&#x91CC;&#x8FD0;&#x884C;&#x6B21;&#x6570;&#x8F83;&#x5C11;&#xFF0C;&#x8FD0;&#x884C;&#x65F6;&#x6709;&#x65F6;&#x5019;&#x65B9;&#x6CD5;&#x4E8C;&#x597D;&#x6709;&#x65F6;&#x5019;&#x65B9;&#x6CD5;&#x4E09;&#x597D;)&#xFF0C;&#x65B9;&#x6CD5;&#x4E8C;&#x548C;&#x65B9;&#x6CD5;&#x4E09;&#x5B83;&#x4EEC;&#x770B;&#x8D77;&#x6765;&#x4E0D;&#x76F8;&#x4F2F;&#x4EF2;&#xFF0C;&#x7A76;&#x5176;&#x539F;&#x56E0;&#x90FD;&#x4E00;&#x6837;:&#x5B83;&#x4EEC;&#x5185;&#x90E8;&#x91C7;&#x7528;&#x7684;&#x662F;&#x540C;&#x6837;&#x7684;&#x901A;&#x7528;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x9ED8;&#x8BA4;&#x90FD;&#x4F7F;&#x7528;&#x56FA;&#x5B9A;&#x6570;&#x76EE;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5177;&#x4F53;&#x7EBF;&#x7A0B;&#x6570;&#x53D6;&#x51B3;&#x4E8E;<code>Runtime.getRuntime().availableProcessors()</code>&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x3002;&#x5C3D;&#x7136;&#x8FD9;&#x6837;&#xFF0C;&#x65B9;&#x6CD5;&#x4E8C;&#x66F4;&#x7B80;&#x6D01;&#x6613;&#x61C2;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x8FD8;&#x9700;&#x8981;<code>CompletableFuture</code>&#x5462;&#xFF1F;&#x7136;&#x800C;&#xFF0C;<code>CompletableFuture</code>&#x5177;&#x6709;&#x4E00;&#x5B9A;&#x7684;&#x4F18;&#x52BF;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x5141;&#x8BB8;&#x4F60;&#x5BF9;&#x6267;&#x884C;&#x5668;(Executor)&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x8BA9;&#x5B83;&#x4EE5;&#x66F4;&#x9002;&#x5408;&#x5E94;&#x7528;&#x9700;&#x6C42;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x914D;&#x7F6E;&#xFF0C;&#x6EE1;&#x8DB3;&#x7A0B;&#x5E8F;&#x7684;&#x8981;&#x6C42;&#xFF0C;&#x800C;&#x8FD9;&#x662F;&#x5E76;&#x884C;&#x6D41;API&#x65E0;&#x6CD5;&#x63D0;&#x4F9B;&#x7684;&#x3002;</p>
+<p><code>CompletableFuture</code>&#x4E2D;4&#x4E2A;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;U&gt; <span class="hljs-function">CompletableFuture&lt;U&gt; <span class="hljs-title">supplyAsync</span><span class="hljs-params">(Supplier&lt;U&gt; supplier)</span> </span>{
+        <span class="hljs-keyword">return</span> asyncSupplyStage(asyncPool, supplier);
+    }
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;U&gt; <span class="hljs-function">CompletableFuture&lt;U&gt; <span class="hljs-title">supplyAsync</span><span class="hljs-params">(Supplier&lt;U&gt; supplier,Executor executor)</span> </span>{
+    <span class="hljs-keyword">return</span> asyncSupplyStage(screenExecutor(executor), supplier);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> CompletableFuture&lt;Void&gt; <span class="hljs-title">runAsync</span><span class="hljs-params">(Runnable runnable)</span> </span>{
+    <span class="hljs-keyword">return</span> asyncRunStage(asyncPool, runnable);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> CompletableFuture&lt;Void&gt; <span class="hljs-title">runAsync</span><span class="hljs-params">(Runnable runnable, Executor executor)</span> </span>{
+    <span class="hljs-keyword">return</span> asyncRunStage(screenExecutor(executor), runnable);
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="da-jian-spring-cloud-gateway.html" class="navigation navigation-prev " aria-label="Previous page: 搭建spring cloud gateway">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="geng-hao-de-tiao-shi-java-stream.html" class="navigation navigation-next " aria-label="Next page: 更好的调试 Java Stream">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"有时候当你想批量调取第三方api获取数据，并将返回的信息聚集起来，如果我们用直接简单的循环调用，这个处理时间长不说，一个调用超时就会阻塞整个逻辑的处理。如果采用异步的方式调用，编程的成本就会增大，比如最终结果的收集，异常的处理等；在java8中，有提供更加简便的编程方式实现这种异步处理。","title":"Java8 CompletableFuture: 组合式异步编程","level":"1.17","depth":1,"next":{"title":"更好的调试 Java Stream","level":"1.18","depth":1,"path":"geng-hao-de-tiao-shi-java-stream.md","ref":"geng-hao-de-tiao-shi-java-stream.md","articles":[]},"previous":{"title":"搭建spring cloud gateway","level":"1.16","depth":1,"path":"da-jian-spring-cloud-gateway.md","ref":"da-jian-spring-cloud-gateway.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.md","mtime":"2019-01-31T08:06:53.720Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-31T08:46:48.370Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

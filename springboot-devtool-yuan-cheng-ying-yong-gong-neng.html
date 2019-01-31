@@ -1,0 +1,543 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Springboot devtool远程应用功能 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="当我们在开发springboot应用时，可以添加spring-boot-devtools模块，可以体验一些开发时的特性，比如，默认的一些属性设置，自动重启以及远程应用等。">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="spring-tuo-zhan-dian-zhi-objectfactory.html" />
+    
+    
+    <link rel="prev" href="cheng-xu-yuan-jian-kang-zhi-nan.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1_spring_boot_stop_1.html">
+            
+                <a href="1_spring_boot_stop_1.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机一
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机二
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                <a href="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                    
+                    前端：SheetJs 赋能页面与 Excel 文件交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                    
+                    程序员健康指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                <a href="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                    
+                    Springboot devtool远程应用功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                    
+                    spring拓展点之ObjectFactory
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                    
+                    SpringBoot几种定时任务的实现方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                    
+                    Spring Boot快捷读取文件内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                    
+                    Spring Could中基于Zookeeper的分布式锁实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                    
+                    spring cloud feign 实现复杂请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                <a href="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                    
+                    Springboot——用更优雅的方式发HTTP请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                <a href="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                    
+                    Redis分布式锁的正确实现方式&及错误使用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                <a href="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                    
+                    使用javaagent操作字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                    
+                    如何把if-else代码重构成高质量代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="da-jian-spring-cloud-gateway.html">
+            
+                <a href="da-jian-spring-cloud-gateway.html">
+            
+                    
+                    搭建spring cloud gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                    
+                    Java8 CompletableFuture: 组合式异步编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="geng-hao-de-tiao-shi-java-stream.html">
+            
+                <a href="geng-hao-de-tiao-shi-java-stream.html">
+            
+                    
+                    更好的调试 Java Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Springboot devtool远程应用功能</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="springboot-devtool&#x8FDC;&#x7A0B;&#x5E94;&#x7528;&#x529F;&#x80FD;">Springboot devtool&#x8FDC;&#x7A0B;&#x5E94;&#x7528;&#x529F;&#x80FD;</h1>
+<p>&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;&#xFF0C;&#x8FDC;&#x7A0B;&#x5E94;&#x7528;&#x7684;&#x7279;&#x6027;&#x3002;&#x91C7;&#x7528;springboot&#x7248;&#x672C;&#x4E3A;2.0.6.RELEASE</p>
+<p><strong>&#x4E00;. &#x5F15;&#x5165;devtools</strong></p>
+<ol>
+<li>maven</li>
+</ol>
+<pre><code class="lang-markup">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; 
+    &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt; 
+    &lt;optional&gt;true&lt;/optional&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<ol>
+<li>gradle</li>
+</ol>
+<pre><code class="lang-groovy">dependencies {
+    compile(<span class="hljs-string">&quot;org.springframework.boot:spring-boot-devtools&quot;</span>)
+}
+</code></pre>
+<p><strong>&#x4E8C;. &#x5F00;&#x542F;&#x8FDC;&#x7A0B;&#x529F;&#x80FD;</strong></p>
+<p>Spring Boot developer&#x5DE5;&#x5177;&#x5E76;&#x4E0D;&#x5C40;&#x9650;&#x4E8E;&#x672C;&#x5730;&#x5F00;&#x53D1;&#x3002;&#x5728;&#x8FDC;&#x7A0B;&#x8FD0;&#x884C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x51E0;&#x4E2A;&#x7279;&#x6027;&#x3002;&#x8981;&#x542F;&#x7528;&#x8FDC;&#x7A0B;&#x652F;&#x6301;&#xFF0C;&#x9700;&#x8981;&#x786E;&#x4FDD;devtools&#x5305;&#x542B;&#x5728;&#x91CD;&#x65B0;&#x6253;&#x5305;&#x7684;&#x5F52;&#x6863;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-markup">
+&lt;build&gt;
+     &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;excludeDevtools&gt;false&lt;/excludeDevtools&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+<p>&#x8FDC;&#x7A0B;devtools&#x652F;&#x6301;&#x5206;&#x4E24;&#x90E8;&#x5206;&#x63D0;&#x4F9B;:&#x63A5;&#x53D7;&#x8FDE;&#x63A5;&#x7684;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7AEF;&#x70B9;&#x548C;&#x5728;IDE&#x4E2D;&#x8FD0;&#x884C;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;&#x5F53;&#x8BBE;&#x7F6E;&#x4E86;<code>spring.devtools.remote.secret</code>&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x7EC4;&#x4EF6;&#x5C06;&#x81EA;&#x52A8;&#x542F;&#x7528;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x7EC4;&#x4EF6;&#x5FC5;&#x987B;&#x624B;&#x52A8;&#x542F;&#x52A8;&#x3002;</p>
+<p>&#x914D;&#x7F6E;<code>spring.devtools.remote.secret</code>&#x5C5E;&#x6027;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><a href="https://wiki.dycjr.net:1443/pages/spring.devtools.remote.secret=shi" target="_blank"><code>spring.devtools.remote.secret=shi</code></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>&#x6CE8;&#x610F;&#xFF1A;&#x5728;&#x8FDC;&#x7A0B;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E0A;&#x542F;&#x7528;spring-boot-devtools&#x5B58;&#x5728;&#x5B89;&#x5168;&#x98CE;&#x9669;&#x3002;&#x4E0D;&#x5E94;&#x8BE5;&#x5728;&#x751F;&#x4EA7;&#x90E8;&#x7F72;&#x4E0A;&#x542F;&#x7528;&#x652F;&#x6301;&#x3002;</strong></em></p>
+<p><strong>&#x4E09;. &#x6253;&#x5305;&#x4F60;&#x7684;&#x5E94;&#x7528;</strong></p>
+<p>&#x5199;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;controller</p>
+<pre><code class="lang-java">
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IndexController</span> </span>{
+
+    <span class="hljs-meta">@GetMapping</span>(<span class="hljs-string">&quot;hello&quot;</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">hello</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;hello&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>;
+    }
+}
+</code></pre>
+<p>&#x7136;&#x540E;<code>mvn clean package</code> &#x751F;&#x4EA7;jar&#x6587;&#x4EF6;</p>
+<p>&#x8FD0;&#x884C;jar&#xFF1A;<code>devtools-demo-0.0.1-SNAPSHOT.jar</code>(&#x56E0;&#x4E3A;&#x6CA1;&#x6709;&#x8FDC;&#x7A0B;&#x73AF;&#x5883;&#xFF0C;&#x5728;&#x672C;&#x5730;&#x6A21;&#x62DF;&#x4E00;&#x4E0B;)</p>
+<p>&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE;</p>
+<p><img src=".gitbook/assets/20190131_1.jpg" alt=""></p>
+<p><strong>&#x56DB;. &#x8FD0;&#x884C;&#x4F60;&#x7684;&#x8FDC;&#x7A0B;&#x5BA2;&#x6237;&#x7AEF;</strong></p>
+<p>&#x5728;&#x4F60;&#x7684;IDE&#xFF08;&#x6211;&#x7528;&#x7684;&#x662F;Idea&#xFF09;&#x91CC;&#x542F;&#x52A8;&#x4F60;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x64CD;&#x4F5C;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<p>1&#x3001;&#x5728;&#x83DC;&#x5355;&#x680F;&#x9009;&#x62E9; run &gt; edit configrations</p>
+<p>2&#x3001;&#x5982;&#x4E0B;&#x56FE;</p>
+<p><img src=".gitbook/assets/20190131_2.jpg" alt=""></p>
+<p>3&#x3001;&#x542F;&#x52A8;</p>
+<pre><code class="lang-bash">......
+.   ____          _                                              __ _ _
+ /\\ / ___<span class="hljs-string">&apos;_ __ _ _(_)_ __  __ _          ___               _      \ \ \ \
+( ( )\___ | &apos;</span>_ | <span class="hljs-string">&apos;_| | &apos;</span>_ \/ _` |        | _ \___ _ __  ___| |_ ___ \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| []::::::[]   / -_) <span class="hljs-string">&apos;  \/ _ \  _/ -_) ) ) ) )
+  &apos;</span>  |____| .__|_| |_|_| |_\__, |        |_|_\___|_|_|_\___/\__\___|/ / / /
+ =========|_|==============|___/===================================/_/_/_/
+ :: Spring Boot Remote ::  (v2.0.6.RELEASE)
+
+.....
+</code></pre>
+<p>&#x7136;&#x540E;&#x9009;&#x62E9;&#x83DC;&#x5355;build &gt; build project</p>
+<p>&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x5165;&#x589E;&#x52A0;&#x4E86;&#x4E0B;&#x9762;&#x4E24;&#x884C;&#x63D0;&#x793A;&#xFF1A;</p>
+<pre><code class="lang-bash">2018-10-26 23:15:41.661  INFO 6430 --- [   File Watcher] o.s.b.d.r.c.ClassPathChangeUploader      : Uploaded 1 class resource
+2018-10-26 23:15:43.057  INFO 6430 --- [pool-1-thread-1] o.s.b.d.r.c.DelayedLiveReloadTrigger     : Remote server has changed, triggering LiveReload
+</code></pre>
+<p>&#x6D4F;&#x89C8;&#x5668;&#x518D;&#x6B21;&#x8BBF;&#x95EE;&#xFF1A;</p>
+<p><img src=".gitbook/assets/20190131_3.jpg" alt=""></p>
+<p>&#x53D1;&#x73B0;&#x6211;&#x4EEC;&#x90E8;&#x7F72;&#x7684;&#x4EE3;&#x7801;&#x4E5F;&#x5DF2;&#x7ECF;&#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x4E86;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html" class="navigation navigation-prev " aria-label="Previous page: 程序员健康指南">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html" class="navigation navigation-next " aria-label="Next page: spring拓展点之ObjectFactory">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"当我们在开发springboot应用时，可以添加spring-boot-devtools模块，可以体验一些开发时的特性，比如，默认的一些属性设置，自动重启以及远程应用等。","title":"Springboot devtool远程应用功能","level":"1.6","depth":1,"next":{"title":"spring拓展点之ObjectFactory","level":"1.7","depth":1,"path":"spring-tuo-zhan-dian-zhi-objectfactory.md","ref":"spring-tuo-zhan-dian-zhi-objectfactory.md","articles":[]},"previous":{"title":"程序员健康指南","level":"1.5","depth":1,"path":"cheng-xu-yuan-jian-kang-zhi-nan.md","ref":"cheng-xu-yuan-jian-kang-zhi-nan.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"springboot-devtool-yuan-cheng-ying-yong-gong-neng.md","mtime":"2019-01-31T08:06:53.728Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-31T08:46:48.370Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

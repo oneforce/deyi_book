@@ -1,0 +1,650 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Spring boot 2.0 之优雅停机一 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="spring boot 框架在生产环境使用的有一段时间了，它“约定大于配置”的特性，体现了优雅流畅的开发过程，它的部署启动方式（java -jar xxx.jar）也很优雅。但是我使用的停止应用的方式是 kill -9 进程号，即使写了脚本，还是显得有些粗鲁。这样的应用停止方式，在停止的那一霎那，应用中正在处理的业务逻辑会被中断，导致产生业务异常情形。这种情况如何避免，本文介绍的优雅停机，将完美解">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="1_spring_boot_stop_1.html">
+            
+                <a href="1_spring_boot_stop_1.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机一
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机二
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                <a href="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                    
+                    前端：SheetJs 赋能页面与 Excel 文件交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                    
+                    程序员健康指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                <a href="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                    
+                    Springboot devtool远程应用功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                    
+                    spring拓展点之ObjectFactory
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                    
+                    SpringBoot几种定时任务的实现方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                    
+                    Spring Boot快捷读取文件内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                    
+                    Spring Could中基于Zookeeper的分布式锁实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                    
+                    spring cloud feign 实现复杂请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                <a href="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                    
+                    Springboot——用更优雅的方式发HTTP请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                <a href="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                    
+                    Redis分布式锁的正确实现方式&及错误使用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                <a href="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                    
+                    使用javaagent操作字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                    
+                    如何把if-else代码重构成高质量代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="da-jian-spring-cloud-gateway.html">
+            
+                <a href="da-jian-spring-cloud-gateway.html">
+            
+                    
+                    搭建spring cloud gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                    
+                    Java8 CompletableFuture: 组合式异步编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="geng-hao-de-tiao-shi-java-stream.html">
+            
+                <a href="geng-hao-de-tiao-shi-java-stream.html">
+            
+                    
+                    更好的调试 Java Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Spring boot 2.0 之优雅停机一</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="spring-boot-20-&#x4E4B;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x4E00;">Spring boot 2.0 &#x4E4B;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x4E00;</h1>
+<h3 id="&#x4EC0;&#x4E48;&#x53EB;&#x4F18;&#x96C5;&#x505C;&#x673A;">&#x4EC0;&#x4E48;&#x53EB;&#x4F18;&#x96C5;&#x505C;&#x673A;</h3>
+<p>&#x7B80;&#x5355;&#x8BF4;&#x5C31;&#x662F;&#xFF0C;&#x5728;&#x5BF9;&#x5E94;&#x7528;&#x8FDB;&#x7A0B;&#x53D1;&#x9001;&#x505C;&#x6B62;&#x6307;&#x4EE4;&#x4E4B;&#x540E;&#xFF0C;&#x80FD;&#x4FDD;&#x8BC1;&#x6B63;&#x5728;&#x6267;&#x884C;&#x7684;&#x4E1A;&#x52A1;&#x64CD;&#x4F5C;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#x3002;&#x5E94;&#x7528;&#x63A5;&#x6536;&#x5230;&#x505C;&#x6B62;&#x6307;&#x4EE4;&#x4E4B;&#x540E;&#x7684;&#x6B65;&#x9AA4;&#x5E94;&#x8BE5;&#x662F;&#xFF0C;&#x505C;&#x6B62;&#x63A5;&#x6536;&#x8BBF;&#x95EE;&#x8BF7;&#x6C42;&#xFF0C;&#x7B49;&#x5F85;&#x5DF2;&#x7ECF;&#x63A5;&#x6536;&#x5230;&#x7684;&#x8BF7;&#x6C42;&#x5904;&#x7406;&#x5B8C;&#x6210;&#xFF0C;&#x5E76;&#x80FD;&#x6210;&#x529F;&#x8FD4;&#x56DE;&#xFF0C;&#x8FD9;&#x65F6;&#x624D;&#x771F;&#x6B63;&#x505C;&#x6B62;&#x5E94;&#x7528;&#x3002;</p>
+<p>&#x8FD9;&#x79CD;&#x5B8C;&#x7F8E;&#x7684;&#x5E94;&#x7528;&#x505C;&#x6B62;&#x65B9;&#x5F0F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5462;&#xFF1F;&#x5C31;Java&#x8BED;&#x8A00;&#x751F;&#x6001;&#x6765;&#x8BF4;&#xFF0C;&#x5E95;&#x5C42;&#x7684;&#x6280;&#x672F;&#x662F;&#x652F;&#x6301;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x624D;&#x80FD;&#x5B9E;&#x73B0;&#x5728;Java&#x8BED;&#x8A00;&#x4E4B;&#x4E0A;&#x7684;&#x5404;&#x4E2A;web&#x5BB9;&#x5668;&#x7684;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x3002;</p>
+<p>&#x5728;&#x666E;&#x901A;&#x7684;&#x5916;&#x7F6E;&#x7684;tomcat&#x4E2D;&#xFF0C;&#x6709;shutdown&#x811A;&#x672C;&#x63D0;&#x4F9B;&#x4F18;&#x96C5;&#x7684;&#x505C;&#x673A;&#x673A;&#x5236;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x5728;&#x4F7F;&#x7528;Spring boot&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x53D1;&#x73B0;web&#x5BB9;&#x5668;&#x90FD;&#x662F;&#x5185;&#x7F6E;&#xFF08;&#x5F53;&#x7136;&#x4E5F;&#x53EF;&#x4F7F;&#x7528;&#x5916;&#x7F6E;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x63A8;&#x8350;&#xFF09;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x63D0;&#x4F9B;&#x7B80;&#x5355;&#x7684;&#x5E94;&#x7528;&#x542F;&#x52A8;&#x65B9;&#x5F0F;&#xFF0C;&#x65B9;&#x4FBF;&#x7684;&#x7BA1;&#x7406;&#x673A;&#x5236;&#xFF0C;&#x975E;&#x5E38;&#x9002;&#x7528;&#x4E8E;&#x5FAE;&#x670D;&#x52A1;&#x5E94;&#x7528;&#x4E2D;&#xFF0C;&#x4F46;&#x662F;&#x9ED8;&#x8BA4;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x8FD9;&#x4E5F;&#x662F;&#x672C;&#x6587;&#x63A2;&#x7D22;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#x6839;&#x672C;&#x539F;&#x56E0;&#x3002;</p>
+<p>&#x5E94;&#x7528;&#x662F;&#x5426;&#x662F;&#x5B9E;&#x73B0;&#x4E86;&#x4F18;&#x96C5;&#x505C;&#x673A;&#xFF0C;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x9A8C;&#x8BC1;&#x5462;&#xFF1F;&#x8FD9;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x5904;&#x7406;&#x65F6;&#x95F4;&#x8F83;&#x957F;&#x7684;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#xFF0C;&#x6A21;&#x62DF;&#x8FD9;&#x6837;&#x7684;&#x903B;&#x8F91;&#x5E94;&#x8BE5;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F7F;&#x7528;&#x7EBF;&#x7A0B;sleep&#x6216;&#x8005;&#x957F;&#x65F6;&#x95F4;&#x5FAA;&#x73AF;&#x3002;&#x6211;&#x7684;&#x6A21;&#x62DF;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@GetMapping</span>(value = <span class="hljs-string">&quot;/sleep/one&quot;</span>, produces = <span class="hljs-string">&quot;application/json&quot;</span>)
+<span class="hljs-function"><span class="hljs-keyword">public</span> ResultEntity&lt;Long&gt; <span class="hljs-title">sleepOne</span><span class="hljs-params">(String systemNo)</span></span>{
+    logger.info(<span class="hljs-string">&quot;&#x6A21;&#x62DF;&#x4E1A;&#x52A1;&#x5904;&#x7406;1&#x5206;&#x949F;&#xFF0C;&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#xFF1A;{}&quot;</span>, systemNo);
+    Long serverTime = System.currentTimeMillis();
+    <span class="hljs-keyword">while</span> (System.currentTimeMillis() &lt; serverTime + (<span class="hljs-number">60</span> * <span class="hljs-number">1000</span>)){
+        logger.info(<span class="hljs-string">&quot;&#x6B63;&#x5728;&#x5904;&#x7406;&#x4E1A;&#x52A1;&#xFF0C;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#xFF1A;{}&#xFF0C;&#x5F00;&#x59CB;&#x65F6;&#x95F4;&#xFF1A;{}&quot;</span>, System.currentTimeMillis(), serverTime);
+    }
+    ResultEntity&lt;Long&gt; resultEntity = <span class="hljs-keyword">new</span> ResultEntity&lt;&gt;(serverTime);
+    logger.info(<span class="hljs-string">&quot;&#x6A21;&#x62DF;&#x4E1A;&#x52A1;&#x5904;&#x7406;1&#x5206;&#x949F;&#xFF0C;&#x54CD;&#x5E94;&#x53C2;&#x6570;&#xFF1A;{}&quot;</span>, resultEntity);    <span class="hljs-keyword">return</span> resultEntity;
+}
+</code></pre>
+<p>&#x9A8C;&#x8BC1;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#xFF0C;&#x5728;&#x89E6;&#x53D1;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x7684;&#x4E1A;&#x52A1;&#x5904;&#x7406;&#x4E4B;&#x540E;&#xFF0C;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x5904;&#x7406;&#x65F6;&#x95F4;&#x957F;&#x8FBE;1&#x5206;&#x949F;&#xFF0C;&#x9700;&#x8981;&#x5728;&#x5904;&#x7406;&#x7ED3;&#x675F;&#x524D;&#xFF0C;&#x53D1;&#x8D77;&#x505C;&#x6B62;&#x6307;&#x4EE4;&#xFF0C;&#x9A8C;&#x8BC1;&#x662F;&#x5426;&#x80FD;&#x591F;&#x6B63;&#x5E38;&#x8FD4;&#x56DE;&#x3002;&#x9A8C;&#x8BC1;&#x65F6;&#x6240;&#x4F7F;&#x7528;&#x7684;kill&#x6307;&#x4EE4;&#xFF1A;<code>kill -2&#xFF08;Ctrl + C&#xFF09;</code>&#x3001;<code>kill-15</code>&#x3001;<code>kill -9</code>&#x3002;</p>
+<h3 id="java-&#x8BED;&#x8A00;&#x7684;&#x4F18;&#x96C5;&#x505C;&#x673A;">Java &#x8BED;&#x8A00;&#x7684;&#x4F18;&#x96C5;&#x505C;&#x673A;</h3>
+<p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x4ECB;&#x7ECD;&#x4E2D;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#xFF0C;Java&#x8BED;&#x8A00;&#x672C;&#x8EAB;&#x662F;&#x652F;&#x6301;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x7684;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x5148;&#x4ECB;&#x7ECD;&#x4E00;&#x4E0B;&#x666E;&#x901A;&#x7684;java&#x5E94;&#x7528;&#x662F;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4F18;&#x96C5;&#x505C;&#x6B62;&#x7684;&#x3002;</p>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>kill PID</code>&#x7684;&#x65B9;&#x5F0F;&#x7ED3;&#x675F;&#x4E00;&#x4E2A;Java&#x5E94;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;JVM&#x4F1A;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x505C;&#x6B62;&#x4FE1;&#x53F7;&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;shutdownHook&#x7684;&#x7EBF;&#x7A0B;&#x3002;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x793A;&#x4F8B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShutdownHook</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Thread</span> </span>{    
+    <span class="hljs-keyword">private</span> Thread mainThread;    
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> shutDownSignalReceived; 
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">&quot;Shut down signal received.&quot;</span>);                       <span class="hljs-keyword">this</span>.shutDownSignalReceived=<span class="hljs-keyword">true</span>;
+        mainThread.interrupt();        
+        <span class="hljs-keyword">try</span> {
+            mainThread.join(); <span class="hljs-comment">//&#x5F53;&#x6536;&#x5230;&#x505C;&#x6B62;&#x4FE1;&#x53F7;&#x65F6;&#xFF0C;&#x7B49;&#x5F85;mainThread&#x7684;&#x6267;&#x884C;&#x5B8C;&#x6210;</span>
+        } <span class="hljs-keyword">catch</span> (InterruptedException e) {
+        }
+        System.out.println(<span class="hljs-string">&quot;Shut down complete.&quot;</span>);
+    }    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ShutdownHook</span><span class="hljs-params">(Thread mainThread)</span> </span>{        
+        <span class="hljs-keyword">super</span>();        
+        <span class="hljs-keyword">this</span>.mainThread = mainThread;        
+        <span class="hljs-keyword">this</span>.shutDownSignalReceived = <span class="hljs-keyword">false</span>;
+        Runtime.getRuntime().addShutdownHook(<span class="hljs-keyword">this</span>);
+    }    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">shouldShutDown</span><span class="hljs-params">()</span></span>{        
+        <span class="hljs-keyword">return</span> shutDownSignalReceived;
+    }
+}
+</code></pre>
+<p>&#x5176;&#x4E2D;&#x5173;&#x952E;&#x8BED;&#x53E5;<code>Runtime.getRuntime().addShutdownHook(this);</code>&#xFF0C;&#x6CE8;&#x518C;&#x4E00;&#x4E2A;JVM&#x5173;&#x95ED;&#x7684;&#x94A9;&#x5B50;&#xFF0C;&#x8FD9;&#x4E2A;&#x94A9;&#x5B50;&#x53EF;&#x4EE5;&#x5728;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#x573A;&#x666F;&#x88AB;&#x8C03;&#x7528;&#xFF1A;</p>
+<ol>
+<li>&#x7A0B;&#x5E8F;&#x6B63;&#x5E38;&#x9000;&#x51FA;</li>
+<li>&#x4F7F;&#x7528;System.exit()</li>
+<li>&#x7EC8;&#x7AEF;&#x4F7F;&#x7528;Ctrl+C&#x89E6;&#x53D1;&#x7684;&#x4E2D;&#x65AD;</li>
+<li>&#x7CFB;&#x7EDF;&#x5173;&#x95ED;</li>
+<li>&#x4F7F;&#x7528;Kill pid&#x547D;&#x4EE4;&#x5E72;&#x6389;&#x8FDB;&#x7A0B;</li>
+</ol>
+<p>&#x6D4B;&#x8BD5;shutdownHook&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x4EE3;&#x7801;&#x793A;&#x4F8B;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestMain</span> </span>{
+    <span class="hljs-keyword">private</span> ShutdownHook shutdownHook;    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">( String[] args )</span> </span>{
+        TestMain app = <span class="hljs-keyword">new</span> TestMain();
+        System.out.println( <span class="hljs-string">&quot;Hello World!&quot;</span> );
+        app.execute();
+        System.out.println( <span class="hljs-string">&quot;End of main()&quot;</span> );
+    }    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TestMain</span><span class="hljs-params">()</span></span>{        
+        <span class="hljs-keyword">this</span>.shutdownHook = <span class="hljs-keyword">new</span> ShutdownHook(Thread.currentThread());
+    }    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span></span>{        
+        <span class="hljs-keyword">while</span>(!shutdownHook.shouldShutDown()){
+            System.out.println(<span class="hljs-string">&quot;I am sleep&quot;</span>);            
+            <span class="hljs-keyword">try</span> {
+                Thread.sleep(<span class="hljs-number">1</span>*<span class="hljs-number">1000</span>);
+            } <span class="hljs-keyword">catch</span> (InterruptedException e) {
+                System.out.println(<span class="hljs-string">&quot;execute() interrupted&quot;</span>);
+            }
+            System.out.println(<span class="hljs-string">&quot;I am not sleep&quot;</span>);
+        }
+        System.out.println(<span class="hljs-string">&quot;end of execute()&quot;</span>);
+    }
+}
+</code></pre>
+<p>&#x542F;&#x52A8;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF0C;&#x4E4B;&#x540E;&#x518D;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x4E2D;&#x65AD;&#x4FE1;&#x53F7;&#xFF0C;&#x63A7;&#x5236;&#x53F0;&#x8F93;&#x51FA;&#xFF1A;</p>
+<pre><code class="lang-text">I am sleep
+I am not sleep
+I am sleep
+I am not sleep
+I am sleep
+I am not sleep
+I am sleep
+Shut down signal received.
+execute() interrupted
+I am not sleep
+end of execute()
+End of main()
+Shut down complete.
+
+Process finished with exit code 130 (interrupted by signal 2: SIGINT)
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x5728;&#x63A5;&#x6536;&#x5230;&#x4E2D;&#x65AD;&#x4FE1;&#x53F7;&#x4E4B;&#x540E;&#xFF0C;&#x6574;&#x4E2A;main&#x51FD;&#x6570;&#x662F;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x7684;&#x3002;</p>
+<h3 id="actuatorshutdown-of-spring-boot">actuator/shutdown of Spring boot</h3>
+<p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E86;java&#x672C;&#x8EAB;&#x5728;&#x652F;&#x6301;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x4E0A;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x7136;&#x540E;&#x5728;Spring boot&#x4E2D;&#x53C8;&#x53D1;&#x73B0;&#x4E86;<code>actuator/shutdown</code>&#x7684;&#x7BA1;&#x7406;&#x7AEF;&#x70B9;&#x3002;&#x4E8E;&#x662F;&#x6211;&#x628A;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x7684;&#x529F;&#x80FD;&#x5BC4;&#x5E0C;&#x671B;&#x4E8E;&#x6B64;&#xFF0C;&#x5F00;&#x59CB;&#x914D;&#x7F6E;&#x6D4B;&#x8BD5;&#xFF0C;&#x5F00;&#x542F;&#x914D;&#x7F6E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">management:</span>
+<span class="hljs-attr">  server:</span>
+<span class="hljs-attr">    port:</span> <span class="hljs-number">10212</span>
+<span class="hljs-attr">    servlet:</span>
+<span class="hljs-attr">      context-path:</span> /
+<span class="hljs-attr">    ssl:</span>
+<span class="hljs-attr">      enabled:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">  endpoints:</span>
+<span class="hljs-attr">    web:</span>
+<span class="hljs-attr">      exposure:</span>        
+<span class="hljs-attr">      include:</span> <span class="hljs-string">&quot;*&quot;</span>
+<span class="hljs-attr">  endpoint:</span>
+<span class="hljs-attr">    health:</span>
+<span class="hljs-attr">      show-details:</span> always
+<span class="hljs-attr">    shutdown:</span>
+<span class="hljs-attr">      enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment">#&#x542F;&#x7528;shutdown&#x7AEF;&#x70B9;</span>
+</code></pre>
+<p>&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x5F88;&#x5931;&#x671B;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x5C31;&#x662F;&#x5C06;&#x666E;&#x901A;&#x7684;kill&#x547D;&#x4EE4;&#xFF0C;&#x505A;&#x6210;&#x4E86;HTTP&#x7AEF;&#x70B9;&#x3002;&#x4E8E;&#x662F;&#x5F00;&#x59CB;&#x67E5;&#x770B;Spring boot&#x7684;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x548C;&#x6E90;&#x4EE3;&#x7801;&#xFF0C;&#x8BD5;&#x56FE;&#x627E;&#x5230;&#x5B83;&#x7684;&#x539F;&#x56E0;&#x3002;</p>
+<p>&#x5728;&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4E0A;&#x5BF9;shutdown&#x7AEF;&#x70B9;&#x7684;&#x4ECB;&#x7ECD;&#xFF1A;</p>
+<pre><code class="lang-text">shutdown    Lets the application be gracefully shutdown.
+</code></pre>
+<p>&#x4ECE;&#x6B64;&#x4ECB;&#x7ECD;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x8BBE;&#x8BA1;&#x4E0A;&#x5E94;&#x8BE5;&#x662F;&#x652F;&#x6301;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x7684;&#x3002;&#x4F46;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x73B0;&#x5728;&#x8FD8;&#x4E0D;&#x591F;&#x4F18;&#x96C5;&#xFF0C;&#x5728;github&#x4E0A;&#x6258;&#x7BA1;&#x7684;Spring boot&#x9879;&#x76EE;&#x4E2D;&#x53D1;&#x73B0;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;<a href="https://github.com/spring-projects/spring-boot/issues/4657" target="_blank">issue</a>&#x4E00;&#x76F4;&#x5904;&#x4E8E;&#x6253;&#x5F00;&#x72B6;&#x6001;&#xFF0C;&#x5DF2;&#x7ECF;&#x4E24;&#x5E74;&#x591A;&#x4E86;&#xFF0C;&#x91CC;&#x9762;&#x5F88;&#x591A;&#x8BA8;&#x8BBA;&#xFF0C;&#x770B;&#x5B8C;&#x4E4B;&#x540E;&#x53D1;&#x73B0;&#x5728;Spring boot&#x4E2D;&#x5B8C;&#x7F8E;&#x7684;&#x652F;&#x6301;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x4E0D;&#x662F;&#x4E00;&#x4EF6;&#x5BB9;&#x6613;&#x7684;&#x4E8B;&#xFF0C;&#x9996;&#x5148;Spring boot&#x652F;&#x6301;web&#x5BB9;&#x5668;&#x5F88;&#x591A;&#xFF0C;&#x5176;&#x6B21;&#x5BF9;&#x4EC0;&#x4E48;&#x6837;&#x7684;&#x5B9E;&#x73B0;&#x624D;&#x662F;&#x771F;&#x6B63;&#x7684;&#x4F18;&#x96C5;&#x505C;&#x673A;&#xFF0C;&#x8BA8;&#x8BBA;&#x4E86;&#x5F88;&#x591A;&#x3002;&#x60F3;&#x4E86;&#x89E3;&#x66F4;&#x591A;&#x7684;&#x540C;&#x5B66;&#xFF0C;&#x628A;&#x8FD9;&#x4E2A;issue&#x597D;&#x597D;&#x9605;&#x8BFB;&#x4E00;&#x4E0B;&#x3002;</p>
+<p>&#x8FD9;&#x4E2A;issue&#x4E2D;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x4FE1;&#x606F;&#xFF0C;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;issue&#x66FE;&#x7ECF;&#x88AB;&#x52A0;&#x5165;&#x5230;2.0.0&#x7684;milestone&#x4E2D;&#xFF0C;&#x540E;&#x6765;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x5B8C;&#x6210;&#x53C8;&#x79FB;&#x9664;&#x4E86;&#xFF0C;&#x73B0;&#x5728;&#x72B6;&#x6001;&#x662F;&#x88AB;&#x6DFB;&#x52A0;&#x5728;2.1.0&#x7684;milestone&#x4E2D;&#x3002;&#x6211;&#x6D4B;&#x8BD5;&#x7684;&#x7248;&#x672C;&#x662F;2.0.1&#xFF0C;&#x671F;&#x5F85;&#x5B98;&#x65B9;&#x7ED9;&#x51FA;&#x5B8C;&#x7F8E;&#x7684;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x65B9;&#x6848;&#x3002;</p>
+<h3 id="spring-boot-&#x4F18;&#x96C5;&#x505C;&#x673A;">Spring boot &#x4F18;&#x96C5;&#x505C;&#x673A;</h3>
+<p>&#x867D;&#x7136;&#x5B98;&#x65B9;&#x6682;&#x65F6;&#x8FD8;&#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x7684;&#x652F;&#x6301;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;&#x8FDB;&#x7A0B;&#x505C;&#x6B62;&#x5BF9;&#x4E1A;&#x52A1;&#x7684;&#x5F71;&#x54CD;&#xFF0C;&#x8FD8;&#x662F;&#x8981;&#x7ED9;&#x51FA;&#x80FD;&#x6EE1;&#x8DB3;&#x57FA;&#x672C;&#x9700;&#x6C42;&#x7684;&#x65B9;&#x6848;&#x6765;&#x3002;</p>
+<p>&#x9488;&#x5BF9;tomcat&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x662F;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> com.epay.demox.unipay.provider;
+<span class="hljs-keyword">import</span> org.apache.catalina.connector.Connector;
+<span class="hljs-keyword">import</span> org.slf4j.Logger;
+<span class="hljs-keyword">import</span> org.slf4j.LoggerFactory;
+<span class="hljs-keyword">import</span> org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
+<span class="hljs-keyword">import</span> org.springframework.context.ApplicationListener;
+<span class="hljs-keyword">import</span> org.springframework.context.event.ContextClosedEvent;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+<span class="hljs-keyword">import</span> java.util.concurrent.Executor;
+<span class="hljs-keyword">import</span> java.util.concurrent.ThreadPoolExecutor;
+<span class="hljs-keyword">import</span> java.util.concurrent.TimeUnit;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@Author</span>: guoyankui
+ * <span class="hljs-doctag">@DATE</span>: 2018/5/20 12:59 PM
+ *
+ * &#x4F18;&#x96C5;&#x5173;&#x95ED; Spring Boot tomcat
+ */</span><span class="hljs-meta">@Componentpublic</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GracefulShutdownTomcat</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TomcatConnectorCustomizer</span>, <span class="hljs-title">ApplicationListener</span>&lt;<span class="hljs-title">ContextClosedEvent</span>&gt; </span>{    
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Logger log = LoggerFactory.getLogger(GracefulShutdownTomcat.class);    
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> Connector connector;    
+     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> waitTime = <span class="hljs-number">30</span>;  
+
+     <span class="hljs-meta">@Override</span>
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">customize</span><span class="hljs-params">(Connector connector)</span> </span>{        
+         <span class="hljs-keyword">this</span>.connector = connector;
+     }    
+
+     <span class="hljs-meta">@Override</span>
+     <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onApplicationEvent</span><span class="hljs-params">(ContextClosedEvent contextClosedEvent)</span> </span>{ 
+         <span class="hljs-keyword">this</span>.connector.pause();
+         Executor executor = <span class="hljs-keyword">this</span>.connector.getProtocolHandler().getExecutor(); 
+         <span class="hljs-keyword">if</span> (executor <span class="hljs-keyword">instanceof</span> ThreadPoolExecutor) {           
+             <span class="hljs-keyword">try</span> {
+                ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executor;
+                threadPoolExecutor.shutdown();                
+                 <span class="hljs-keyword">if</span> (!threadPoolExecutor.awaitTermination(waitTime, TimeUnit.SECONDS)) {
+                    log.warn(<span class="hljs-string">&quot;Tomcat thread pool did not shut down gracefully within &quot;</span> + waitTime + <span class="hljs-string">&quot; seconds. Proceeding with forceful shutdown&quot;</span>);
+                }
+            } <span class="hljs-keyword">catch</span> (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+}
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnipayProviderApplication</span> </span>{    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        SpringApplication.run(UnipayProviderApplication.class);
+    }    
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> GracefulShutdownTomcat gracefulShutdownTomcat;    
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> ServletWebServerFactory <span class="hljs-title">servletContainer</span><span class="hljs-params">()</span> </span>{
+        TomcatServletWebServerFactory tomcat = <span class="hljs-keyword">new</span> TomcatServletWebServerFactory();
+        tomcat.addConnectorCustomizers(gracefulShutdownTomcat);        
+        <span class="hljs-keyword">return</span> tomcat;
+    }
+}
+</code></pre>
+<p>&#x8BE5;&#x65B9;&#x6848;&#x7684;&#x4EE3;&#x7801;&#x6765;&#x81EA;&#x5B98;&#x65B9;issue&#x4E2D;&#x7684;&#x8BA8;&#x8BBA;&#xFF0C;&#x6DFB;&#x52A0;&#x8FD9;&#x4E9B;&#x4EE3;&#x7801;&#x5230;&#x4F60;&#x7684;Spring boot&#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x91CD;&#x65B0;&#x542F;&#x52A8;&#x4E4B;&#x540E;&#xFF0C;&#x53D1;&#x8D77;&#x6D4B;&#x8BD5;&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x53D1;&#x9001;kill&#x505C;&#x6B62;&#x6307;&#x4EE4;&#xFF08;<code>kill -2&#xFF08;Ctrl + C&#xFF09;</code>&#x3001;<code>kill -15</code>&#xFF09;&#x3002;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#xFF1A;</p>
+<ol>
+<li>Spring boot&#x7684;&#x5065;&#x5EB7;&#x68C0;&#x67E5;&#xFF0C;&#x4E3A;<code>UP</code>&#x3002;</li>
+<li>&#x6B63;&#x5728;&#x6267;&#x884C;&#x64CD;&#x4F5C;&#x4E0D;&#x4F1A;&#x7EC8;&#x6B62;&#xFF0C;&#x76F4;&#x5230;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x3002;</li>
+<li>&#x4E0D;&#x518D;&#x63A5;&#x6536;&#x65B0;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x62A5;&#x9519;&#x4FE1;&#x606F;&#x4E3A;&#xFF1A;<code>Connection reset by peer</code>&#x3002;</li>
+<li>&#x6700;&#x540E;&#x6B63;&#x5E38;&#x7EC8;&#x6B62;&#x8FDB;&#x7A0B;&#xFF08;&#x4E1A;&#x52A1;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x7ACB;&#x5373;&#x8FDB;&#x7A0B;&#x505C;&#x6B62;&#xFF09;&#x3002;</li>
+</ol>
+<p>&#x4ECE;&#x6D4B;&#x8BD5;&#x7ED3;&#x679C;&#x6765;&#x770B;&#xFF0C;&#x662F;&#x6EE1;&#x8DB3;&#x6211;&#x4EEC;&#x7684;&#x9700;&#x6C42;&#x7684;&#x3002;&#x5F53;&#x7136;&#x5982;&#x679C;&#x53D1;&#x9001;&#x6307;&#x4EE4;<code>kill -9</code>&#xFF0C;&#x8FDB;&#x7A0B;&#x4F1A;&#x7ACB;&#x5373;&#x505C;&#x6B62;&#x3002;</p>
+<h3 id="&#x7ED3;&#x675F;">&#x7ED3;&#x675F;</h3>
+<p>&#x5230;&#x6B64;&#x4E3A;&#x6B62;&#xFF0C;&#x5BF9;Java&#x548C;Spring boot&#x5E94;&#x7528;&#x7684;&#x4F18;&#x96C5;&#x505C;&#x673A;&#x673A;&#x5236;&#x6709;&#x4E86;&#x57FA;&#x672C;&#x7684;&#x8BA4;&#x8BC6;&#x3002;&#x867D;&#x7136;&#x5B9E;&#x73B0;&#x4E86;&#x9700;&#x6C42;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x5176;&#x4E2D;&#x8FD8;&#x6709;&#x5F88;&#x591A;&#x77E5;&#x8BC6;&#x70B9;&#x9700;&#x8981;&#x63A2;&#x7D22;&#xFF0C;&#x6BD4;&#x5982;Spring&#x4E0A;&#x4E0B;&#x6587;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x4E0A;&#x4E0B;&#x6587;&#x5173;&#x95ED;&#x4E8B;&#x4EF6;&#x7B49;&#xFF0C;&#x8FD8;&#x6709;undertow&#x63D0;&#x4F9B;&#x7684;<code>GracefulShutdownHandler</code>&#x7684;&#x539F;&#x7406;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x662F;1&#x5206;&#x949F;&#x4E4B;&#x540E;&#x8FDB;&#x7A0B;&#x518D;&#x505C;&#x6B62;&#xFF0C;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#x7B49;&#x7814;&#x7A76;&#x660E;&#x767D;&#xFF0C;&#x518D;&#x6765;&#x4E00;&#x7BC7;&#x7EED;&#x3002;&#x5982;&#x679C;&#x53C8;&#x54EA;&#x4F4D;&#x540C;&#x5B66;&#x80FD;&#x89E3;&#x7B54;&#x6211;&#x7684;&#x7591;&#x60D1;&#xFF0C;&#x8BF7;&#x5728;&#x8BC4;&#x8BBA;&#x533A;&#x7559;&#x8A00;&#x3002;</p>
+<h3 id="&#x53C2;&#x8003;&#xFF1A;">&#x53C2;&#x8003;&#xFF1A;</h3>
+<p><a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-zookeeper/2.1.0.RC2/single/spring-cloud-zookeeper.html#_instance_status" target="_blank">https://cloud.spring.io/spring-cloud-static/spring-cloud-zookeeper/2.1.0.RC2/single/spring-cloud-zookeeper.html#_instance_status</a></p>
+<p><a href="https://www.imooc.com/article/47291" target="_blank">https://www.imooc.com/article/47291</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 前言">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html" class="navigation navigation-next " aria-label="Next page: Spring boot 2.0 之优雅停机二">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"spring boot 框架在生产环境使用的有一段时间了，它“约定大于配置”的特性，体现了优雅流畅的开发过程，它的部署启动方式（java -jar xxx.jar）也很优雅。但是我使用的停止应用的方式是 kill -9 进程号，即使写了脚本，还是显得有些粗鲁。这样的应用停止方式，在停止的那一霎那，应用中正在处理的业务逻辑会被中断，导致产生业务异常情形。这种情况如何避免，本文介绍的优雅停机，将完美解","title":"Spring boot 2.0 之优雅停机一","level":"1.2","depth":1,"next":{"title":"Spring boot 2.0 之优雅停机二","level":"1.3","depth":1,"path":"spring-boot-2.0-zhi-you-ya-ting-ji-er.md","ref":"spring-boot-2.0-zhi-you-ya-ting-ji-er.md","articles":[]},"previous":{"title":"前言","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1_spring_boot_stop_1.md","mtime":"2019-01-31T08:06:53.717Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-31T08:46:48.370Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,703 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Spring Could中基于Zookeeper的分布式锁实现 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="分布式锁一般有三种实现方式：1. 数据库乐观锁；2. 基于Redis的分布式锁；3. 基于ZooKeeper的分布式锁。基于Redis分布式锁的实现可以参照Redis分布式锁的正确实现方式&及错误使用示例">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html" />
+    
+    
+    <link rel="prev" href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1_spring_boot_stop_1.html">
+            
+                <a href="1_spring_boot_stop_1.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机一
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机二
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                <a href="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                    
+                    前端：SheetJs 赋能页面与 Excel 文件交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                    
+                    程序员健康指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                <a href="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                    
+                    Springboot devtool远程应用功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                    
+                    spring拓展点之ObjectFactory
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                    
+                    SpringBoot几种定时任务的实现方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                    
+                    Spring Boot快捷读取文件内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.10" data-path="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                    
+                    Spring Could中基于Zookeeper的分布式锁实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                    
+                    spring cloud feign 实现复杂请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                <a href="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                    
+                    Springboot——用更优雅的方式发HTTP请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                <a href="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                    
+                    Redis分布式锁的正确实现方式&及错误使用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                <a href="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                    
+                    使用javaagent操作字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                    
+                    如何把if-else代码重构成高质量代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="da-jian-spring-cloud-gateway.html">
+            
+                <a href="da-jian-spring-cloud-gateway.html">
+            
+                    
+                    搭建spring cloud gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                    
+                    Java8 CompletableFuture: 组合式异步编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="geng-hao-de-tiao-shi-java-stream.html">
+            
+                <a href="geng-hao-de-tiao-shi-java-stream.html">
+            
+                    
+                    更好的调试 Java Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Spring Could中基于Zookeeper的分布式锁实现</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="spring-could&#x4E2D;&#x57FA;&#x4E8E;zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;">Spring Could&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;</h1>
+<h3 id="zookeeper&#x4E2D;&#x7684;2&#x4E2A;&#x91CD;&#x8981;&#x7279;&#x6027;-">Zookeeper&#x4E2D;&#x7684;2&#x4E2A;&#x91CD;&#x8981;&#x7279;&#x6027; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-Zookeeper&#x4E2D;&#x7684;2&#x4E2A;&#x91CD;&#x8981;&#x7279;&#x6027;"></a></h3>
+<h4 id="1&#x3001;zookeeper&#x7684;&#x6587;&#x4EF6;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;-">1&#x3001;Zookeeper&#x7684;&#x6587;&#x4EF6;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-1&#x3001;Zookeeper&#x7684;&#x6587;&#x4EF6;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;"></a></h4>
+<p>&#x6BCF;&#x4E2A;&#x5B50;&#x76EE;&#x5F55;&#x9879;&#x5982; NameService &#x90FD;&#x88AB;&#x79F0;&#x4F5C;&#x4E3A;znode&#xFF0C;&#x548C;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E00;&#x6837;&#xFF0C;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x81EA;&#x7531;&#x7684;&#x589E;&#x52A0;&#x3001;&#x5220;&#x9664;znode&#xFF0C;&#x5728;&#x4E00;&#x4E2A;znode&#x4E0B;&#x589E;&#x52A0;&#x3001;&#x5220;&#x9664;&#x5B50;znode&#xFF0C;&#x552F;&#x4E00;&#x7684;&#x4E0D;&#x540C;&#x5728;&#x4E8E;znode&#x662F;&#x53EF;&#x4EE5;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x7684;&#x3002; znode&#x4E0B;&#x7684;value&#x9ED8;&#x8BA4;&#x6700;&#x5927;&#x4E3A;1M&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#x3002;&#x6709;&#x56DB;&#x79CD;&#x7C7B;&#x578B;&#x7684;znode&#xFF1A;</p>
+<ul>
+<li>PERSISTENT-&#x6301;&#x4E45;&#x5316;&#x76EE;&#x5F55;&#x8282;&#x70B9;  &#x5BA2;&#x6237;&#x7AEF;&#x4E0E;zookeeper&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x540E;&#xFF0C;&#x8BE5;&#x8282;&#x70B9;&#x4F9D;&#x65E7;&#x5B58;&#x5728;</li>
+<li>PERSISTENT_SEQUENTIAL-&#x6301;&#x4E45;&#x5316;&#x987A;&#x5E8F;&#x7F16;&#x53F7;&#x76EE;&#x5F55;&#x8282;&#x70B9;  &#x5BA2;&#x6237;&#x7AEF;&#x4E0E;zookeeper&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x540E;&#xFF0C;&#x8BE5;&#x8282;&#x70B9;&#x4F9D;&#x65E7;&#x5B58;&#x5728;&#xFF0C;&#x53EA;&#x662F;Zookeeper&#x7ED9;&#x8BE5;&#x8282;&#x70B9;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x987A;&#x5E8F;&#x7F16;&#x53F7;</li>
+<li>EPHEMERAL-&#x4E34;&#x65F6;&#x76EE;&#x5F55;&#x8282;&#x70B9;  &#x5BA2;&#x6237;&#x7AEF;&#x4E0E;zookeeper&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x540E;&#xFF0C;&#x8BE5;&#x8282;&#x70B9;&#x88AB;&#x5220;&#x9664;</li>
+<li>EPHEMERAL_SEQUENTIAL-&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x7F16;&#x53F7;&#x76EE;&#x5F55;&#x8282;&#x70B9; &#x5BA2;&#x6237;&#x7AEF;&#x4E0E;zookeeper&#x65AD;&#x5F00;&#x8FDE;&#x63A5;&#x540E;&#xFF0C;&#x8BE5;&#x8282;&#x70B9;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x53EA;&#x662F;Zookeeper&#x7ED9;&#x8BE5;&#x8282;&#x70B9;&#x540D;&#x79F0;&#x8FDB;&#x884C;&#x987A;&#x5E8F;&#x7F16;&#x53F7;</li>
+</ul>
+<h4 id="2&#x3001;zookeeper&#x901A;&#x77E5;&#x673A;&#x5236;-">2&#x3001;Zookeeper&#x901A;&#x77E5;&#x673A;&#x5236; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-2&#x3001;Zookeeper&#x901A;&#x77E5;&#x673A;&#x5236;"></a></h4>
+<p>&#x5BA2;&#x6237;&#x7AEF;&#x6CE8;&#x518C;&#x76D1;&#x542C;&#x5B83;&#x5173;&#x5FC3;&#x7684;&#x76EE;&#x5F55;&#x8282;&#x70B9;&#xFF0C;&#x5F53;&#x76EE;&#x5F55;&#x8282;&#x70B9;&#x53D1;&#x751F;&#x53D8;&#x5316;&#xFF08;&#x6570;&#x636E;&#x6539;&#x53D8;&#x3001;&#x88AB;&#x5220;&#x9664;&#x3001;&#x5B50;&#x76EE;&#x5F55;&#x8282;&#x70B9;&#x589E;&#x52A0;&#x5220;&#x9664;&#xFF09;&#x65F6;&#xFF0C;zookeeper&#x4F1A;&#x901A;&#x77E5;&#x5BA2;&#x6237;&#x7AEF;&#x3002;</p>
+<h3 id="&#x57FA;&#x4E8E;zookeeper&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;-">&#x57FA;&#x4E8E;Zookeeper&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x57FA;&#x4E8E;Zookeeper&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;"></a></h3>
+<p>&#x5229;&#x7528;Zookeeper&#x7684;&#x4EE5;&#x4E0A;2&#x4E2A;&#x7279;&#x6027;&#xFF0C;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#x5927;&#x6982;&#x6709;3&#x4E2D;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<h4 id="1&#x3001;&#x65B9;&#x6848;&#x4E00;&#xFF1A;&#x5229;&#x7528;zookeeper&#x4E2D;&#x8282;&#x70B9;&#x7684;&#x552F;&#x4E00;&#x6027;&#x6765;&#x5B9E;&#x73B0;-">1&#x3001;&#x65B9;&#x6848;&#x4E00;&#xFF1A;&#x5229;&#x7528;Zookeeper&#x4E2D;&#x8282;&#x70B9;&#x7684;&#x552F;&#x4E00;&#x6027;&#x6765;&#x5B9E;&#x73B0; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-1&#x3001;&#x65B9;&#x6848;&#x4E00;&#xFF1A;&#x5229;&#x7528;Zookeeper&#x4E2D;&#x8282;&#x70B9;&#x7684;&#x552F;&#x4E00;&#x6027;&#x6765;&#x5B9E;&#x73B0;"></a></h4>
+<p>Zookeeper&#x4E2D;&#x7684;&#x8282;&#x70B9;&#x5177;&#x6709;&#x552F;&#x4E00;&#x6027;&#xFF0C;&#x5229;&#x7528;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EA;&#x9700;&#x8981;&#x5FAA;&#x73AF;&#x521B;&#x5EFA;&#x540C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;(&#x4E34;&#x65F6;&#x8282;&#x70B9;)&#xFF0C;&#x521B;&#x5EFA;&#x6210;&#x529F;&#x5373;&#x8868;&#x793A;&#x83B7;&#x53D6;&#x4E86;&#x9501;&#xFF0C;&#x521B;&#x5EFA;&#x5931;&#x8D25;&#x5219;&#x81EA;&#x65CB;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x6848;&#x7684;&#x6B63;&#x786E;&#x6027;&#x548C;&#x53EF;&#x9760;&#x6027;&#x662F;ZooKeeper&#x673A;&#x5236;&#x4FDD;&#x8BC1;&#x7684;&#xFF0C;&#x5B9E;&#x73B0;&#x7B80;&#x5355;&#x3002;&#x7F3A;&#x70B9;&#x662F;&#x4F1A;&#x4EA7;&#x751F;&#x201C;&#x60CA;&#x7FA4;&#x201D;&#x6548;&#x5E94;&#xFF0C;&#x5047;&#x5982;&#x8BB8;&#x591A;&#x5BA2;&#x6237;&#x7AEF;&#x5728;&#x7B49;&#x5F85;&#x4E00;&#x628A;&#x9501;&#xFF0C;&#x5F53;&#x9501;&#x91CA;&#x653E;&#x65F6;&#x5019;&#x6240;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#x90FD;&#x88AB;&#x5524;&#x9192;&#xFF0C;&#x4EC5;&#x4EC5;&#x6709;&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x5F97;&#x5230;&#x9501;&#x3002;</p>
+<h4 id="2&#x3001;&#x65B9;&#x6848;&#x4E8C;&#xFF1A;&#x5229;&#x7528;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x5B9E;&#x73B0;-">2&#x3001;&#x65B9;&#x6848;&#x4E8C;&#xFF1A;&#x5229;&#x7528;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x5B9E;&#x73B0; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-2&#x3001;&#x65B9;&#x6848;&#x4E8C;&#xFF1A;&#x5229;&#x7528;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x5B9E;&#x73B0;"></a></h4>
+<ul>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x8C03;&#x7528;create()&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x540D;&#x4E3A;&#x201C;locknode/guid-lock-&#x201D;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8FD9;&#x91CC;&#x8282;&#x70B9;&#x7684;&#x521B;&#x5EFA;&#x7C7B;&#x578B;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x4E3A;EPHEMERAL_SEQUENTIAL&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x8C03;&#x7528;getChildren(&#x201C;locknode&#x201D;)&#x65B9;&#x6CD5;&#x6765;&#x83B7;&#x53D6;&#x6240;&#x6709;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#x7684;&#x5B50;&#x8282;&#x70B9;&#xFF0C;&#x540C;&#x65F6;&#x5728;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x6CE8;&#x518C;&#x4E0A;&#x5B50;&#x8282;&#x70B9;&#x53D8;&#x66F4;&#x901A;&#x77E5;&#x7684;Watcher&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x83B7;&#x53D6;&#x5230;&#x6240;&#x6709;&#x5B50;&#x8282;&#x70B9;path&#x4E4B;&#x540E;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x81EA;&#x5DF1;&#x5728;&#x6B65;&#x9AA4;1&#x4E2D;&#x521B;&#x5EFA;&#x7684;&#x8282;&#x70B9;&#x662F;&#x6240;&#x6709;&#x8282;&#x70B9;&#x4E2D;&#x5E8F;&#x53F7;&#x6700;&#x5C0F;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x8BA4;&#x4E3A;&#x8FD9;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x83B7;&#x5F97;&#x4E86;&#x9501;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5728;&#x6B65;&#x9AA4;3&#x4E2D;&#x53D1;&#x73B0;&#x81EA;&#x5DF1;&#x5E76;&#x975E;&#x662F;&#x6240;&#x6709;&#x5B50;&#x8282;&#x70B9;&#x4E2D;&#x6700;&#x5C0F;&#x7684;&#xFF0C;&#x8BF4;&#x660E;&#x81EA;&#x5DF1;&#x8FD8;&#x6CA1;&#x6709;&#x83B7;&#x53D6;&#x5230;&#x9501;&#xFF0C;&#x5C31;&#x5F00;&#x59CB;&#x7B49;&#x5F85;&#xFF0C;&#x76F4;&#x5230;&#x4E0B;&#x6B21;&#x5B50;&#x8282;&#x70B9;&#x53D8;&#x66F4;&#x901A;&#x77E5;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x518D;&#x8FDB;&#x884C;&#x5B50;&#x8282;&#x70B9;&#x7684;&#x83B7;&#x53D6;&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x83B7;&#x53D6;&#x9501;&#x3002;</li>
+</ul>
+<p>&#x7531;&#x4E8E;&#x8FD9;&#x79CD;&#x65B9;&#x6848;&#x4E0B;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x4F9D;&#x7136;&#x8981;&#x5173;&#x6CE8;&#x548C;&#x81EA;&#x5DF1;&#x65E0;&#x5173;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x5E76;&#x6CA1;&#x6709;&#x907F;&#x514D;&#x201C;&#x60CA;&#x7FA4;&#x73B0;&#x8C61;&#x201D;&#x3002;&#x8FDB;&#x4E00;&#x6B65;&#x601D;&#x8003;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5224;&#x65AD;&#x81EA;&#x5DF1;&#x662F;&#x5426;&#x662F;&#x6240;&#x6709;&#x8282;&#x70B9;&#x4E2D;&#x5E8F;&#x53F7;&#x6700;&#x5C0F;&#x7684;&#xFF0C;&#x4E8E;&#x662F;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x53EF;&#x4EE5;&#x8054;&#x60F3;&#x7684;&#x5230;&#x7684;&#x662F;&#xFF0C;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x521B;&#x5EFA;&#x8005;&#x53EA;&#x9700;&#x8981;&#x5173;&#x6CE8;&#x6BD4;&#x81EA;&#x5DF1;&#x5E8F;&#x53F7;&#x5C0F;&#x7684;&#x90A3;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x513F;&#x65E0;&#x987B;&#x5173;&#x6CE8;&#x6240;&#x6709;&#x7684;&#x8282;&#x70B9;</p>
+<h4 id="3&#x3001;&#x65B9;&#x6848;&#x4E09;&#xFF1A;&#x5229;&#x7528;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x7684;&#x6539;&#x8FDB;&#x5B9E;&#x73B0;-">3&#x3001;&#x65B9;&#x6848;&#x4E09;&#xFF1A;&#x5229;&#x7528;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x7684;&#x6539;&#x8FDB;&#x5B9E;&#x73B0; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-3&#x3001;&#x65B9;&#x6848;&#x4E09;&#xFF1A;&#x5229;&#x7528;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x7684;&#x6539;&#x8FDB;&#x5B9E;&#x73B0;"></a></h4>
+<ul>
+<li>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x6C38;&#x4E45;&#x8282;&#x70B9;&#x4F5C;&#x4E3A;&#x9501;&#x8282;&#x70B9;&#xFF0C;&#x8BD5;&#x56FE;&#x52A0;&#x9501;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x5728;&#x9501;&#x8282;&#x70B9;&#x4E0B;&#x521B;&#x5EFA;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x3002;Zookeeper&#x4F1A;&#x4FDD;&#x8BC1;&#x5B50;&#x8282;&#x70B9;&#x7684;&#x6709;&#x5E8F;&#x6027;&#x3002;</li>
+<li>&#x82E5;&#x9501;&#x8282;&#x70B9;&#x4E0B;id&#x6700;&#x5C0F;&#x7684;&#x8282;&#x70B9;&#x662F;&#x4E3A;&#x5F53;&#x524D;&#x5BA2;&#x6237;&#x7AEF;&#x521B;&#x5EFA;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x8BF4;&#x660E;&#x5F53;&#x524D;&#x5BA2;&#x6237;&#x7AEF;&#x6210;&#x529F;&#x52A0;&#x9501;&#x3002;</li>
+<li>&#x5426;&#x5219;&#x52A0;&#x9501;&#x5931;&#x8D25;&#xFF0C;&#x8BA2;&#x9605;&#x4E0A;&#x4E00;&#x4E2A;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#x3002;&#x5F53;&#x4E0A;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x88AB;&#x5220;&#x9664;&#x65F6;&#xFF0C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E3A;&#x6700;&#x5C0F;&#xFF0C;&#x8BF4;&#x660E;&#x52A0;&#x9501;&#x6210;&#x529F;&#x3002;</li>
+<li>&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5220;&#x9664;&#x9501;&#x8282;&#x70B9;&#x91CA;&#x653E;&#x9501;&#x3002;</li>
+</ul>
+<p>&#x4F7F;&#x7528;&#x8BE5;&#x65B9;&#x6848;&#x4E0D;&#x4F46;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x7684;&#x907F;&#x514D;&#x201C;&#x60CA;&#x7FA4;&#x73B0;&#x8C61;&#x201D;&#xFF0C;&#x540C;&#x65F6;&#x7531;&#x4E8E;&#x8BE5;&#x65B9;&#x6848;&#x4F18;&#x5148;&#x6392;&#x961F;&#x7B49;&#x5F85;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x4F1A;&#x5148;&#x83B7;&#x5F97;&#x9501;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x5B9E;&#x73B0;&#x4E86;&#x516C;&#x5E73;&#x9501;</p>
+<p><img src=".gitbook/assets/20190131_04.png" alt=""></p>
+<h4 id="&#x76F4;&#x63A5;&#x4F7F;&#x7528;zookeeper&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;-">&#x76F4;&#x63A5;&#x4F7F;&#x7528;Zookeeper&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x4EE3;&#x7801;&#x5B9E;&#x73B0; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x76F4;&#x63A5;&#x4F7F;&#x7528;Zookeeper&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;"></a></h4>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> zk;
+
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.Arrays;
+<span class="hljs-keyword">import</span> java.util.Collections;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.concurrent.ExecutorService;
+<span class="hljs-keyword">import</span> java.util.concurrent.Executors;
+
+<span class="hljs-keyword">import</span> org.apache.commons.lang3.StringUtils;
+<span class="hljs-keyword">import</span> org.apache.zookeeper.*;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> finley
+ */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ZKLock</span> </span>{
+
+    <span class="hljs-keyword">private</span> ZooKeeper zk;
+
+    <span class="hljs-keyword">private</span> String basePath;
+
+    <span class="hljs-keyword">private</span> String lockPath;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">byte</span>[] LOCK_DATA = <span class="hljs-string">&quot;&quot;</span>.getBytes();
+
+    <span class="hljs-comment">// zk &#x4E3A;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x5B9E;&#x4F8B;, basePath &#x4E3A;&#x9501;&#x8282;&#x70B9;&#x8DEF;&#x5F84;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x5728; basePath &#x4E0B;&#x521B;&#x5EFA;&#x987A;&#x5E8F;&#x5B50;&#x8282;&#x70B9;</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ZKLock</span><span class="hljs-params">(ZooKeeper zk, String basePath)</span> </span>{
+        <span class="hljs-comment">// &#x6309;&#x7167; zk &#x7684;&#x8DEF;&#x5F84;&#x89C4;&#x5219;&#xFF0C;&#x4EE5;&apos;/&apos;&#x5F00;&#x59CB;&#xFF0C;&#x4E0D;&#x5F97;&#x4EE5;&apos;/&apos;&#x7ED3;&#x675F;</span>
+        <span class="hljs-keyword">if</span> (basePath.endsWith(<span class="hljs-string">&quot;/&quot;</span>) || !basePath.startsWith(<span class="hljs-string">&quot;/&quot;</span>)) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;base path must start with &apos;/&apos;, and must not end with &apos;/&apos;&quot;</span>);
+        }
+        <span class="hljs-keyword">this</span>.zk = zk;
+        <span class="hljs-keyword">this</span>.basePath = basePath;
+    }
+
+    <span class="hljs-comment">// &#x68C0;&#x6D4B; basePath &#x8282;&#x70B9;&#x662F;&#x5426;&#x5B58;&#x5728;, &#x82E5;&#x4E0D;&#x5B58;&#x5728;&#x5219;&#x521B;&#x5EFA;</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ensureBasePath</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> KeeperException, InterruptedException </span>{
+        <span class="hljs-keyword">if</span> (zk.exists(basePath, <span class="hljs-keyword">false</span>) == <span class="hljs-keyword">null</span>) {
+            <span class="hljs-comment">// basePath &#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x8FDB;&#x884C;&#x521B;&#x5EFA;</span>
+            List&lt;String&gt; pathParts = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(basePath.split(<span class="hljs-string">&quot;/&quot;</span>))); <span class="hljs-comment">// &#x5C06;&#x8DEF;&#x5F84;&#x5904;&#x7406;&#x4E3A;&#x8282;&#x70B9;&#x5217;&#x8868;</span>
+            pathParts.remove(<span class="hljs-number">0</span>); <span class="hljs-comment">//&#x56E0;&#x4E3A; basePath &#x4EE5;&apos;/&apos;&#x5F00;&#x59CB;, pathParts[0] &#x4E00;&#x5B9A;&#x662F;&#x7A7A;&#x4E32;&#xFF0C;&#x5C06;&#x5176;&#x79FB;&#x9664;</span>
+
+            <span class="hljs-comment">// &#x81EA;&#x5E95;&#x5411;&#x4E0A;&#xFF0C;&#x5BFB;&#x627E;&#x8DEF;&#x5F84;&#x4E2D;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5B58;&#x5728;&#x7684;&#x8282;&#x70B9;</span>
+            <span class="hljs-keyword">int</span> last = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = pathParts.size() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) {
+                String path = <span class="hljs-string">&quot;/&quot;</span> + StringUtils.join(pathParts.subList(<span class="hljs-number">0</span>, i), <span class="hljs-string">&apos;/&apos;</span>);
+                <span class="hljs-keyword">if</span> (zk.exists(path, <span class="hljs-keyword">false</span>) != <span class="hljs-keyword">null</span>) {
+                    last = i;
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+
+            <span class="hljs-comment">// &#x4ECE;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5B58;&#x5728;&#x7684;&#x8282;&#x70B9;&#x5F00;&#x59CB;&#xFF0C;&#x4F9D;&#x6B21;&#x521B;&#x5EFA;&#x8282;&#x70B9;</span>
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = last; i &lt; pathParts.size(); i++) {
+                String path = <span class="hljs-string">&quot;/&quot;</span> + StringUtils.join(pathParts.subList(<span class="hljs-number">0</span>, i + <span class="hljs-number">1</span>), <span class="hljs-string">&apos;/&apos;</span>);
+                <span class="hljs-keyword">try</span> {
+                    zk.create(path, LOCK_DATA, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+                } <span class="hljs-keyword">catch</span> (KeeperException.NodeExistsException ignore) {} <span class="hljs-comment">// may created by other thread</span>
+            }
+
+        }
+    }
+
+    <span class="hljs-comment">// &#x963B;&#x585E;&#x76F4;&#x81F3;&#x52A0;&#x9501;&#x6210;&#x529F;</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> KeeperException, InterruptedException </span>{
+        ensureBasePath();
+
+        <span class="hljs-comment">// &#x5728; basePath &#x4E0B;&#x521B;&#x5EFA;&#x4E34;&#x65F6;&#x987A;&#x5E8F;&#x5B50;&#x8282;&#x70B9;</span>
+        String lockPath = zk.create(basePath + <span class="hljs-string">&quot;/lock_&quot;</span>, LOCK_DATA, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+
+        System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot; create: &quot;</span> + lockPath);
+
+        <span class="hljs-comment">// &#x5FAA;&#x73AF;&#x68C0;&#x67E5;&#x52A0;&#x9501;&#x662F;&#x5426;&#x6210;&#x529F;</span>
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>) {
+            <span class="hljs-comment">// &#x53D6;&#x51FA; basePath &#x4E2D;&#x6240;&#x6709;&#x8282;&#x70B9;&#x5E76;&#x627E;&#x5230;&#x6700;&#x5C0F;&#x5B50;&#x8282;&#x70B9;</span>
+            <span class="hljs-comment">// &#x56E0;&#x4E3A;&#x987A;&#x5E8F;&#x5B50;&#x8282;&#x70B9;&#x603B;&#x662F;&#x9012;&#x589E;&#x7684;&#xFF0C;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x8282;&#x70B9;&#x4E00;&#x5B9A;&#x6BD4;&#x5F53;&#x524D; lockPath &#x66F4;&#x5927;&#xFF0C;&#x6240;&#x4EE5; create &#x548C; getChildren &#x4E24;&#x4E2A;&#x64CD;&#x4F5C;&#x4E0D;&#x4FDD;&#x6301;&#x539F;&#x5B50;&#x6027;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x5F02;&#x5E38;</span>
+            List&lt;String&gt; children = zk.getChildren(basePath,<span class="hljs-keyword">false</span>);
+            Collections.sort(children);
+            String minNode = children.get(<span class="hljs-number">0</span>);
+
+            <span class="hljs-comment">// &#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x521B;&#x5EFA;&#x4E86;&#x6700;&#x5C0F;&#x5B50;&#x8282;&#x70B9;&#xFF0C;&#x52A0;&#x9501;&#x6210;&#x529F;</span>
+            <span class="hljs-keyword">if</span> (StringUtils.isNotBlank(lockPath) &amp;&amp; StringUtils.isNotBlank(minNode) &amp;&amp; StringUtils.equals(lockPath, basePath + <span class="hljs-string">&quot;/&quot;</span> + minNode) {
+                <span class="hljs-keyword">this</span>.lockPath = lockPath; <span class="hljs-comment">// &#x52A0;&#x9501;&#x6210;&#x529F;&#xFF0C;&#x5199;&#x5165;&#x9501;&#x8DEF;&#x5F84;</span>
+                <span class="hljs-keyword">return</span>;
+            }
+
+            <span class="hljs-comment">// &#x52A0;&#x9501;&#x5931;&#x8D25;&#xFF0C;&#x8BBE;&#x7F6E; watch</span>
+            String watchNode = <span class="hljs-keyword">null</span>;
+            String node = lockPath.substring(lockPath.lastIndexOf(<span class="hljs-string">&quot;/&quot;</span>) + <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = children.size() - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) {
+                String child = children.get(i);
+                <span class="hljs-keyword">if</span> (child.compareTo(node) &lt; <span class="hljs-number">0</span>) {
+                    watchNode = child;
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+
+            <span class="hljs-comment">// &#x627E;&#x5230;&#x9700;&#x8981;&#x76D1;&#x89C6;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x8BBE;&#x7F6E; watch</span>
+            <span class="hljs-keyword">if</span> (watchNode != <span class="hljs-keyword">null</span>) {
+                System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot; watch: &quot;</span> + watchNode);
+
+                String watchPath = basePath + <span class="hljs-string">&quot;/&quot;</span> + watchNode;
+
+                <span class="hljs-comment">// &#x76D1;&#x89C6; getData &#x800C;&#x975E; exists &#x7684;&#x539F;&#x56E0;&#x662F;: &#x5728;&#x83B7;&#x53D6;&#x5B50;&#x8282;&#x70B9;&#x548C;&#x8BBE;&#x7F6E; watch &#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x88AB;&#x76D1;&#x89C6;&#x7684;&#x8282;&#x70B9;&#x53EF;&#x80FD;&#x5DF2;&#x88AB;&#x5220;&#x9664;(&#x9501;&#x91CA;&#x653E;/&#x6301;&#x6709;&#x8005;&#x5D29;&#x6E83;)</span>
+                <span class="hljs-comment">// exists &#x76D1;&#x89C6;&#x4F1A;&#x6210;&#x529F;&#x8BBE;&#x7F6E;&#xFF0C;&#x4F46;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;NodeDeleted&#x4E8B;&#x4EF6;(&#x987A;&#x5E8F;&#x5B50;&#x8282;&#x70B9;&#x5E8F;&#x53F7;&#x81EA;&#x589E;&#xFF0C;&#x4E0D;&#x4F1A;&#x590D;&#x7528;&#x4F7F;&#x7528;&#x8FC7;&#x7684;&#x5E8F;&#x53F7;)&#x3002;&#x672C;&#x65B9;&#x6CD5;&#x4F1A;&#x65E0;&#x9650;&#x5236;&#x7B49;&#x5F85;&#x4E0B;&#x53BB;</span>
+                <span class="hljs-comment">// &#x82E5;&#x88AB;&#x76D1;&#x89C6;&#x8282;&#x70B9;&#x5DF2;&#x5220;&#x9664;&#xFF0C;getData &#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;&#x907F;&#x514D;&#x7EBF;&#x7A0B;&#x6D6A;&#x8D39;&#x65F6;&#x95F4;&#x7B49;&#x5F85;</span>
+
+                <span class="hljs-comment">// &#x8BE5;&#x8C03;&#x7528;&#x4E2D;&#x7684; watch &#x56DE;&#x8C03;&#x5F53;&#x4E8B;&#x4EF6;&#x53D1;&#x751F;&#x65F6;&#x4F1A;&#x5728;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;</span>
+                <span class="hljs-keyword">try</span> {
+                    zk.getData(watchPath, event -&gt; {
+                        <span class="hljs-keyword">if</span>(event.getType() == Watcher.Event.EventType.NodeDeleted) {
+                            <span class="hljs-comment">// &#x4E3B;&#x7EBF;&#x7A0B;&#x4F1A;&#x8C03;&#x7528; this.wait()</span>
+                            <span class="hljs-comment">// fixme: &#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;bug&#xFF0C;&#x82E5;&#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x4E0D;&#x662F; NodeDeleted &#x5E94;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x4E0D;&#x4F1A;&#x4EA7;&#x751F;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x53EF;&#x80FD;&#x662F;&#x5176;&#x5B83;&#x5BA2;&#x6237;&#x7AEF;&#x64CD;&#x4F5C;&#x6240;&#x81F4;</span>
+                            <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) {
+                                notifyAll();
+                            }
+                        }
+                    }, <span class="hljs-keyword">null</span>);
+                } <span class="hljs-keyword">catch</span>(KeeperException.NoNodeException e) {
+                    <span class="hljs-comment">// &#x56E0;&#x4E3A;&#x4E0A;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x88AB;&#x5220;&#x9664;&#x5BFC;&#x81F4; getData watch &#x5931;&#x8D25;&#xFF0C;&#x8FDB;&#x5165;&#x4E0B;&#x4E00;&#x4E2A;&#x6B21;&#x5FAA;&#x73AF;&#xFF0C;&#x91CD;&#x65B0;&#x68C0;&#x67E5;&#x81EA;&#x5DF1;&#x662F;&#x5426;&#x5DF2;&#x6301;&#x6709;&#x9501;</span>
+                    <span class="hljs-keyword">continue</span>;
+                }
+
+
+                <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) {
+                    <span class="hljs-comment">// &#x7B49;&#x5F85;&#x88AB; watch &#x5524;&#x9192;&#xFF0C;&#x5524;&#x9192;&#x540E;&#x8FDB;&#x5165;&#x4E0B;&#x4E00;&#x6B21;&#x5FAA;&#x73AF;&#xFF0C;&#x91CD;&#x65B0;&#x68C0;&#x67E5;&#x786E;&#x8BA4;&#x81EA;&#x5DF1;&#x5DF2;&#x6301;&#x6709;&#x9501;</span>
+                    wait();
+                    System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot; notified&quot;</span>);
+                }
+            }
+        }   
+
+    }
+
+    <span class="hljs-comment">// &#x91CA;&#x653E;&#x9501;</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> KeeperException, InterruptedException </span>{
+        <span class="hljs-comment">// &#x52A0;&#x9501;&#x6210;&#x529F;&#x65F6;&#x4F1A;&#x5C06;&#x9501;&#x8DEF;&#x5F84;&#x5199;&#x5165; lockPath</span>
+        <span class="hljs-keyword">if</span> (StringUtils.isNotBlank(lockPath)) {
+            zk.delete(lockPath, -<span class="hljs-number">1</span>); <span class="hljs-comment">// &#x5220;&#x9664;&#x9501;&#x8BB0;&#x5F55;&#x91CA;&#x653E;&#x9501;</span>
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;don&apos;t has lock&quot;</span>); <span class="hljs-comment">// &#x672A;&#x8BBE;&#x7F6E;&#x9501;&#x8BB0;&#x5F55;&#x8BF4;&#x660E;&#x672C;&#x7EBF;&#x7A0B;&#x672A;&#x6301;&#x6709;&#x9501;</span>
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        <span class="hljs-keyword">int</span> concurrent = <span class="hljs-number">10</span>;
+        ExecutorService service = Executors.newFixedThreadPool(concurrent);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; concurrent; i++) {
+            service.execute(() -&gt; {
+                <span class="hljs-comment">// &#x4E3A;&#x4FDD;&#x8BC1;&#x5404;&#x7EBF;&#x7A0B;&#x72EC;&#x7ACB;&#x7684;&#x6301;&#x6709;&#x9501;&#xFF0C;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x5E94;&#x6301;&#x6709;&#x72EC;&#x7ACB;&#x7684; zookeeper &#x4F1A;&#x8BDD;</span>
+                ZooKeeper zk;
+                <span class="hljs-keyword">try</span> {
+
+                    zk = <span class="hljs-keyword">new</span> ZooKeeper(<span class="hljs-string">&quot;localhost:2181&quot;</span>, <span class="hljs-number">6000</span>, watchedEvent -&gt; {
+                        <span class="hljs-keyword">if</span> (Watcher.Event.KeeperState.SyncConnected == watchedEvent.getState())
+                            System.out.println(<span class="hljs-string">&quot;connection is established...&quot;</span>);
+                    });
+
+                    ZKLock lock = <span class="hljs-keyword">new</span> ZKLock(zk, <span class="hljs-string">&quot;/test/node1&quot;</span>);
+
+                    lock.lock();
+                    System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot;  acquire success&quot;</span>);
+
+                    Thread.sleep(<span class="hljs-number">1000</span>);
+                    System.out.println(<span class="hljs-string">&quot;do sth, thread: &quot;</span> + Thread.currentThread().getName());
+
+                    lock.unlock();
+                    System.out.println(Thread.currentThread().getName() + <span class="hljs-string">&quot;  release success&quot;</span>);
+
+                } <span class="hljs-keyword">catch</span> (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        service.shutdown();
+    }
+}
+</code></pre>
+<h3 id="&#x4F7F;&#x7528;curator&#x7684;&#x5B9E;&#x73B0;-">&#x4F7F;&#x7528;Curator&#x7684;&#x5B9E;&#x73B0; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x4F7F;&#x7528;Curator&#x7684;&#x5B9E;&#x73B0;"></a></h3>
+<p>Cruator &#x662F;&#x4E00;&#x4E2A; Zookeeper &#x5DE5;&#x5177;&#x96C6;, &#x63D0;&#x4F9B;&#x4E86;&#x5305;&#x62EC;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5728;&#x5185;&#x7684;&#x5E38;&#x7528;&#x5E94;&#x7528;&#x7684;&#x5C01;&#x88C5;&#xFF0C;&#x4F7F;&#x7528;Curator&#x4E2D;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x3002;Cruator&#x4E2D;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x57FA;&#x672C;&#x548C;&#x4E0A;&#x8FF0;&#x4E2D;&#x7684;&#x65B9;&#x6848;3&#x4E00;&#x76F4;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ZkLock</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+        RetryPolicy retryPolicy = <span class="hljs-keyword">new</span> ExponentialBackoffRetry(<span class="hljs-number">1000</span>, <span class="hljs-number">3</span>);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(<span class="hljs-string">&quot;localhost:2181&quot;</span>, retryPolicy);
+        client.start();
+
+        <span class="hljs-comment">// &#x9501;&#x8282;&#x70B9;&#x4E3A; /curator/mutex</span>
+        InterProcessMutex mutex = <span class="hljs-keyword">new</span> InterProcessMutex(client, <span class="hljs-string">&quot;/curator/mutex&quot;</span>);
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// &#x5C1D;&#x8BD5;&#x52A0;&#x9501;</span>
+            mutex.acquire();
+            <span class="hljs-comment">// &#x5B8C;&#x6210;&#x4E1A;&#x52A1;</span>
+            System.out.println(<span class="hljs-string">&quot;foo bar&quot;</span>);
+        } <span class="hljs-keyword">finally</span> {
+            <span class="hljs-comment">// &#x91CA;&#x653E;&#x9501;</span>
+            mutex.release();
+            client.close();
+        }
+
+    }
+}
+</code></pre>
+<h3 id="&#x4F18;&#x70B9;&#xFF1A;-">&#x4F18;&#x70B9;&#xFF1A; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x4F18;&#x70B9;&#xFF1A;"></a></h3>
+<ol>
+<li>&#x9501;&#x91CA;&#x653E;&#xFF1A;&#x4F7F;&#x7528;Zookeeper&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x7684;&#x89E3;&#x51B3;&#x9501;&#x65E0;&#x6CD5;&#x91CA;&#x653E;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x521B;&#x5EFA;&#x9501;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x4F1A;&#x5728;ZK&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x8282;&#x70B9;&#xFF0C;&#x4E00;&#x65E6;&#x5BA2;&#x6237;&#x7AEF;&#x83B7;&#x53D6;&#x5230;&#x9501;&#x4E4B;&#x540E;&#x7A81;&#x7136;&#x6302;&#x6389;&#xFF08;Session&#x8FDE;&#x63A5;&#x65AD;&#x5F00;&#xFF09;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x4E34;&#x65F6;&#x8282;&#x70B9;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x5220;&#x9664;&#x6389;&#x3002;&#x5176;&#x4ED6;&#x5BA2;&#x6237;&#x7AEF;&#x5C31;&#x53EF;&#x4EE5;&#x518D;&#x6B21;&#x83B7;&#x5F97;&#x9501;&#x3002;</li>
+<li>&#x975E;&#x963B;&#x585E;&#x9501;&#xFF1A;&#x4F7F;&#x7528;Zookeeper&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x963B;&#x585E;&#x7684;&#x9501;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;ZK&#x4E2D;&#x521B;&#x5EFA;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x7ED1;&#x5B9A;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x4E00;&#x65E6;&#x8282;&#x70B9;&#x6709;&#x53D8;&#x5316;&#xFF0C;Zookeeper&#x4F1A;&#x901A;&#x77E5;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x4EE5;&#x68C0;&#x67E5;&#x81EA;&#x5DF1;&#x521B;&#x5EFA;&#x7684;&#x8282;&#x70B9;&#x662F;&#x4E0D;&#x662F;&#x5F53;&#x524D;&#x6240;&#x6709;&#x8282;&#x70B9;&#x4E2D;&#x5E8F;&#x53F7;&#x6700;&#x5C0F;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x662F;&#xFF0C;&#x90A3;&#x4E48;&#x81EA;&#x5DF1;&#x5C31;&#x83B7;&#x53D6;&#x5230;&#x9501;&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x4E86;&#x3002;</li>
+<li>&#x53EF;&#x91CD;&#x5165;&#x9501;&#xFF1A;&#x4F7F;&#x7528;Zookeeper&#x4E5F;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x7684;&#x89E3;&#x51B3;&#x4E0D;&#x53EF;&#x91CD;&#x5165;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x5728;&#x521B;&#x5EFA;&#x8282;&#x70B9;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x628A;&#x5F53;&#x524D;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x4E3B;&#x673A;&#x4FE1;&#x606F;&#x548C;&#x7EBF;&#x7A0B;&#x4FE1;&#x606F;&#x76F4;&#x63A5;&#x5199;&#x5165;&#x5230;&#x8282;&#x70B9;&#x4E2D;&#xFF0C;&#x4E0B;&#x6B21;&#x60F3;&#x8981;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x65F6;&#x5019;&#x548C;&#x5F53;&#x524D;&#x6700;&#x5C0F;&#x7684;&#x8282;&#x70B9;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x6BD4;&#x5BF9;&#x4E00;&#x4E0B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x5982;&#x679C;&#x548C;&#x81EA;&#x5DF1;&#x7684;&#x4FE1;&#x606F;&#x4E00;&#x6837;&#xFF0C;&#x90A3;&#x4E48;&#x81EA;&#x5DF1;&#x76F4;&#x63A5;&#x83B7;&#x53D6;&#x5230;&#x9501;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x4E00;&#x6837;&#x5C31;&#x518D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x4E34;&#x65F6;&#x7684;&#x987A;&#x5E8F;&#x8282;&#x70B9;&#xFF0C;&#x53C2;&#x4E0E;&#x6392;&#x961F;&#x3002;</li>
+<li>&#x5355;&#x70B9;&#x95EE;&#x9898;&#xFF1A;&#x4F7F;&#x7528;Zookeeper&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x7684;&#x89E3;&#x51B3;&#x5355;&#x70B9;&#x95EE;&#x9898;&#xFF0C;ZK&#x662F;&#x96C6;&#x7FA4;&#x90E8;&#x7F72;&#x7684;&#xFF0C;&#x53EA;&#x8981;&#x96C6;&#x7FA4;&#x4E2D;&#x6709;&#x534A;&#x6570;&#x4EE5;&#x4E0A;&#x7684;&#x673A;&#x5668;&#x5B58;&#x6D3B;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;</li>
+</ol>
+<h3 id="&#x7F3A;&#x70B9;&#xFF1A;-">&#x7F3A;&#x70B9;&#xFF1A; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x7F3A;&#x70B9;&#xFF1A;"></a></h3>
+<p>Zookeeper&#x5B9E;&#x73B0;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5176;&#x5B9E;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x7F3A;&#x70B9;&#xFF0C;&#x90A3;&#x5C31;&#x662F;&#x6027;&#x80FD;&#x4E0A;&#x53EF;&#x80FD;&#x5E76;&#x6CA1;&#x6709;&#x7F13;&#x5B58;&#x670D;&#x52A1;&#x90A3;&#x4E48;&#x9AD8;&#x3002;&#x8FD9;&#x662F;&#x7531;Zookeeper&#x9AD8;&#x4E00;&#x81F4;&#x6027;&#x51B3;&#x5B9A;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x6BCF;&#x6B21;&#x5728;&#x521B;&#x5EFA;&#x9501;&#x548C;&#x91CA;&#x653E;&#x9501;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x90FD;&#x8981;&#x52A8;&#x6001;&#x521B;&#x5EFA;&#x3001;&#x9500;&#x6BC1;&#x77AC;&#x65F6;&#x8282;&#x70B9;&#x6765;&#x5B9E;&#x73B0;&#x9501;&#x529F;&#x80FD;&#x3002;ZK&#x4E2D;&#x521B;&#x5EFA;&#x548C;&#x5220;&#x9664;&#x8282;&#x70B9;&#x53EA;&#x80FD;&#x901A;&#x8FC7;Leader&#x670D;&#x52A1;&#x5668;&#x6765;&#x6267;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6570;&#x636E;&#x540C;&#x4E0D;&#x5230;&#x6240;&#x6709;&#x7684;Follower&#x673A;&#x5668;&#x4E0A;&#x3002;</p>
+<h3 id="&#x5E38;&#x89C1;&#x95EE;&#x9898;-">&#x5E38;&#x89C1;&#x95EE;&#x9898; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x5E38;&#x89C1;&#x95EE;&#x9898;"></a></h3>
+<h4 id="&#x7F8A;&#x7FA4;&#x6548;&#x5E94;herd-effect&#x60CA;&#x7FA4;&#x73B0;&#x8C61;-">&#x7F8A;&#x7FA4;&#x6548;&#x5E94;(Herd Effect)/&#x60CA;&#x7FA4;&#x73B0;&#x8C61; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x7F8A;&#x7FA4;&#x6548;&#x5E94;(HerdEffect)/&#x60CA;&#x7FA4;&#x73B0;&#x8C61;"></a></h4>
+<p>&#x4E3E;&#x4E00;&#x4E2A;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x5F53;&#x4F60;&#x5F80;&#x4E00;&#x7FA4;&#x9E3D;&#x5B50;&#x4E2D;&#x95F4;&#x6254;&#x4E00;&#x5757;&#x98DF;&#x7269;&#xFF0C;&#x867D;&#x7136;&#x6700;&#x7EC8;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x9E3D;&#x5B50;&#x62A2;&#x5230;&#x98DF;&#x7269;&#xFF0C;&#x4F46;&#x6240;&#x6709;&#x9E3D;&#x5B50;&#x90FD;&#x4F1A;&#x88AB;&#x60CA;&#x52A8;&#x6765;&#x4E89;&#x593A;&#xFF0C;&#x6CA1;&#x6709;&#x62A2;&#x5230;&#x98DF;&#x7269;&#x7684;&#x9E3D;&#x5B50;&#x53EA;&#x597D;&#x56DE;&#x53BB;&#x7EE7;&#x7EED;&#x7761;&#x89C9;&#xFF0C; &#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x5757;&#x98DF;&#x7269;&#x5230;&#x6765;&#x3002;&#x8FD9;&#x6837;&#xFF0C;&#x6BCF;&#x6254;&#x4E00;&#x5757;&#x98DF;&#x7269;&#xFF0C;&#x90FD;&#x4F1A;&#x60CA;&#x52A8;&#x6240;&#x6709;&#x7684;&#x9E3D;&#x5B50;&#xFF0C;&#x5373;&#x4E3A;&#x60CA;&#x7FA4;&#x3002;&#x5BF9;&#x4E8E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6765;&#x8BF4;&#xFF0C;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;/&#x7EBF;&#x7A0B;&#x5728;&#x7B49;&#x5F85;&#x540C;&#x4E00;&#x8D44;&#x6E90;&#x662F;&#xFF0C;&#x4E5F;&#x4F1A;&#x4EA7;&#x751F;&#x7C7B;&#x4F3C;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x5176;&#x7ED3; &#x679C;&#x5C31;&#x662F;&#x6BCF;&#x5F53;&#x8D44;&#x6E90;&#x53EF;&#x7528;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x8FDB;&#x7A0B;/&#x7EBF;&#x7A0B;&#x90FD;&#x6765;&#x7ADE;&#x4E89;&#x8D44;&#x6E90;&#xFF0C;&#x9020;&#x6210;&#x7684;&#x540E;&#x679C;&#xFF1A;<br>1&#xFF09;&#x7CFB;&#x7EDF;&#x5BF9;&#x7528;&#x6237;&#x8FDB;&#x7A0B;/&#x7EBF;&#x7A0B;&#x9891;&#x7E41;&#x7684;&#x505A;&#x65E0;&#x6548;&#x7684;&#x8C03;&#x5EA6;&#x3001;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF0C;&#x7CFB;&#x7EDF;&#x7CFB;&#x80FD;&#x5927;&#x6253;&#x6298;&#x6263;&#x3002;<br>2&#xFF09;&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5F97;&#x5230;&#x8D44;&#x6E90;&#xFF0C;&#x7528;&#x6237;&#x5FC5;&#x987B;&#x5BF9;&#x8D44;&#x6E90;&#x64CD;&#x4F5C;&#x8FDB;&#x884C;&#x52A0;&#x9501;&#x4FDD;&#x62A4;&#xFF0C;&#x8FDB;&#x4E00;&#x6B65;&#x52A0;&#x5927;&#x4E86;&#x7CFB;&#x7EDF;&#x5F00;&#x9500;&#x3002;</p>
+<h3 id="&#x53C2;&#x8003;-">&#x53C2;&#x8003; <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-&#x53C2;&#x8003;"></a></h3>
+<p>1&#x3001;Zookeeper&#x5B98;&#x65B9;&#x5B9E;&#x73B0;&#xFF1A;<a href="https://github.com/apache/curator" target="_blank">https://github.com/apache/curator</a></p>
+<p>2&#x3001;&#x60CA;&#x7FA4;&#x73B0;&#x8C61;&#xFF1A;<a href="https://blog.csdn.net/tuantuanls/article/details/41205739" target="_blank">https://blog.csdn.net/tuantuanls/article/details/41205739</a></p>
+<p>3&#x3001;zookeeper&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x539F;&#x7406;&#xFF1A;<a href="http://www.cnblogs.com/linjiqin/p/6052031.html" target="_blank">http://www.cnblogs.com/linjiqin/p/6052031.html</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html" class="navigation navigation-prev " aria-label="Previous page: Spring Boot快捷读取文件内容">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html" class="navigation navigation-next " aria-label="Next page: spring cloud feign 实现复杂请求">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"分布式锁一般有三种实现方式：1. 数据库乐观锁；2. 基于Redis的分布式锁；3. 基于ZooKeeper的分布式锁。基于Redis分布式锁的实现可以参照Redis分布式锁的正确实现方式&及错误使用示例","title":"Spring Could中基于Zookeeper的分布式锁实现","level":"1.10","depth":1,"next":{"title":"spring cloud feign 实现复杂请求","level":"1.11","depth":1,"path":"spring-cloud-feign-shi-xian-fu-za-qing-qiu.md","ref":"spring-cloud-feign-shi-xian-fu-za-qing-qiu.md","articles":[]},"previous":{"title":"Spring Boot快捷读取文件内容","level":"1.9","depth":1,"path":"spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md","ref":"spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.md","mtime":"2019-01-31T08:06:53.728Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-31T08:46:48.370Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

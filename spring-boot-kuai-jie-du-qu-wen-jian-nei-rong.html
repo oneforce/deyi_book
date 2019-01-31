@@ -1,0 +1,601 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Spring Boot快捷读取文件内容 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html" />
+    
+    
+    <link rel="prev" href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1_spring_boot_stop_1.html">
+            
+                <a href="1_spring_boot_stop_1.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机一
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机二
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                <a href="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                    
+                    前端：SheetJs 赋能页面与 Excel 文件交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                    
+                    程序员健康指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                <a href="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                    
+                    Springboot devtool远程应用功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                    
+                    spring拓展点之ObjectFactory
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                    
+                    SpringBoot几种定时任务的实现方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.9" data-path="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                    
+                    Spring Boot快捷读取文件内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                    
+                    Spring Could中基于Zookeeper的分布式锁实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                    
+                    spring cloud feign 实现复杂请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                <a href="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                    
+                    Springboot——用更优雅的方式发HTTP请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                <a href="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                    
+                    Redis分布式锁的正确实现方式&及错误使用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                <a href="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                    
+                    使用javaagent操作字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                    
+                    如何把if-else代码重构成高质量代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="da-jian-spring-cloud-gateway.html">
+            
+                <a href="da-jian-spring-cloud-gateway.html">
+            
+                    
+                    搭建spring cloud gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                    
+                    Java8 CompletableFuture: 组合式异步编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="geng-hao-de-tiao-shi-java-stream.html">
+            
+                <a href="geng-hao-de-tiao-shi-java-stream.html">
+            
+                    
+                    更好的调试 Java Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Spring Boot快捷读取文件内容</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="spring-boot&#x5FEB;&#x6377;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x5185;&#x5BB9;">Spring Boot&#x5FEB;&#x6377;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x5185;&#x5BB9;</h1>
+<h3 id="&#x4E00;&#x3001;&#x793A;&#x4F8B;-">&#x4E00;&#x3001;&#x793A;&#x4F8B; <a id="SpringBoot&#x5FEB;&#x6377;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x5185;&#x5BB9;-&#x4E00;&#x3001;&#x793A;&#x4F8B;"></a></h3>
+<ol>
+<li>yml&#x914D;&#x7F6E;</li>
+</ol>
+<pre><code class="lang-yaml"><span class="hljs-attr">test:</span>
+<span class="hljs-attr">  config:</span>
+<span class="hljs-attr">    a:</span> classpath:release/<span class="hljs-number">20181018</span>_v1<span class="hljs-number">.1</span><span class="hljs-number">.0</span>.md
+<span class="hljs-attr">    b:</span> file:C:/Users/yc/Desktop/pytest.jks
+<span class="hljs-attr">    c:</span> url:http://www.test.com/test.txt
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>&#x914D;&#x7F6E;&#x7C7B;</li>
+</ol>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> lombok.Data;
+<span class="hljs-keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;
+<span class="hljs-keyword">import</span> org.springframework.core.io.Resource;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
+
+<span class="hljs-meta">@Component</span>
+<span class="hljs-meta">@ConfigurationProperties</span>(prefix = <span class="hljs-string">&quot;test.config&quot;</span>)
+<span class="hljs-meta">@Data</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConfigTest</span> </span>{
+
+    <span class="hljs-keyword">private</span> Resource a;
+
+    <span class="hljs-keyword">private</span> Resource b;
+
+    <span class="hljs-keyword">private</span> Resource c;
+
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="&#x4E8C;&#x3001;&#x539F;&#x7406;&#xFF08;&#x57FA;&#x4E8E;spring-boot-206release&#x7248;&#x672C;&#xFF09;-">&#x4E8C;&#x3001;&#x539F;&#x7406;&#xFF08;&#x57FA;&#x4E8E;spring-boot-2.0.6.RELEASE&#x7248;&#x672C;&#xFF09; <a id="SpringBoot&#x5FEB;&#x6377;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x5185;&#x5BB9;-&#x4E8C;&#x3001;&#x539F;&#x7406;&#xFF08;&#x57FA;&#x4E8E;spring-boot-2.0.6.RELEASE&#x7248;&#x672C;&#xFF09;"></a></h3>
+<pre><code>  &#x5F53;&#x7C7B;&#x4E0A;&#x4F7F;&#x7528;@ConfigurationProperties &#x548C; `@Component` &#xFF0C;&#x5F53;&#x5176;&#x4ED6;&#x7C7B;&#x6CE8;&#x5165;&#x8BE5;&#x7C7B;&#x65F6;,&#x5C31;&#x4F1A;&#x89E6;&#x53D1;&#x8BE5;&#x7C7B;&#x7684;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x3002;&#x5728;&#x52A0;&#x8F7D;&#x8FC7;&#x7A0B;&#x4E2D;,&#x4F1A;&#x8C03;&#x7528;`AbstractAutowireCapableBeanFactory`&#x7C7B;&#x7684;`applyBeanPostProcessorsBeforeInitialization`&#x65B9;&#x6CD5;&#x3002;&#x4ECE;&#x800C;&#x89E6;&#x53D1;`ConfigurationPropertiesBindingPostProcessor`&#x7C7B;`postProcessBeforeInitialization`&#x65B9;&#x6CD5;&#x7684;&#x8C03;&#x7528;
+</code></pre><ul>
+<li>postProcessBeforeInitialization&#x65B9;&#x6CD5;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</li>
+</ul>
+<pre><code class="lang-java">
+<span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">postProcessBeforeInitialization</span><span class="hljs-params">(Object bean, String beanName)</span> <span class="hljs-keyword">throws</span> BeansException </span>{
+   <span class="hljs-comment">//&#x83B7;&#x5F97;&#x7C7B;&#x4E0A;&#x7684;@ConfigurationProperties&#x6CE8;&#x89E3;</span>
+   ConfigurationProperties annotation = getAnnotation(bean, beanName, ConfigurationProperties.class);
+   <span class="hljs-keyword">if</span> (annotation != <span class="hljs-keyword">null</span>) {
+      <span class="hljs-comment">//&#x5EFA;&#x7ACB;&#x7ED1;&#x5B9A;&#x5173;&#x7CFB;</span>
+      bind(bean, beanName, annotation);
+   }
+   <span class="hljs-keyword">return</span> bean;
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>&#x8DDF;&#x8E2A;&#x4EE3;&#x7801;&#x4F1A;&#x53D1;&#x73B0;&#x6709;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x503C;&#x4E0E;&#x914D;&#x7F6E;&#x7C7B;&#x7684;&#x5C5E;&#x6027;&#x7C7B;&#x578B;&#x8FDB;&#x884C;&#x8F6C;&#x6362;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;GenericConversionService&#x7C7B;&#x7684;convert&#x65B9;&#x6CD5;&#x3002;convert&#x65B9;&#x6CD5;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+ * &#x8FDB;&#x884C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x503C;&#x4E0E;&#x914D;&#x7F6E;&#x7C7B;&#x7684;&#x5C5E;&#x6027;&#x8F6C;&#x6362;
+ *
+ * <span class="hljs-doctag">@param</span> source &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x503C;&#xFF0C;&#x4F8B;&#x5982;&#x4E0A;&#x6587;&#x7684;&#x201C;classpath:release/20181018_v1.1.0.md&#x201D;
+ * <span class="hljs-doctag">@param</span> sourceType &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x7C7B;&#x578B;
+ * <span class="hljs-doctag">@param</span> targetType &#x914D;&#x7F6E;&#x7C7B;&#x5C5E;&#x6027;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x4F8B;&#x5982;&#x4E0A;&#x6587;&#x7684;&#x201C;org.springframework.core.io.Resource&#x201D;
+ */</span>
+
+<span class="hljs-meta">@Override</span>
+<span class="hljs-meta">@Nullable</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">convert</span><span class="hljs-params">(@Nullable Object source, @Nullable TypeDescriptor sourceType, TypeDescriptor targetType)</span> </span>{
+   Assert.notNull(targetType, <span class="hljs-string">&quot;Target type to convert to cannot be null&quot;</span>);
+   <span class="hljs-keyword">if</span> (sourceType == <span class="hljs-keyword">null</span>) {
+      Assert.isTrue(source == <span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;Source must be [null] if source type == [null]&quot;</span>);
+      <span class="hljs-keyword">return</span> handleResult(<span class="hljs-keyword">null</span>, targetType, convertNullSource(<span class="hljs-keyword">null</span>, targetType));
+   }
+   <span class="hljs-keyword">if</span> (source != <span class="hljs-keyword">null</span> &amp;&amp; !sourceType.getObjectType().isInstance(source)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;Source to convert from must be an instance of [&quot;</span> +
+            sourceType + <span class="hljs-string">&quot;]; instead it was a [&quot;</span> + source.getClass().getName() + <span class="hljs-string">&quot;]&quot;</span>);
+   }
+   <span class="hljs-comment">//&#x83B7;&#x53D6;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x7C7B;&#x578B;&#x4E0E;&#x914D;&#x7F6E;&#x7C7B;&#x5C5E;&#x6027;&#x7684;&#x7C7B;&#x578B;&#x7684;&#x8F6C;&#x6362;&#x5668;</span>
+   GenericConverter converter = getConverter(sourceType, targetType);
+   <span class="hljs-keyword">if</span> (converter != <span class="hljs-keyword">null</span>) {
+      Object result = ConversionUtils.invokeConverter(converter, source, sourceType, targetType);
+      <span class="hljs-keyword">return</span> handleResult(sourceType, targetType, result);
+   }
+   <span class="hljs-keyword">return</span> handleConverterNotFound(source, sourceType, targetType);
+}
+</code></pre>
+<ul>
+<li>&#x7EE7;&#x7EED;debug&#x4F1A;&#x53D1;&#x73B0;&#x6700;&#x7EC8;&#x5C06;&#x8C03;&#x7528;DefaultResourceLoader&#x7684;getResource&#x65B9;&#x6CD5;&#x5BF9;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C5E;&#x6027;&#x503C;&#x8FDB;&#x884C;&#x89E3;&#x6790;&#x3002;DefaultResourceLoader&#x7C7B;&#x7684;getResource&#x65B9;&#x6CD5; &#x4EE3;&#x7801;&#x5982;&#x4E0B;:</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-meta">@Override</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> Resource <span class="hljs-title">getResource</span><span class="hljs-params">(String location)</span> </span>{
+    Assert.notNull(location, <span class="hljs-string">&quot;Location must not be null&quot;</span>);
+
+    <span class="hljs-keyword">for</span> (ProtocolResolver protocolResolver : <span class="hljs-keyword">this</span>.protocolResolvers) {
+        Resource resource = protocolResolver.resolve(location, <span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">if</span> (resource != <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">return</span> resource;
+        }
+    }
+
+    <span class="hljs-keyword">if</span> (location.startsWith(<span class="hljs-string">&quot;/&quot;</span>)) {
+        <span class="hljs-keyword">return</span> getResourceByPath(location);
+    }
+    <span class="hljs-comment">//1&#x3001;&#x5982;&#x679C;location&#x4EE5;&#x201C;classpath:&#x201D;&#x5F00;&#x5934;&#xFF0C;&#x5373;&#x8F6C;&#x6362;&#x6210;ClassPathResource</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (location.startsWith(CLASSPATH_URL_PREFIX)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ClassPathResource(location.substring(CLASSPATH_URL_PREFIX.length()), getClassLoader());
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// 2&#x3001;&#x5426;&#x5219;&#x5C1D;&#x8BD5;&#x89E3;&#x6790;&#x6210;URL&#xFF0C;&#x5982;&#x914D;&#x7F6E;&#x4E2D;&#x7684;&#x201C;url:http://www.test.com/test.txt&#x201D;</span>
+            URL url = <span class="hljs-keyword">new</span> URL(location);
+            <span class="hljs-keyword">return</span> (ResourceUtils.isFileURL(url) ? <span class="hljs-keyword">new</span> FileUrlResource(url) : <span class="hljs-keyword">new</span> UrlResource(url));
+        }
+        <span class="hljs-keyword">catch</span> (MalformedURLException ex) {
+            <span class="hljs-comment">// 3&#x3001;&#x4E0D;&#x80FD;&#x89E3;&#x6790;&#x6210;URL,&#x5219;&#x4EE5;&#x8D44;&#x6E90;&#x8DEF;&#x5F84;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x8F6C;&#x4E49;&#xFF0C;&#x5982;&#x914D;&#x7F6E;&#x4E2D;&#x7684;&#x201C;file:C:/Users/yc/Desktop/pytest.jks&#x201D;</span>
+            <span class="hljs-keyword">return</span> getResourceByPath(location);
+        }
+    }
+}
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html" class="navigation navigation-prev " aria-label="Previous page: SpringBoot几种定时任务的实现方式">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html" class="navigation navigation-next " aria-label="Next page: Spring Could中基于Zookeeper的分布式锁实现">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Spring Boot快捷读取文件内容","level":"1.9","depth":1,"next":{"title":"Spring Could中基于Zookeeper的分布式锁实现","level":"1.10","depth":1,"path":"spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.md","ref":"spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.md","articles":[]},"previous":{"title":"SpringBoot几种定时任务的实现方式","level":"1.8","depth":1,"path":"springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.md","ref":"springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md","mtime":"2019-01-31T08:06:53.727Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-31T08:46:48.370Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

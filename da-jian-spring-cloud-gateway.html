@@ -1,0 +1,746 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>搭建spring cloud gateway · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html" />
+    
+    
+    <link rel="prev" href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    前言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="1_spring_boot_stop_1.html">
+            
+                <a href="1_spring_boot_stop_1.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机一
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                <a href="spring-boot-2.0-zhi-you-ya-ting-ji-er.html">
+            
+                    
+                    Spring boot 2.0 之优雅停机二
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                <a href="qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.html">
+            
+                    
+                    前端：SheetJs 赋能页面与 Excel 文件交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                <a href="cheng-xu-yuan-jian-kang-zhi-nan.html">
+            
+                    
+                    程序员健康指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                <a href="springboot-devtool-yuan-cheng-ying-yong-gong-neng.html">
+            
+                    
+                    Springboot devtool远程应用功能
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                <a href="spring-tuo-zhan-dian-zhi-objectfactory.html">
+            
+                    
+                    spring拓展点之ObjectFactory
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                <a href="springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.html">
+            
+                    
+                    SpringBoot几种定时任务的实现方式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                <a href="spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.html">
+            
+                    
+                    Spring Boot快捷读取文件内容
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                <a href="spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.html">
+            
+                    
+                    Spring Could中基于Zookeeper的分布式锁实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                <a href="spring-cloud-feign-shi-xian-fu-za-qing-qiu.html">
+            
+                    
+                    spring cloud feign 实现复杂请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                <a href="springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.html">
+            
+                    
+                    Springboot——用更优雅的方式发HTTP请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                <a href="redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.html">
+            
+                    
+                    Redis分布式锁的正确实现方式&及错误使用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                <a href="shi-yong-javaagent-cao-zuo-zi-jie-ma.html">
+            
+                    
+                    使用javaagent操作字节码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html">
+            
+                    
+                    如何把if-else代码重构成高质量代码
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.16" data-path="da-jian-spring-cloud-gateway.html">
+            
+                <a href="da-jian-spring-cloud-gateway.html">
+            
+                    
+                    搭建spring cloud gateway
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html">
+            
+                    
+                    Java8 CompletableFuture: 组合式异步编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="geng-hao-de-tiao-shi-java-stream.html">
+            
+                <a href="geng-hao-de-tiao-shi-java-stream.html">
+            
+                    
+                    更好的调试 Java Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >搭建spring cloud gateway</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x642D;&#x5EFA;spring-cloud-gateway">&#x642D;&#x5EFA;spring cloud gateway</h1>
+<h4 id="spring-cloud-gateway-&#x8FD0;&#x884C;&#x673A;&#x5236;-">spring cloud gateway &#x8FD0;&#x884C;&#x673A;&#x5236; <a id="id-&#x642D;&#x5EFA;springcloudgateway-springcloudgateway&#x8FD0;&#x884C;&#x673A;&#x5236;"></a></h4>
+<p>&#x6B64;&#x5904;&#x501F;&#x7528;&#x5B98;&#x65B9;&#x7684;&#x4E00;&#x5F20;&#x56FE;&#x7247;&#xFF1A;</p>
+<p><img src=".gitbook/assets/20190131_09.png" alt=""></p>
+<ul>
+<li>&#x670D;&#x52A1;&#x8C03;&#x7528;&#x8005;&#x8BF7;&#x6C42;spring cloud gateway</li>
+<li>&#x6839;&#x636E;&#x8DEF;&#x7531;&#x7B56;&#x7565;&#x627E;&#x5230;&#x8D70;&#x54EA;&#x4E2A;&#x8DEF;&#x7531;</li>
+<li>&#x6267;&#x884C;&#x6B64;&#x8DEF;&#x7531;&#x914D;&#x7F6E;&#x7684;Filter&#x94FE;</li>
+<li>&#x627E;&#x5230;&#x5177;&#x4F53;&#x88AB;&#x4EE3;&#x7406;&#x7684;&#x8BF7;&#x6C42;&#x5730;&#x5740;&#xFF0C;&#x7136;&#x540E;&#x8F6C;&#x53D1;&#x8FC7;&#x53BB;</li>
+<li>&#x8FD4;&#x56DE;&#x5177;&#x4F53;&#x4EE3;&#x7406;&#x8BF7;&#x6C42;&#x7684;&#x54CD;&#x5E94;&#x4FE1;&#x606F;</li>
+<li>&#x8FD4;&#x56DE;&#x8C03;&#x7528;&#x8005;</li>
+</ul>
+<h4 id="&#x6784;&#x5EFA;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;spring-cloud-gateway&#x9879;&#x76EE;-">&#x6784;&#x5EFA;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;spring cloud gateway&#x9879;&#x76EE; <a id="id-&#x642D;&#x5EFA;springcloudgateway-&#x6784;&#x5EFA;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;springcloudgateway&#x9879;&#x76EE;"></a></h4>
+<p><strong>&#x7B2C;&#x4E00;&#x6B65;&#x5F15;&#x5165;jar&#x5305;</strong></p>
+<pre><code class="lang-java">&lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;jdk.version&gt;1.8&lt;/jdk.version&gt;
+    &lt;lombok.version&gt;1.16.8&lt;/lombok.version&gt;
+&lt;/properties&gt;
+
+&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.0.4.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;Finchley.SR1&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+&lt;dependencies&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt; org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-gateway&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-zookeeper-discovery&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-sleuth&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+        &lt;version&gt;${lombok.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;
+        &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;
+        &lt;version&gt;3.4.12&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<p><strong>&#x7B2C;&#x4E8C;&#x90E8;&#x6784;&#x5EFA;spring boot&#x542F;&#x52A8;&#x7C7B;</strong></p>
+<p>spring cloud gateway&#x662F;&#x5EFA;&#x7ACB;&#x5728;spring boot&#x9879;&#x76EE;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x7684;&#xFF0C;&#x672C;&#x4F8B;&#x8FD8;&#x5F15;&#x5165;&#x4E86;sleuth&#xFF0C;&#x4F7F;&#x7528;&#x7684;zookeeper&#x4F5C;&#x4E3A;&#x6CE8;&#x518C;&#x4E2D;&#x5FC3;&#x3002;</p>
+<p>&#x9700;&#x8981;&#x518D;spring boot&#x542F;&#x52A8;&#x7C7B;&#x4E0A;&#x52A0;&#x4E0A;@EnableDiscoveryClient &#xFF0C;&#x628A;&#x6211;&#x4EEC;&#x7684;&#x670D;&#x52A1;&#x6CE8;&#x518C;&#x5230;&#x6CE8;&#x518C;&#x4E2D;&#x5FC3;&#x4E0A;&#x3002;<strong>GatewayBootstrap</strong> &#x6298;&#x53E0;&#x6E90;&#x7801;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;
+<span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;
+<span class="hljs-keyword">import</span> org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> jim lin
+ * 2018/9/17.
+ */</span>
+<span class="hljs-meta">@SpringBootApplication</span>
+<span class="hljs-meta">@EnableDiscoveryClient</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GatewayBootstrap</span> </span>{
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        SpringApplication.run(GatewayBootstrap.class,args);
+    }
+}
+</code></pre>
+<p><strong>&#x7B2C;&#x4E09;&#x6B65;&#xFF0C;&#x914D;&#x7F6E;&#x4EE3;&#x7406;&#x7B56;&#x7565;</strong></p>
+<p>&#x901A;&#x8FC7;&#x4EE5;&#x4E0A;&#x7684;&#x4EE3;&#x7801;&#x6211;&#x4EEC;&#x7684;spring cloud gateway&#x5C31;&#x5DF2;&#x7ECF;&#x642D;&#x5EFA;&#x5B8C;&#x6210;&#x4E86;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x90FD;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x914D;&#x7F6E;&#x3002;</p>
+<p>application.yml&#x6587;&#x4EF6;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">spring:</span>
+<span class="hljs-attr">  application:</span>
+<span class="hljs-attr">    name:</span> boss-cas-gateway
+<span class="hljs-attr">  cloud:</span>
+<span class="hljs-attr">    gateway:</span>
+<span class="hljs-attr">      routes:</span>
+<span class="hljs-attr">        - id:</span> boss-risk-ap
+<span class="hljs-attr">          uri:</span> lb://boss-risk-ap
+<span class="hljs-attr">          predicates:</span>
+<span class="hljs-bullet">          -</span> Path=/boss-risk-ap/**
+<span class="hljs-attr">          filters:</span>
+<span class="hljs-bullet">          -</span> StripPrefix=<span class="hljs-number">1</span>
+          <span class="hljs-comment">#&#x5B9A;&#x4E49;router&#x7684;&#x552F;&#x4E00;ID</span>
+<span class="hljs-attr">        - id:</span> boss-finance-product
+          <span class="hljs-comment">#&#x5B9A;&#x4E49;&#x6700;&#x7EC8;&#x8DEF;&#x7531;&#x7684;&#x5730;&#x5740;&#xFF0C;lb&#x8868;&#x793A;&#x4ECE;loadbalance&#x91CC;&#x9762;&#x83B7;&#x53D6;&#xFF0C;&#x6B64;&#x5904;&#x6211;&#x4EEC;&#x4ECE;zookeeper&#x6CE8;&#x518C;&#x4E2D;&#x5FC3;&#x4E2D;&#x83B7;&#x53D6;&#xFF0C;&#x83B7;&#x53D6;&#x7684;instance-id&#x4E3A;boss-finance-product</span>
+<span class="hljs-attr">          uri:</span> lb://boss-finance-product
+          <span class="hljs-comment">#&#x5B9A;&#x4E49;gateway&#x62E6;&#x622A;&#x54EA;&#x4E9B;&#x8BF7;&#x6C42;&#xFF0C;&#x6B64;&#x5904;&#x4F1A;&#x62E6;&#x622A;&#x6240;&#x6709;&#x524D;&#x7F00;&#x4E3A;/api/boss-finance-product</span>
+<span class="hljs-attr">          predicates:</span>
+<span class="hljs-bullet">          -</span> Path=/api/boss-finance-product/**
+          <span class="hljs-comment">#&#x6B64;&#x5904;&#x5B9A;&#x4E49;gateway&#x7684;filter&#x673A;&#x5236;</span>
+<span class="hljs-attr">          filters:</span>
+          <span class="hljs-comment">#&#x81EA;&#x5B9A;&#x4E49;&#x81EA;&#x5DF1;&#x7684;filter&#xFF0C;&#x6B64;filter&#x53EA;&#x5BF9;&#x5F53;&#x524D;&#x7684;&#x8DEF;&#x7531;&#x751F;&#x6548;&#xFF0C;&#x5373;&#x53EA;&#x5BF9;router-id&#x4E3A;boss-finance-product</span>
+          <span class="hljs-comment">#Tip&#xFF0C;&#x5728;spring cloudgateway&#x4E2D;&#xFF0C;TokenValidation&#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x4E3A;TokenValidation+GatewayFilterFactory&#x7684;java&#x7C7B;&#x3002;</span>
+          <span class="hljs-comment">#&#x6B64;&#x5C5E;&#x6027;&#x8868;&#x793A;&#x5BF9;&#x4E0A;&#x8FF0;&#x62E6;&#x622A;&#x7684;&#x8BF7;&#x6C42;&#x622A;&#x53D6;&#x4E24;&#x6BB5;&#xFF0C;//&#x4E2D;&#x95F4;&#x8868;&#x793A;&#x4E00;&#x6BB5;&#xFF0C;&#x672C;&#x4F8B;&#x5373;&#x622A;&#x53D6;/api/boss-finance-product/</span>
+<span class="hljs-bullet">          -</span> StripPrefix=<span class="hljs-number">2</span>
+<span class="hljs-attr">      discovery:</span>
+<span class="hljs-attr">        locator:</span>
+<span class="hljs-attr">          enabled:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">      globalcors:</span>
+<span class="hljs-attr">        corsConfigurations:</span>
+          <span class="hljs-string">&apos;[/**]&apos;</span>:
+<span class="hljs-attr">            allowedOrigins:</span> <span class="hljs-string">&quot;*&quot;</span>
+<span class="hljs-attr">            allowedMethods:</span> <span class="hljs-string">&quot;*&quot;</span>
+<span class="hljs-attr">            allowedHeaders:</span> <span class="hljs-string">&quot;*&quot;</span>
+<span class="hljs-attr">            allowCredentials:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">    zookeeper:</span>
+<span class="hljs-comment">#      connect-string: base.intersh.victorplus.cn:2181</span>
+<span class="hljs-attr">      connect-string:</span> <span class="hljs-number">172.16</span><span class="hljs-number">.45</span><span class="hljs-number">.42</span>:<span class="hljs-number">2181</span>
+<span class="hljs-attr">      discovery:</span>
+<span class="hljs-attr">        instance-host:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.60</span><span class="hljs-number">.102</span>
+<span class="hljs-attr">server:</span>
+<span class="hljs-attr">  port:</span> <span class="hljs-number">9999</span>
+<span class="hljs-attr">  tomcat:</span>
+<span class="hljs-attr">    accesslog:</span>
+<span class="hljs-attr">      enabled:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">      rename-on-rotate:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">      pattern:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">%{yyyy-MM-dd HH:mm:ss}</span>t %h <span class="hljs-template-variable">%{X-FORWARDED-FOR}</span>i %l %u %m %U %H %s %b %q &apos;<span class="hljs-template-variable">%{Referer}</span>i&apos; &apos;<span class="hljs-template-variable">%{User-Agent}</span>i&apos; %I %T&quot;</span>
+<span class="hljs-attr">      directory:</span> ${log_dir}
+
+<span class="hljs-attr">logging:</span>
+<span class="hljs-attr">  level:</span>
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    reactor.ipc.netty: debug
+<span class="hljs-attr">management:</span>
+<span class="hljs-attr">  endpoints:</span>
+<span class="hljs-attr">    web:</span>
+<span class="hljs-attr">      base-path:</span> /
+<span class="hljs-attr">      exposure:</span>
+<span class="hljs-attr">        include:</span> <span class="hljs-string">&quot;*&quot;</span>
+<span class="hljs-attr">        exclude:</span> [<span class="hljs-string">&quot;heapdump&quot;</span>]
+</code></pre>
+<p><strong>&#x7B2C;&#x56DB;&#x6B65;&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;&#x5168;&#x5C40;Filter&#x548C;&#x79C1;&#x6709;Filter</strong></p>
+<p>&#x4F7F;&#x7528;spring boot Configuration&#x6765;&#x6CE8;&#x5165;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;filter<strong>Configuration</strong> &#x6298;&#x53E0;&#x6E90;&#x7801;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> cn.victorplus.car.gateway.filter.TokenValidationGatewayFilterFactory;
+<span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;
+<span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GlobalFilter;
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;
+<span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;
+<span class="hljs-keyword">import</span> reactor.core.publisher.Mono;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> jim lin
+ * 2018/9/17.
+ */</span>
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GatewayConfiguration</span> </span>{
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String V_KEY =<span class="hljs-string">&quot;vkey&quot;</span>;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> GlobalFilter <span class="hljs-title">globalFilter</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">return</span> (exchange,chain)-&gt;{
+            <span class="hljs-keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt; {
+                log.debug(<span class="hljs-string">&quot;==================== filter&quot;</span>);
+            }));
+        };
+
+    }
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TokenValidationGatewayFilterFactory <span class="hljs-title">tokenValidationGatewayFilterFactory</span><span class="hljs-params">()</span></span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TokenValidationGatewayFilterFactory();
+    }
+}
+</code></pre>
+<p>&#x81EA;&#x5B9A;&#x4E49;Filter&#xFF0C;TokenValidationGatewayFilterFactory&#xFF0C;&#x7528;&#x6765;&#x89E3;&#x6790;&#x6240;&#x6709;&#x4ECE;&#x524D;&#x7AEF;&#x8FC7;&#x6765;&#x7684;&#x8BF7;&#x6C42;&#x7684;token&#x6821;&#x9A8C;&#x3002;<strong>TokenValidationGatewayFilterFactory</strong> </p>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> cn.victorplus.car.gateway.util.SecurityUtil;
+<span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;
+<span class="hljs-keyword">import</span> org.apache.commons.lang.StringUtils;
+<span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilter;
+<span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+<span class="hljs-keyword">import</span> org.springframework.core.io.buffer.DataBuffer;
+<span class="hljs-keyword">import</span> org.springframework.http.HttpCookie;
+<span class="hljs-keyword">import</span> org.springframework.http.HttpStatus;
+<span class="hljs-keyword">import</span> org.springframework.http.server.reactive.ServerHttpRequest;
+<span class="hljs-keyword">import</span> org.springframework.util.CollectionUtils;
+<span class="hljs-keyword">import</span> org.springframework.util.MultiValueMap;
+<span class="hljs-keyword">import</span> org.springframework.web.server.ServerWebExchange;
+<span class="hljs-keyword">import</span> reactor.core.publisher.Flux;
+<span class="hljs-keyword">import</span> reactor.core.publisher.Mono;
+
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.Arrays;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@author</span> jim lin
+ * 2018/9/18.
+ */</span>
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TokenValidationGatewayFilterFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractGatewayFilterFactory</span>&lt;<span class="hljs-title">TokenValidationGatewayFilterFactory</span>.<span class="hljs-title">Config</span>&gt; </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String V_KEY =<span class="hljs-string">&quot;vkey&quot;</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String USER_ID =<span class="hljs-string">&quot;x-victor-plus-userId&quot;</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String VALID_KEY = <span class="hljs-string">&quot;valid&quot;</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TokenValidationGatewayFilterFactory</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">super</span>(Config.class);
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">shortcutFieldOrder</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> Arrays.asList(VALID_KEY);
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> GatewayFilter <span class="hljs-title">apply</span><span class="hljs-params">(Config config)</span> </span>{
+        <span class="hljs-keyword">return</span> (exchange, chain) -&gt; {
+            <span class="hljs-keyword">if</span> (!config.isValid()){
+                <span class="hljs-keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt; {
+                }));
+            }
+            ServerHttpRequest httpRequest = exchange.getRequest();
+            MultiValueMap&lt;String, HttpCookie&gt; cookies = httpRequest.getCookies();
+            <span class="hljs-keyword">if</span> (!cookies.containsKey(V_KEY)){
+                <span class="hljs-keyword">return</span> failRequest(exchange);
+            }
+            List&lt;HttpCookie&gt; httpCookie = cookies.get(V_KEY);
+            <span class="hljs-keyword">if</span> (CollectionUtils.isEmpty(httpCookie) || httpCookie.size() &gt; <span class="hljs-number">1</span>){
+                <span class="hljs-keyword">return</span> failRequest(exchange);
+            }
+            String token = httpCookie.get(<span class="hljs-number">0</span>).getValue();
+            <span class="hljs-keyword">if</span> (StringUtils.isBlank(token)){
+                <span class="hljs-keyword">return</span> failRequest(exchange);
+            }
+            <span class="hljs-keyword">try</span> {
+                String[] result = SecurityUtil.getDecVal(token, <span class="hljs-number">4</span>);
+                <span class="hljs-keyword">if</span> (result == <span class="hljs-keyword">null</span> || result.length &lt; <span class="hljs-number">1</span>){
+                    <span class="hljs-keyword">return</span> failRequest(exchange);
+                }
+                ServerHttpRequest request = exchange.getRequest().mutate()
+                        .header(USER_ID,result[<span class="hljs-number">0</span>])
+                        .build();
+                <span class="hljs-keyword">return</span> chain.filter(exchange.mutate().request(request).build()).then(Mono.fromRunnable(() -&gt; {
+                    log.warn(<span class="hljs-string">&quot;==================== filter&quot;</span>);
+                }));
+            } <span class="hljs-keyword">catch</span> (Exception e) {
+                log.warn(<span class="hljs-string">&quot;token&#x6821;&#x9A8C;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#xFF0C;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x4E3A;&#xFF1A;&quot;</span>,e);
+                <span class="hljs-keyword">return</span> failRequest(exchange);
+            }
+        };
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> Mono&lt;Void&gt; <span class="hljs-title">failRequest</span><span class="hljs-params">(ServerWebExchange exchange)</span></span>{
+        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+        DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(<span class="hljs-string">&quot;&quot;</span>.getBytes());
+        <span class="hljs-keyword">return</span> exchange.getResponse().writeWith(Flux.just(buffer));
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Config</span> </span>{
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> valid = <span class="hljs-keyword">true</span>;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isValid</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> valid;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setValid</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> valid)</span> </span>{
+            <span class="hljs-keyword">this</span>.valid = valid;
+        }
+    }
+
+}
+</code></pre>
+<p>spring cloud gateway&#x4E3A;&#x6211;&#x4EEC;&#x63D0;&#x4F9B;&#x4E86;&#x591A;&#x6837;&#x7684;&#x8DEF;&#x7531;&#x7B56;&#x7565;&#xFF0C;&#x591A;&#x6837;&#x7684;Filter&#x673A;&#x5236;&#xFF0C;&#x4F7F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7075;&#x6D3B;&#x7684;&#x5B9E;&#x73B0;&#x4E1A;&#x52A1;&#x6240;&#x9700;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#x6587;&#x6863; &#xFF1A; spring cloud gateway&#x5B98;&#x65B9;&#x6587;&#x6863; <a href="https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.0.2.RELEASE/single/spring-cloud-gateway.html" target="_blank">https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.0.2.RELEASE/single/spring-cloud-gateway.html</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.html" class="navigation navigation-prev " aria-label="Previous page: 如何把if-else代码重构成高质量代码">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.html" class="navigation navigation-next " aria-label="Next page: Java8 CompletableFuture: 组合式异步编程">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"搭建spring cloud gateway","level":"1.16","depth":1,"next":{"title":"Java8 CompletableFuture: 组合式异步编程","level":"1.17","depth":1,"path":"java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.md","ref":"java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.md","articles":[]},"previous":{"title":"如何把if-else代码重构成高质量代码","level":"1.15","depth":1,"path":"ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.md","ref":"ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"da-jian-spring-cloud-gateway.md","mtime":"2019-01-31T08:06:53.718Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-31T08:46:48.370Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -10,7 +10,7 @@
 
 ### 1.2 SheetJS 的数据结构 <a id="id-&#x524D;&#x7AEF;&#xFF1A;SheetJs&#x8D4B;&#x80FD;&#x9875;&#x9762;&#x4E0E;Excel&#x6587;&#x4EF6;&#x4EA4;&#x4E92;-1.2SheetJS&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;"></a>
 
-![Workbook&#x8868;&#x793A;&#x6574;&#x4E2A; excel &#x6587;&#x4EF6;&#x6570;&#x636E;&#xFF0C;Sheet &#x5BF9;&#x8C61;&#x8868;&#x793A; excel &#x67D0;&#x4E00;&#x9875;&#x7684;&#x6570;&#x636E;](https://wiki.dycjr.net:1443/download/attachments/10620742/image2018-11-19_0-13-28.png?version=1&modificationDate=1542557609000&api=v2)
+![](.gitbook/assets/1.jpg)
 
 
 

@@ -6,4 +6,5 @@
 * [前端：SheetJs 赋能页面与 Excel 文件交互](qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.md)
 * [程序员健康指南](cheng-xu-yuan-jian-kang-zhi-nan.md)
 * [Springboot devtool远程应用功能](springboot-devtool-yuan-cheng-ying-yong-gong-neng.md)
+* [spring拓展点之ObjectFactory](spring-tuo-zhan-dian-zhi-objectfactory.md)
 

@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [前言](README.md)
 * [Spring boot 2.0 之优雅停机一](1_spring_boot_stop_1.md)
 * [Spring boot 2.0 之优雅停机二](spring-boot-2.0-zhi-you-ya-ting-ji-er.md)
 * [前端：SheetJs 赋能页面与 Excel 文件交互](qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.md)
@@ -10,4 +10,12 @@
 * [SpringBoot几种定时任务的实现方式](springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.md)
 * [Spring Boot快捷读取文件内容](spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md)
 * [Spring Could中基于Zookeeper的分布式锁实现](spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.md)
+* [spring cloud feign 实现复杂请求](spring-cloud-feign-shi-xian-fu-za-qing-qiu.md)
+* [Springboot——用更优雅的方式发HTTP请求](springboot-yong-geng-you-ya-de-fang-shi-fa-http-qing-qiu.md)
+* [Redis分布式锁的正确实现方式&及错误使用示例](redis-fen-bu-shi-suo-de-zheng-que-shi-xian-fang-shi-ji-cuo-wu-shi-yong-shi-li.md)
+* [使用javaagent操作字节码](shi-yong-javaagent-cao-zuo-zi-jie-ma.md)
+* [如何把if-else代码重构成高质量代码](ru-he-ba-ifelse-dai-ma-zhong-gou-cheng-gao-zhi-liang-dai-ma.md)
+* [搭建spring cloud gateway](da-jian-spring-cloud-gateway.md)
+* [Java8 CompletableFuture: 组合式异步编程](java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.md)
+* [更好的调试 Java Stream](geng-hao-de-tiao-shi-java-stream.md)
 

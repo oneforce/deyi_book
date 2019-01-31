@@ -1,0 +1,24 @@
+language: node_js  #设置语言
+
+node_js: stable  #设置相应的版本
+
+
+before_script:
+  - npm install gitbook -g
+  - npm install -g gitbook-cli
+
+script:
+  - gitbook build
+
+after_script:
+  - cd _book/
+  - git init
+  - git config user.name "caoyanfei"  #修改name
+  - git config user.email "github@oneforce.cn"  #修改email
+  - git add .
+  - git commit -m "update"
+  - git push --force --quiet "https://oneforce@github.com/oneforce/deyi_book.git" master:gh-pages #GH_TOKEN是在Travis中配置token的名称
+
+branches:
+  only:
+    - master  #只监测hexo分支，hexo是我的分支的名称，可根据自己情况设置

@@ -1,9 +1,3 @@
----
-description: >-
-  java8里新增的Stream API非常强大，能够开发出更加简洁易懂的代码，但是如果出现问题，往往也没那么好去调试。这里主要介绍使用idea的Stream
-  debugger方法。
----
-
 # 更好的调试 Java Stream
 
 举个简单的例子

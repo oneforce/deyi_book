@@ -1,4 +1,4 @@
-# Summary
+# Table of contents
 
 * [前言](README.md)
 * [Spring boot 2.0 之优雅停机一](1_spring_boot_stop_1.md)
@@ -18,4 +18,5 @@
 * [搭建spring cloud gateway](da-jian-spring-cloud-gateway.md)
 * [Java8 CompletableFuture: 组合式异步编程](java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.md)
 * [更好的调试 Java Stream](geng-hao-de-tiao-shi-java-stream.md)
+* [spring-boot启动类及包外配置文件](springboot-qi-dong-lei-ji-bao-wai-pei-zhi-wen-jian.md)
 

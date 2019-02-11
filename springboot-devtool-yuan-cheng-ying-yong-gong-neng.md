@@ -1,8 +1,3 @@
----
-description: >-
-  当我们在开发springboot应用时，可以添加spring-boot-devtools模块，可以体验一些开发时的特性，比如，默认的一些属性设置，自动重启以及远程应用等。
----
-
 # Springboot devtool远程应用功能
 
 这里主要介绍一下，远程应用的特性。采用springboot版本为2.0.6.RELEASE

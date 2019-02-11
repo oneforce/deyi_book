@@ -1,9 +1,3 @@
----
-description: >-
-  分布式锁一般有三种实现方式：1. 数据库乐观锁；2. 基于Redis的分布式锁；3.
-  基于ZooKeeper的分布式锁。基于Redis分布式锁的实现可以参照Redis分布式锁的正确实现方式&及错误使用示例
----
-
 # Spring Could中基于Zookeeper的分布式锁实现
 
 ### Zookeeper中的2个重要特性 <a id="SpringCould&#x4E2D;&#x57FA;&#x4E8E;Zookeeper&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x9501;&#x5B9E;&#x73B0;-Zookeeper&#x4E2D;&#x7684;2&#x4E2A;&#x91CD;&#x8981;&#x7279;&#x6027;"></a>

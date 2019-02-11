@@ -1,7 +1,3 @@
----
-description: 上文中讲Spring boot的优雅停机，只是针对单节点的应用而言，如果是使用Spring Cloud的微服务环境，上文中的内容就方法还有待完善
----
-
 # Spring boot 2.0 之优雅停机二
 
 ### 与Spring boot应用的不同之处

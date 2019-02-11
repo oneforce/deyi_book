@@ -1,21 +1,16 @@
 # spring-boot启动类及包外配置文件
 
-
 > spring-boot有三种启动类
 >
 > * JarLauncher
 > * PropertiesLauncher
 > * WarLauncher
 
-
-
 通常，我们会以第一种方式部署项目
-
-
 
 spring-boot提供了插件spring-boot-maven-plugin用于把程序打包成一个可执行的jar包。在pom文件里加入这个插件即可：
 
-```xml
+```markup
 <build>
     <plugins>
         <plugin>
@@ -26,11 +21,9 @@ spring-boot提供了插件spring-boot-maven-plugin用于把程序打包成一个
 </build>
 ```
 
-
-
 打包后的jar文件结构
 
-```shell
+```text
 ├── META-INF
 │   ├── MANIFEST.MF
 │   └── maven
@@ -47,29 +40,22 @@ spring-boot提供了插件spring-boot-maven-plugin用于把程序打包成一个
 └── BOOT-INFO
 ```
 
-
-
 然后，启动程序
 
-```shell
+```text
 java -jar xxx.jar
 ```
-
-
 
 打包出来fat jar内部有4种文件类型：
 
 1. META-INF文件夹：程序入口，其中MANIFEST.MF用于描述jar包的信息
-
 2. BOOT-INFO 下 lib目录：放置第三方依赖的jar包，比如springboot的一些jar包
-
 3. spring boot loader相关的代码
-
 4. BOOT-INFO 下 classes目录模块自身的代码
 
- MANIFEST.MF文件的内容：
+   MANIFEST.MF文件的内容：
 
-```shell
+```text
 Manifest-Version: 1.0
 Implementation-Title: appname
 Implementation-Version: 1.0.0
@@ -87,15 +73,11 @@ Build-Jdk: 1.8.0_162
 Implementation-URL: http://projects.spring.io/spring-boot/xxx-xxx-xxx/
 ```
 
-
-
 我们看到，它的Main-Class是org.springframework.boot.loader.JarLauncher，当我们使用java -jar执行jar包的时候会调用JarLauncher的main方法，而不是我们编写的SpringApplication。
 
 那么JarLauncher这个类是的作用是什么的？
 
-它是SpringBoot内部提供的工具Spring Boot Loader提供的一个用于执行Application类的工具类(fat jar内部有spring loader相关的代码就是因为这里用到了)。相当于Spring Boot Loader提供了一套标准用于执行SpringBoot打包出来的jar
-
-
+它是SpringBoot内部提供的工具Spring Boot Loader提供的一个用于执行Application类的工具类\(fat jar内部有spring loader相关的代码就是因为这里用到了\)。相当于Spring Boot Loader提供了一套标准用于执行SpringBoot打包出来的jar
 
 ## JarLauncher的执行过程
 
@@ -136,33 +118,31 @@ protected void launch(String[] args) {
 // Archive的getMainClass方法
 // 这里会找出spring.study.executablejar.ExecutableJarApplication这个类
 public String getMainClass() throws Exception {
-	Manifest manifest = getManifest();
-	String mainClass = null;
-	if (manifest != null) {
-		mainClass = manifest.getMainAttributes().getValue("Start-Class");
-	}
-	if (mainClass == null) {
-		throw new IllegalStateException(
-				"No 'Start-Class' manifest entry specified in " + this);
-	}
-	return mainClass;
+    Manifest manifest = getManifest();
+    String mainClass = null;
+    if (manifest != null) {
+        mainClass = manifest.getMainAttributes().getValue("Start-Class");
+    }
+    if (mainClass == null) {
+        throw new IllegalStateException(
+                "No 'Start-Class' manifest entry specified in " + this);
+    }
+    return mainClass;
 }
 
 // launch重载方法
 protected void launch(String[] args, String mainClass, ClassLoader classLoader)
-		throws Exception {
+        throws Exception {
       // 创建一个MainMethodRunner，并把args和Start-Class传递给它
-	Runnable runner = createMainMethodRunner(mainClass, args, classLoader);
+    Runnable runner = createMainMethodRunner(mainClass, args, classLoader);
       // 构造新线程
-	Thread runnerThread = new Thread(runner);
+    Thread runnerThread = new Thread(runner);
       // 线程设置类加载器以及名字，然后启动
-	runnerThread.setContextClassLoader(classLoader);
-	runnerThread.setName(Thread.currentThread().getName());
-	runnerThread.start();
+    runnerThread.setContextClassLoader(classLoader);
+    runnerThread.setName(Thread.currentThread().getName());
+    runnerThread.start();
 }
 ```
-
-
 
 MainMethodRunner的run方法：
 
@@ -196,11 +176,9 @@ public void run() {
 
 Start-Class的main方法调用之后，内部会构造Spring容器，启动内置Servlet容器等过程。 这些过程我们都已经分析过了。
 
-
-
 ## 关于自定义的类加载器LaunchedURLClassLoader
 
-LaunchedURLClassLoader重写了loadClass方法，也就是说它修改了默认的类加载方式(先看该类是否已加载这部分不变，后面真正去加载类的规则改变了，不再是直接从父类加载器中去加载)。LaunchedURLClassLoader定义了自己的类加载规则：
+LaunchedURLClassLoader重写了loadClass方法，也就是说它修改了默认的类加载方式\(先看该类是否已加载这部分不变，后面真正去加载类的规则改变了，不再是直接从父类加载器中去加载\)。LaunchedURLClassLoader定义了自己的类加载规则：
 
 ```java
 private Class<?> doLoadClass(String name) throws ClassNotFoundException {
@@ -234,7 +212,7 @@ private Class<?> doLoadClass(String name) throws ClassNotFoundException {
 
 1. 如果根类加载器存在，调用它的加载方法。这里是根类加载是ExtClassLoader
 2. 调用LaunchedURLClassLoader自身的findClass方法，也就是URLClassLoader的findClass方法
-3. 调用父类的loadClass方法，也就是执行默认的类加载顺序(从BootstrapClassLoader开始从下往下寻找)
+3. 调用父类的loadClass方法，也就是执行默认的类加载顺序\(从BootstrapClassLoader开始从下往下寻找\)
 
 LaunchedURLClassLoader自身的findClass方法：
 
@@ -290,19 +268,15 @@ classLoader.loadClass("org.springframework.boot.SpringApplication");
 classLoader.loadClass("org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration");
 ```
 
-
-
 ## Spring Boot Loader的作用
 
 SpringBoot在可执行jar包中定义了自己的一套规则，比如第三方依赖jar包在/lib目录下，jar包的URL路径使用自定义的规则并且这个规则需要使用org.springframework.boot.loader.jar.Handler处理器处理。它的Main-Class使用JarLauncher，如果是war包，使用WarLauncher执行。这些Launcher内部都会另起一个线程启动自定义的SpringApplication类。
-
-
 
 ## 包外指定配置文件
 
 修改pom.xml
 
-```xml
+```markup
 // 不拷贝资源文件
 <resources>
     <resource>
@@ -324,37 +298,27 @@ SpringBoot在可执行jar包中定义了自己的一套规则，比如第三方�
 </plugin>
 ```
 
-
-
 打包结果比对
 
 配置前
 
-```shell
+```text
 Main-Class: org.springframework.boot.loader.JarLauncher
 Start-Class: com.chinaunicom.gateway.GatewayApplication
 ```
 
 配置后
 
-```shell
+```text
 Main-Class: org.springframework.boot.loader.PropertiesLauncher
 Start-Class: com.chinaunicom.gateway.GatewayApplication
 ```
-
-
 
 发现是类加载器变了，此时启动类为PropertiesLauncher。文章开头可见
 
 同时，启动方式变更
 
-```shell
+```text
 java -Dloader.path=your_config_path -jar xxx.jar
 ```
 
-
-
-
-
-[1]: https://fangjian0423.github.io/2017/05/31/springboot-executable-jar/	"Spring-boot-loader"
-[2]: http://www.voidcn.com/article/p-qsslivqo-bqk.html	"外部配置文件"

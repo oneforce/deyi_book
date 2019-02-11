@@ -6,7 +6,7 @@
 * [前端：SheetJs 赋能页面与 Excel 文件交互](qian-duan-sheetjs-fu-neng-ye-mian-yu-excel-wen-jian-jiao-hu.md)
 * [程序员健康指南](cheng-xu-yuan-jian-kang-zhi-nan.md)
 * [Springboot devtool远程应用功能](springboot-devtool-yuan-cheng-ying-yong-gong-neng.md)
-* [spring拓展点之ObjectFactory](spring-tuo-zhan-dian-zhi-objectfactory.md)
+* [spring拓展点之ObjectFactory](spring-tuo-zhan-dian-zhi-objectfactory-1%20%281%29.md)
 * [SpringBoot几种定时任务的实现方式](springboot-ji-zhong-ding-shi-ren-wu-de-shi-xian-fang-shi.md)
 * [Spring Boot快捷读取文件内容](spring-boot-kuai-jie-du-qu-wen-jian-nei-rong.md)
 * [Spring Could中基于Zookeeper的分布式锁实现](spring-could-zhong-ji-yu-zookeeper-de-fen-bu-shi-suo-shi-xian.md)
@@ -19,5 +19,5 @@
 * [Java8 CompletableFuture: 组合式异步编程](java8-completablefuture-zu-he-shi-yi-bu-bian-cheng.md)
 * [更好的调试 Java Stream](geng-hao-de-tiao-shi-java-stream.md)
 * [spring-boot启动类及包外配置文件](springboot-qi-dong-lei-ji-bao-wai-pei-zhi-wen-jian.md)
-* [spring拓展点之ObjectFactory](spring-tuo-zhan-dian-zhi-objectfactory-1.md)
+* [spring拓展点之ObjectFactory](spring-tuo-zhan-dian-zhi-objectfactory-1%20%281%29.md)
 

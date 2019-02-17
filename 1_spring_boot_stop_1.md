@@ -21,7 +21,6 @@ public ResultEntity<Long> sleepOne(String systemNo){
     ResultEntity<Long> resultEntity = new ResultEntity<>(serverTime);
     logger.info("模拟业务处理1分钟，响应参数：{}", resultEntity);    return resultEntity;
 }
-
 ```
 
 验证方式就是，在触发这个接口的业务处理之后，业务逻辑处理时间长达1分钟，需要在处理结束前，发起停止指令，验证是否能够正常返回。验证时所使用的kill指令：`kill -2（Ctrl + C）`、`kill-15`、`kill -9`。
@@ -36,10 +35,11 @@ public ResultEntity<Long> sleepOne(String systemNo){
 public class ShutdownHook extends Thread {    
     private Thread mainThread;    
     private boolean shutDownSignalReceived; 
-    
+
     @Override
     public void run() {
-        System.out.println("Shut down signal received.");                       this.shutDownSignalReceived=true;
+        System.out.println("Shut down signal received."); 
+        this.shutDownSignalReceived=true;
         mainThread.interrupt();        
         try {
             mainThread.join(); //当收到停止信号时，等待mainThread的执行完成
@@ -181,12 +181,12 @@ import java.util.concurrent.TimeUnit;
      private final Logger log = LoggerFactory.getLogger(GracefulShutdownTomcat.class);    
      private volatile Connector connector;    
      private final int waitTime = 30;  
-     
+
      @Override
      public void customize(Connector connector) {        
          this.connector = connector;
      }    
-     
+
      @Override
      public void onApplicationEvent(ContextClosedEvent contextClosedEvent) { 
          this.connector.pause();
@@ -211,10 +211,10 @@ public class UnipayProviderApplication {
     public static void main(String[] args) {
         SpringApplication.run(UnipayProviderApplication.class);
     }    
-    
+
     @Autowired
     private GracefulShutdownTomcat gracefulShutdownTomcat;    
-    
+
     @Bean
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
@@ -236,6 +236,10 @@ public class UnipayProviderApplication {
 ### 结束
 
 到此为止，对Java和Spring boot应用的优雅停机机制有了基本的认识。虽然实现了需求，但是这其中还有很多知识点需要探索，比如Spring上下文监听器，上下文关闭事件等，还有undertow提供的`GracefulShutdownHandler`的原理是什么，为什么是1分钟之后进程再停止，这些问题等研究明白，再来一篇续。如果又哪位同学能解答我的疑惑，请在评论区留言。
+
+---
+
+---
 
 ### 参考：
 
